@@ -228,8 +228,7 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
-      no-repeat scroll center / cover;
+    url("https://media.istockphoto.com/photos/musical-instruments-picture-id894058154?b=1&k=20&m=894058154&s=170667a&w=0&h=wRL6bkGY0cBz8HWUedi128F5g9VyoEdAT-p4AVNrjjI=")  no-repeat scroll center / cover;
   padding: 100px 0 100px;
 }
 .subscribe-head h2 {
@@ -261,7 +260,7 @@ textarea:focus {
   width: 460px;
 }
 .form-section input[type="submit"] {
-  background: #1cb803;
+  background: rgb(0, 136, 255);
   border: 0 none;
   border-radius: 25px;
   color: #fff;
@@ -292,10 +291,10 @@ textarea:focus {
 .info-image {
   width: 50px;
   height: 50px;
-  border: 2px solid #1cb803;
+  border: 2px solid black;
   border-radius: 100px;
   font-size: 20px;
-  color: #1cb803;
+  color: black;
 }
 .box-info h5 {
   font-weight: bold;
@@ -437,7 +436,7 @@ textarea:focus {
   height: 100px;
   width: 100%;
   background-size: cover;
-  background-image: url("https://gust.com/assets/blank_slate/Gust_Profile_CoverPhoto_Blank-21edf1e2890708d5a507204f49afc10b7dc58eb7baea100b68a1bc2c96948297.png");
+  background-image: url("http://nightanddaymusic.com/wp-content/uploads/2014/04/nd_privatepartybanner.jpg");
 }
 .author-card-profile {
   padding: 20px 10px;
@@ -465,7 +464,7 @@ textarea:focus {
   border-top: 1px solid #e4e4e4;
 }
 .wizard .nav .active {
-  background-color: #e5fee9;
+  background-color: gray;
   color: black;
 }
 .badge2 {
@@ -490,7 +489,7 @@ textarea:focus {
 .form input {
   padding: 20px 10px;
   font-size: 17px;
-  background-color: #e5fee9;
+  background-color: rgb(234, 232, 232);
 }
 .form-container button {
   padding: 15px 0;
@@ -498,7 +497,7 @@ textarea:focus {
   margin-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: rgb(0, 136, 255);
   color: #ffffff;
 }
 /* orders */
@@ -591,11 +590,11 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: orange;
   color: #ffffff;
 }
 .cart-buttons a:nth-child(1) button {
-  background-color: #000000;
+  background-color: green;
 }
 /* FOOTER */
 .footer {

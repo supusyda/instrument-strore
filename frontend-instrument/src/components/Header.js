@@ -7,7 +7,7 @@ const Header = () => {
       <div className="header-menu">
         <div className="container">
           <div className="d-flex space-between">
-            <ul className="nav-menu">
+            <ul className="nav-menu padding-32px">
               <li>
                 <a>Home</a>
               </li>
@@ -75,7 +75,7 @@ const Header = () => {
                       placeholder="Search"
                     />
                     <button type="submit" className="search-button">
-                      search
+                      Search
                     </button>
                   </form>
                 </div>
@@ -99,7 +99,7 @@ const Header = () => {
                     placeholder="Search"
                   />
                   <button type="submit" className="search-button">
-                    search
+                    Search
                   </button>
                 </form>
               </div>
@@ -112,7 +112,7 @@ const Header = () => {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    Hi, Admin Doe
+                    Guest
                   </button>
                   <div className="dropdown-menu">
                     <Link className="dropdown-item" to="/profile">
@@ -126,7 +126,7 @@ const Header = () => {
                 </div>
 
                 <Link to="/cart">
-                  <i className="fas fa-shopping-bag"></i>
+                  <i class="fas fa-shopping-cart"></i>
                   <span className="badge">4</span>
                 </Link>
               </div>
