@@ -3,7 +3,7 @@ import express from "express";
 import User from "../service/userService";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
-require ('dotenv').config();
+require("dotenv").config();
 let homePage = async (req, res) => {
   return res.status(200).json({
     errCode: -1,
@@ -51,7 +51,8 @@ let deleUser = async (req, res) => {
 };
 let editUser = async (req, res) => {
   try {
-    let haveEmail = await check_email();
+    let data = await User.editUserService(req.body);
+    return res.status(200).json(data);
   } catch (error) {
     console.log(error);
     return res.status(200).json({
