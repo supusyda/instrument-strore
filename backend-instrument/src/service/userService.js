@@ -16,7 +16,7 @@ let createNewUser = async (data) => {
       lastName: data.lastName,
       email: data.email,
       gender: data.gender,
-      phoneNumber: data.phonenumber,
+      phoneNumber: data.phoneNumber,
       address: data.address,
       position: data.position,
       image: data.image,
@@ -39,7 +39,19 @@ let getAllUser = async (userID) => {
     if (userID && userID == "ALL") {
       let data = await db.User.findAll({
         attributes: { exclude: ["password"] },
+        order: [["createdAt", "DESC"]],
+        raw: true,
+        
       });
+
+      if (data) {
+        data.map((item)=>{
+          item.image = new Buffer(item.image, "base64").toString("binary");
+        })
+
+        console.log(data);
+        
+      }
       return { data: data, errCode: 0, errMessage: "success get all users" };
     } else if (userID && userID != "ALL") {
       let data = await db.User.findOne({
@@ -53,6 +65,7 @@ let getAllUser = async (userID) => {
       }
     }
   } catch (error) {
+    console.log(error);
     return { errCode: -1, errMessage: "something wrong with service" };
   }
 };
@@ -86,7 +99,7 @@ let editUser = async (newData) => {
     console.log("newData=>", newData);
     if (newData) {
       let user = await db.User.findOne({
-        where: { id: newData.userID },
+        where: { id: newData.id },
         attributes: {
           exclude: ["password"],
         },
@@ -105,7 +118,7 @@ let editUser = async (newData) => {
 
         await user.save();
         return {
-          data: [],
+          data: user,
           errCode: 0,
           errMessage: "successfully update user!",
         };
@@ -144,12 +157,18 @@ let loginUser = async (loginInfo) => {
     if (haveUser) {
       let user = await db.User.findOne({ where: { email: email }, raw: true });
       console.log(process.env.ACCESS_TOKEN_SERCECT);
-      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SERCECT,{expiresIn:'15s'});
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SERCECT, {
+        expiresIn: "15s",
+      });
 
       // const isRightPass = await bcrypt.compare(password, user.password);
 
       // console.log(isRightPass);
-      return { data: {accessToken,user}, errCode: 0, errMessage: "login Success" };
+      return {
+        data: { accessToken, user },
+        errCode: 0,
+        errMessage: "login Success",
+      };
 
       // if (isRightPass) {
       //   return { data: user, errCode: 0, errMessage: "login Success" };

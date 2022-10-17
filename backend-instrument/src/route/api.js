@@ -1,6 +1,8 @@
 import express from "express";
 import home from "../controller/homeController";
 import Instrument from "../controller/musicalInstrumentController";
+import Markdown from "../controller/markdownController";
+import allCodes from "../controller/allCodesController";
 let router = express.Router();
 let initRouter = (app) => {
   router.get("/", home.homePage);
@@ -16,6 +18,9 @@ let initRouter = (app) => {
   router.delete("/api/instrument/delete", Instrument.deleteInstrument);
   router.put("/api/instrument/update", Instrument.UpdateInstrument);
 
+  router.post("/api/markdown/create", Markdown.createMarkdown);
+
+  router.get("/api/allCode/get", allCodes.getAllCode);
 
   return app.use("/", router);
 };
