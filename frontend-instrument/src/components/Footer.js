@@ -43,20 +43,20 @@ const Footer = () => {
               <p>+84 963 176 851</p>
               <p>1951120@sv.ut.edu.vn</p>
             </div>
-            <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
-              <Link to="">
+            <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center footer-icons">
+              <Link to="" className="fb">
                 <i className="fab fa-facebook-f"></i>
               </Link>
-              <Link to="">
+              <Link to="" className="ins">
                 <i className="fab fa-instagram"></i>
               </Link>
-              <Link to="">
+              <Link to="" className="linked">
                 <i className="fab fa-linkedin-in"></i>
               </Link>
-              <Link to="">
+              <Link to="" className="ytb">
                 <i className="fab fa-youtube"></i>
               </Link>
-              <Link to="">
+              <Link to="" className="ptr">
                 <i className="fab fa-pinterest-p"></i>
               </Link>
             </div>

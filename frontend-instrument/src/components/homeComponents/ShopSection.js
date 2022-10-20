@@ -14,7 +14,7 @@ const ShopSection = () => {
               <div className="shopcontainer row">
                 {products.map((product) => (
                   <div
-                    className="shop col-lg-4 col-md-6 col-sm-6"
+                    className="shop col-lg-3 col-md-6 col-sm-6"
                     key={product._id}
                   >
                     <div className="border-product">
@@ -35,7 +35,7 @@ const ShopSection = () => {
                           value={product.rating}
                           text={`${product.numReviews} reviews`}
                         />
-                        <h3>${product.price}</h3>
+                        <h3>{product.price} VNĐ</h3>
                       </div>
                     </div>
                   </div>

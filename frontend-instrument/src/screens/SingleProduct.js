@@ -27,7 +27,7 @@ const SingleProduct = ({ match }) => {
               <div className="product-count col-lg-7 ">
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
-                  <span>${product.price}</span>
+                  <span>VNĐ{product.price}</span>
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>
@@ -70,9 +70,9 @@ const SingleProduct = ({ match }) => {
             <h6 className="mb-3">REVIEWS</h6>
             <Message variant={"alert-info mt-3"}>No Reviews</Message>
             <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
-              <strong>Admin Doe</strong>
+              <strong>Admin</strong>
               <Rating />
-              <span>Jan 12 2021</span>
+              <span>dd/mm/yy</span>
               <div className="alert alert-info mt-3">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
