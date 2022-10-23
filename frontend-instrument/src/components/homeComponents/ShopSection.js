@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import Pagination from "./pagination";
 import products from "../../data/Products";
+import { getAllInstrument } from "../../services/instrumentService";
+import useFetch from "../../customize/useFetch";
 
 const ShopSection = () => {
+  let [instruments, setInstruments] = useState([]);
+  let [res, setRes] = useState([]);
+  let [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let data = async () => {
+      try {
+        let respones = await getAllInstrument("ALL");
+        setRes(respones.data);
+        setLoading(false);
+        setInstruments(respones.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    data();
+    return () => { };
+  }, []);
+
   return (
     <>
       <div className="container">
@@ -48,6 +68,7 @@ const ShopSection = () => {
         </div>
       </div>
     </>
+
   );
 };
 

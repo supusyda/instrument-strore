@@ -44,19 +44,19 @@ const Footer = () => {
               <p>1951120@sv.ut.edu.vn</p>
             </div>
             <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center footer-icons">
-              <Link to="" className="fb">
+              <Link to="">
                 <i className="fab fa-facebook-f"></i>
               </Link>
-              <Link to="" className="ins">
+              <Link to="">
                 <i className="fab fa-instagram"></i>
               </Link>
-              <Link to="" className="linked">
+              <Link to="">
                 <i className="fab fa-linkedin-in"></i>
               </Link>
-              <Link to="" className="ytb">
+              <Link to="">
                 <i className="fab fa-youtube"></i>
               </Link>
-              <Link to="" className="ptr">
+              <Link to="">
                 <i className="fab fa-pinterest-p"></i>
               </Link>
             </div>

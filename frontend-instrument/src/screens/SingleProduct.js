@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import products from "../data/Products";
-
+import { getAllInstrument } from "../services/instrumentService";
 const SingleProduct = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const { id } = useParams();
+  const product = products.find((p) => String(p._id) === id);
+  let [instrument, setInstrument] = useState([]);
+  let [res, setRes] = useState([]);
+  let [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let data = async () => {
+      try {
+        let respones = await getAllInstrument(match.params.id);
+        setRes(respones.data);
+        setLoading(false);
+        setInstrument(respones.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    data();
+    return () => {};
+  });
   return (
     <>
       <Header />
@@ -14,13 +32,13 @@ const SingleProduct = ({ match }) => {
         <div className="row">
           <div className="col-md-6">
             <div className="single-image">
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={instrument.name} />
             </div>
           </div>
           <div className="col-md-6">
             <div className="product-dtl">
               <div className="product-info">
-                <div className="product-name">{product.name}</div>
+                <div className="product-name">{instrument.name}</div>
               </div>
               <p>{product.description}</p>
 
@@ -66,7 +84,7 @@ const SingleProduct = ({ match }) => {
 
         {/* RATING */}
         <div className="row my-5">
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <h6 className="mb-3">REVIEWS</h6>
             <Message variant={"alert-info mt-3"}>No Reviews</Message>
             <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
@@ -80,8 +98,8 @@ const SingleProduct = ({ match }) => {
                 of type and scrambled it to make a type specimen book
               </div>
             </div>
-          </div>
-          <div className="col-md-6">
+          </div> */}
+          <div className="col-md-12">
             <h6>WRITE A CUSTOMER REVIEW</h6>
             <div className="my-4"></div>
 
