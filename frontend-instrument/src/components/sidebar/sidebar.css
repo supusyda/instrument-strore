@@ -25,7 +25,8 @@
   transition: color 0.3s ease-in-out;
 }
 .sidebar__menu__item.active {
-  color: #1cb803;
+  color: white;
+  background-color: darkslategrey;
 }
 .sidebar__menu__item__icon {
   margin-right: 1rem;

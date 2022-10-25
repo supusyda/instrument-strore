@@ -38,10 +38,10 @@ const ShopSection = () => {
                       className="shop col-lg-4 col-md-6 col-sm-6"
                       key={instrument.id}
                     >
-                      <div className="border-product">
+                      <div className="border-product shadow p-3 mb-5 bg-body rounded">
                         <Link to={`/products/${instrument.id}`}>
                           <div className="shopBack">
-                            <img src="/images/5.png"/>
+                            <img src="/images/5.png" />
                           </div>
                         </Link>
 

@@ -21,8 +21,10 @@ a {
   display: flex;
   .left-content {
     width: fit-content;
+    height: 100vh;
   }
   .right-content {
     flex-grow: 1;
+    height: 100vh;
   }
 }
