@@ -7,23 +7,23 @@ const Header = () => {
       <div className="header-menu">
         <div className="container ">
           <div className="d-flex space-between">
-            <ul className="nav-menu padding-32px">
+            <ul className="nav-menu">
               <li>
-                <a>Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a>Product</a>
+                <Link>Product</Link>
               </li>
               <li>
-                <a>Contact</a>
+                <Link to="/contactinfo">Contact</Link>
               </li>
             </ul>
             <ul className="nav-menu">
               <li>
-                <a>Login</a>
+                <Link to="/login">Login</Link>
               </li>
               <li>
-                <a>Register</a>
+                <Link to="/register">Register</Link>
               </li>
             </ul>
           </div>
@@ -131,7 +131,7 @@ const Header = () => {
                   </div>
                 </div>
 
-                <Link to="/cart">
+                <Link to="/cart" className="cart-pc-item">
                   <i class="fas fa-shopping-cart"></i>
                   <span className="badge">4</span>
                 </Link>

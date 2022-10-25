@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import products from "../data/Products";
 import { getAllInstrument } from "../services/instrumentService";
 const SingleProduct = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+
+  const { id } = useParams();
+  const product = products.find((p) => String(p._id) === id);
+
   let [instrument, setInstrument] = useState([]);
   let [res, setRes] = useState([]);
   let [loading, setLoading] = useState(true);
@@ -44,7 +47,9 @@ const SingleProduct = ({ match }) => {
               <div className="product-count col-lg-7 ">
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
-                  <span>${instrument.price}</span>
+
+                  <span>VNĐ{product.price}</span>
+
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>
@@ -83,13 +88,13 @@ const SingleProduct = ({ match }) => {
 
         {/* RATING */}
         <div className="row my-5">
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <h6 className="mb-3">REVIEWS</h6>
             <Message variant={"alert-info mt-3"}>No Reviews</Message>
             <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
-              <strong>Admin Doe</strong>
+              <strong>Admin</strong>
               <Rating />
-              <span>Jan 12 2021</span>
+              <span>dd/mm/yy</span>
               <div className="alert alert-info mt-3">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
@@ -97,8 +102,8 @@ const SingleProduct = ({ match }) => {
                 of type and scrambled it to make a type specimen book
               </div>
             </div>
-          </div>
-          <div className="col-md-6">
+          </div> */}
+          <div className="col-md-12">
             <h6>WRITE A CUSTOMER REVIEW</h6>
             <div className="my-4"></div>
 

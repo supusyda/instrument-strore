@@ -10,8 +10,7 @@ const CalltoActionSection = () => {
               <h2>Subscribe now !!!</h2>
               <p>Sign up free and become a member.</p>
               <form className="form-section">
-                <input placeholder="Your Email..." name="email" type="email" />
-                <input value="Sign up now!" name="subscribe" type="submit" />
+                <input className="signup-buttton" value="Sign up now!" name="subscribe" type="submit" />
               </form>
             </div>
           </div>

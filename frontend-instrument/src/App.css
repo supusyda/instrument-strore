@@ -68,6 +68,7 @@ textarea:focus {
 .nav-menu {
   display: flex;
   margin: 0;
+  padding-left: 0;
 }
 .nav-menu li {
   list-style-type: none;
@@ -77,6 +78,7 @@ textarea:focus {
   display: block;
   padding: 0 20px;
   line-height: 50px;
+  color: white;
 }
 .nav-menu li a:hover {
   cursor: pointer;
@@ -84,6 +86,10 @@ textarea:focus {
 }
 .navbar-brand img {
   width: 60%;
+}
+.navbar-brand img:hover {
+  background-color: #808080;
+  border-radius: 5px;
 }
 .input-group {
   height: 50px;
@@ -188,13 +194,19 @@ textarea:focus {
   padding: 15px;
   border: 1px solid #f3f3f3;
   border-radius: 5px;
+  box-shadow: 0 0 3px #000;
+  background-color: #fff;
+  transition: transform .2s;
+}
+.border-product:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 .shopBack {
   height: 250px;
   position: relative;
   overflow: hidden;
   width: 100%;
-  background-color: #f3fbf7;
 }
 .shopBack img {
   width: 100%;
@@ -202,7 +214,13 @@ textarea:focus {
   object-fit: contain;
 }
 .shoptext {
-  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 10px;
+  height: 180px;
+  justify-content: space-around;
+  background-color: lightgray;
 }
 .shoptext p a {
   color: #252525;
@@ -248,7 +266,7 @@ textarea:focus {
 .subscribe-head {
   text-align: center;
 }
-.form-section input[type="email"] {
+/* .form-section input[type="email"] {
   border: 0 none;
   border-radius: 25px;
   color: #9b9b9b;
@@ -258,18 +276,22 @@ textarea:focus {
   letter-spacing: 0;
   text-align: center;
   width: 460px;
-}
+} */
 .form-section input[type="submit"] {
-  background: rgb(0, 136, 255);
+  background: #fafafa;
   border: 0 none;
-  border-radius: 25px;
-  color: #fff;
-  height: 52px;
+  border-radius: 50px;
+  color: #000;
+  height: 112px;
   letter-spacing: 0;
-  margin-left: -60px;
+  /* margin-left: -60px; */
   padding: 19px 58px;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 36px;
+  transition: transform .2s;
+}
+.form-section input[type="submit"]:hover {
+  transform: scale(1.1);
 }
 /* CONTACT */
 .contactInfo {
@@ -286,7 +308,8 @@ textarea:focus {
   width: 80%;
   flex-direction: column;
   padding: 40px 0;
-  box-shadow: 0px 0px 27px 0px rgb(243, 243, 243);
+  border-radius: 5px;
+  box-shadow: 0px 0px 27px 0px rgb(180, 180, 180);
 }
 .info-image {
   width: 50px;
@@ -312,7 +335,7 @@ textarea:focus {
   margin-bottom: 50px;
 }
 .single-image {
-  background-color: #f3fbf7;
+  background-color: #fff;
   margin-right: 20px;
   height: 700px;
   display: flex;
@@ -320,7 +343,7 @@ textarea:focus {
   align-items: center;
 }
 .single-image img {
-  width: 90%;
+  width: 100%;
   height: 700px;
   object-fit: contain;
 }
@@ -379,9 +402,9 @@ textarea:focus {
 }
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #1cb803;
+  background: #ffc000;
+  color: #000;
 }
-
 /* LOGIN */
 .login-center {
   padding: 50px 0;
@@ -412,10 +435,14 @@ textarea:focus {
   margin-top: 20px;
   padding: 20px 0;
   border: 0;
-  background-color: #1cb803;
+  background-color: black;
   border-radius: 5px;
   text-transform: uppercase;
   color: white;
+}
+.Login button:hover,
+.Login2 button:hover {
+  background-color: #808080;
 }
 .Login button a,
 .Login2 button a {
@@ -426,7 +453,13 @@ textarea:focus {
   margin-top: 30px;
 }
 .Login p a {
+  display: block;
   color: #7a7a7a;
+}  
+.Login p a:hover {
+  color: white;
+  background-color: black;
+  border-radius: 5px;
 }
 /* PROFILE */
 .author-card {
@@ -521,7 +554,13 @@ textarea:focus {
   box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
   position: relative;
 }
-
+.cart-pc-item {
+  padding: 5px;
+}
+.cart-pc-item:hover {
+  background-color: #808080;
+  border-radius: 5px;
+}
 .remove-button {
   background-color: red;
   width: 25px;
@@ -609,6 +648,16 @@ textarea:focus {
   height: 50px;
   object-fit: contain;
 }
+.footer-icons a i {
+  display: block;
+  padding: 5px 8px;
+  transition: transform 0.2s;
+}
+.footer-icons a i:hover {
+  background-color: #808080;
+  border-radius: 5px;
+  transform: scale(1.1);
+}
 
 /* Payment */
 .payment-container {
@@ -679,4 +728,18 @@ textarea:focus {
 .page-item.active .page-link {
   background-color: black;
   border: 1px solid black;
+}
+
+/* Slider */
+.slider {
+  height: 1000px;
+}
+
+.slider-item1 {
+   background: url("https://i.ytimg.com/vi/yUJwC7INGNo/maxresdefault.jpg") no-repeat top / cover;
+   height: 500px;
+}
+
+.space-bottom {
+  margin-bottom: 50px;
 }

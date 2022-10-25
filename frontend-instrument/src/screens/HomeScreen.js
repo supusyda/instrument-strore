@@ -4,7 +4,7 @@ import ShopSection from "./../components/homeComponents/ShopSection";
 import ContactInfo from "./../components/homeComponents/ContactInfo";
 import CalltoActionSection from "./../components/homeComponents/CalltoActionSection";
 import Footer from "./../components/Footer";
-import Slideshow from "../components/SlideShow";
+import Slideshow from "../components/Slideshow";
 
 const HomeScreen = () => {
   window.scrollTo(0, 0);
