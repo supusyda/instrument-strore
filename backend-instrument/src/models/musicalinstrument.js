@@ -13,6 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "keyMap",
         as: "typeOfInstrument",
       });
+      // musicalInstrument.belongsTo(models.receiptsDetail);
+      // musicalInstrument.belongsTo(models.receiptsDetail, {
+      //   foreignKey: "id",
+      //   targetKey: "instrumentID",
+      //   as:"instrument"
+      // });
+      musicalInstrument.hasMany(models.receiptsDetail, {
+        foreignKey: "id",
+        as: "instrument",
+      });
       // define association here
     }
   }
@@ -21,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       type: DataTypes.STRING,
       price: DataTypes.INTEGER,
+      inStock: DataTypes.INTEGER,
     },
     {
       sequelize,

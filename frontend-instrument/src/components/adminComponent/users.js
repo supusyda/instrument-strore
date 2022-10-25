@@ -60,11 +60,7 @@ const Users = () => {
     );
   };
   const imageCell = (props) => {
-    // let userIMG = "";
-    // if (props.dataItem.image) {
-    //   userIMG = new Buffer(props.dataItem.image, "base64").toString("binary");
-    //   // console.log(userIMG);
-    // }
+  
     return (
       <td>
         <div

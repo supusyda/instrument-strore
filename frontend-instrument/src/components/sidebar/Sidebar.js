@@ -5,7 +5,7 @@ import "./sidebar.css";
 const sidebarNavItems = [
   {
     display: "Dashboard",
-    icon: <i className="bx bx-home"></i>,
+    icon: <i class="fas fa-chart-line"></i>,
     to: "/admin/",
     section: "",
   },
@@ -17,19 +17,19 @@ const sidebarNavItems = [
   },
   {
     display: "Product",
-    icon: <i className="bx bx-calendar"></i>,
+    icon: <i class="fas fa-guitar"></i>,
     to: "/admin/product",
     section: "calendar",
   },
   {
     display: "User",
-    icon: <i className="bx bx-user"></i>,
+    icon: <i class="fas fa-users"></i>,
     to: "/admin/user",
     section: "user",
   },
   {
     display: "Blog",
-    icon: <i className="bx bx-receipt"></i>,
+    icon: <i class="fab fa-blogger-b"></i>,
     to: "/admin/order",
     section: "order",
   },
@@ -51,7 +51,7 @@ const Sidebar = () => {
             key={index}
             style={navLinkStyle}
             className="sidebar__menu__item"
-            exact={index===0 ? true : false}
+            exact={index === 0 ? true : false}
           >
             <div className="sidebar__menu__item__icon">{item.icon}</div>
             <div className="sidebar__menu__item__text">{item.display}</div>

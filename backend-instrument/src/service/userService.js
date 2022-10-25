@@ -49,7 +49,7 @@ let getAllUser = async (userID) => {
           item.image = new Buffer(item.image, "base64").toString("binary");
         })
 
-        console.log(data);
+       
         
       }
       return { data: data, errCode: 0, errMessage: "success get all users" };
@@ -96,7 +96,7 @@ let editUser = async (newData) => {
       phoneNumber,
       image,
     } = newData;
-    console.log("newData=>", newData);
+
     if (newData) {
       let user = await db.User.findOne({
         where: { id: newData.id },

@@ -24,7 +24,9 @@ a {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  height: 100vh;
 }
 .admin-contain .right-content {
   flex-grow: 1;
+  height: 100vh;
 }/*# sourceMappingURL=adminHome.css.map */
