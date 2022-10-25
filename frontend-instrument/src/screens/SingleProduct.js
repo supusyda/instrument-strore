@@ -6,8 +6,10 @@ import Message from "./../components/LoadingError/Error";
 import products from "../data/Products";
 import { getAllInstrument } from "../services/instrumentService";
 const SingleProduct = ({ match }) => {
+
   const { id } = useParams();
   const product = products.find((p) => String(p._id) === id);
+
   let [instrument, setInstrument] = useState([]);
   let [res, setRes] = useState([]);
   let [loading, setLoading] = useState(true);
@@ -45,7 +47,9 @@ const SingleProduct = ({ match }) => {
               <div className="product-count col-lg-7 ">
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
+
                   <span>VNĐ{product.price}</span>
+
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>

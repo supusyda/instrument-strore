@@ -1,0 +1,8 @@
+.preViewImg-contain {
+  height: 300px;
+}
+.preViewImg-contain .preViewImg {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background: round;
+}/*# sourceMappingURL=userModal.css.map */

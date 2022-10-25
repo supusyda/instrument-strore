@@ -36,9 +36,20 @@ let deleteInstrument = async (req, res) => {
     });
   }
 };
-let UpdateInstrument = async (req, res) => {
+let updateInstrument = async (req, res) => {
   try {
     let data = await Intrusment.editInstrumentService(req.body);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+let getBestSeller = async (req, res) => {
+  try {
+    let data = await Intrusment.getBestSellerService();
     return res.status(200).json(data);
   } catch (error) {
     return res.status(200).json({
@@ -51,5 +62,6 @@ module.exports = {
   addinstrument: addinstrument,
   getinstrument: getinstrument,
   deleteInstrument: deleteInstrument,
-  UpdateInstrument: UpdateInstrument,
+  updateInstrument: updateInstrument,
+  getBestSeller:getBestSeller
 };

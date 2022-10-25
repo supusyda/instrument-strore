@@ -1,4 +1,5 @@
 import db from "../models/index";
+import Sequelize from "sequelize";
 require("dotenv").config();
 let createNewInstrument = async (data) => {
   try {
@@ -131,9 +132,41 @@ let editInstrument = async (newData) => {
     return { errCode: -1, errMessage: "something wrong with service..." };
   }
 };
+let getBestSellerService = async () => {
+  try {
+    let res = await db.receiptsDetail.findAll({
+      attributes: [
+        "instrumentID",
+        [Sequelize.fn("sum", Sequelize.col("amount")), "total"],
+      ],
+      group: ["receiptsDetail.instrumentID"],
+      include: [
+        {
+          model: db.musicalInstrument,
+          as: "instrument",
+        },
+      ],
+     
+      order: Sequelize.literal("total DESC"),
+      limit: 1,
+    });
+    return {
+      data: res,
+      errMessage: "successlly get all best sellerID ",
+      errCode: "0",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      errMessage: "some thing wrong with service ....",
+      errCode: "-1",
+    };
+  }
+};
 module.exports = {
   createNewInstrument: createNewInstrument,
   getAllInstrumentService: getAllInstrument,
   deleteInstrumentService: deleteInstrument,
   editInstrumentService: editInstrument,
+  getBestSellerService: getBestSellerService,
 };
