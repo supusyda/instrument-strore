@@ -43,7 +43,7 @@ const Footer = () => {
               <p>+84 963 176 851</p>
               <p>1951120@sv.ut.edu.vn</p>
             </div>
-            <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
+            <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center footer-icons">
               <Link to="">
                 <i className="fab fa-facebook-f"></i>
               </Link>
