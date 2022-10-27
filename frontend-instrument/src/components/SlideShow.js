@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import React, { Component } from "react";
 import Slider from "react-slick";
 
-const Slideshow = () => {
+const SlideShow = () => {
     const settings = {
         dots: true,
         infinite: true,
@@ -39,4 +39,4 @@ const Slideshow = () => {
     )
 }
 
-export default Slideshow;
+export default SlideShow;

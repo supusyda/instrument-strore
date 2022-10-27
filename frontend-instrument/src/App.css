@@ -89,7 +89,7 @@ textarea:focus {
 }
 .navbar-brand img:hover {
   background-color: #808080;
-  border-radius: 5px;
+  
 }
 .input-group {
   height: 50px;
@@ -750,6 +750,7 @@ textarea:focus {
 .slider-item1 {
    background: url("https://i.ytimg.com/vi/yUJwC7INGNo/maxresdefault.jpg") no-repeat top / cover;
    height: 500px;
+   border-radius: 5px;
 }
 
 .space-bottom {

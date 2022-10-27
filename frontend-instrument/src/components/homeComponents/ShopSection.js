@@ -22,14 +22,8 @@ const ShopSection = () => {
       }
     };
     data();
-<<<<<<< HEAD
-    return () => { };
-  }, []);
-
-=======
     return () => {};
   }, []);
->>>>>>> main
   return (
     <>
       {console.log(instruments)}
@@ -38,19 +32,6 @@ const ShopSection = () => {
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
-<<<<<<< HEAD
-                {products.map((product) => (
-                  <div
-                    className="shop col-lg-3 col-md-6 col-sm-6"
-                    key={product._id}
-                  >
-                    <div className="border-product">
-                      <Link to={`/products/${product._id}`}>
-                        <div className="shopBack">
-                          <img src={product.image} alt={product.name} />
-                        </div>
-                      </Link>
-=======
                 {instruments &&
                   instruments.map((instrument) => (
                     <div
@@ -63,7 +44,6 @@ const ShopSection = () => {
                             <img src="/images/5.png" />
                           </div>
                         </Link>
->>>>>>> main
 
                         <div className="shoptext">
                           <p>
@@ -72,17 +52,13 @@ const ShopSection = () => {
                             </Link>
                           </p>
 
-                          {/* <Rating
-                          value={product.rating}
-                          text={`${product.numReviews} reviews`}
+                          <Rating
+                          value={instrument.rating}
+                          text={`${instrument.numReviews} reviews`}
                         />
-<<<<<<< HEAD
-                        <h3>{product.price} VNĐ</h3>
-=======
-                         */}
+                        
                           <h3>${instrument.price}</h3>
                         </div>
->>>>>>> main
                       </div>
                     </div>
                   ))}
