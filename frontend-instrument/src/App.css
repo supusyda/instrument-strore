@@ -144,7 +144,19 @@ textarea:focus {
 .mobile-header {
   display: none;
 }
-/* Slideshow */
+/* Slider */
+.slider {
+  height: 1000px;
+}
+
+.slider-item1 {
+   background: url("https://i.ytimg.com/vi/yUJwC7INGNo/maxresdefault.jpg") no-repeat top / cover;
+   height: 500px;
+}
+
+.space-bottom {
+  margin-bottom: 50px;
+}
 /* SHOP */
 .section {
   width: 100%;
