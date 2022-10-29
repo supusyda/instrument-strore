@@ -58,10 +58,23 @@ let getBestSeller = async (req, res) => {
     });
   }
 };
+let getIncomeWeek = async (req, res) => {
+  try {
+    let data = await Intrusment.getBestSellerService();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
 module.exports = {
   addinstrument: addinstrument,
   getinstrument: getinstrument,
   deleteInstrument: deleteInstrument,
   updateInstrument: updateInstrument,
-  getBestSeller:getBestSeller
+  getBestSeller: getBestSeller,
+
+  getIncomeWeek: getIncomeWeek,
 };

@@ -4,6 +4,7 @@ import Instrument from "../controller/musicalInstrumentController";
 import Markdown from "../controller/markdownController";
 import allCodes from "../controller/allCodesController";
 import receipt from "../controller/receiptController";
+import react from "../controller/reactController.js";
 
 let router = express.Router();
 let initRouter = (app) => {
@@ -21,14 +22,17 @@ let initRouter = (app) => {
   router.put("/api/instrument/update", Instrument.updateInstrument);
   router.get("/api/instrument/bestSeller", Instrument.getBestSeller);
 
-
   router.post("/api/markdown/create", Markdown.createMarkdown);
 
   router.get("/api/allCode/get", allCodes.getAllCode);
 
   router.post("/api/receipt/create", receipt.addReceipt);
   router.get("/api/receipt/get", receipt.getReceipt);
-  
+  router.get("/api/receipt/getIncomeWeek", receipt.getIncomeWeek);
+
+  router.get("/api/react/get", react.getReact);
+  router.post("/api/react/update", react.updateReact);
+
 
   return app.use("/", router);
 };
