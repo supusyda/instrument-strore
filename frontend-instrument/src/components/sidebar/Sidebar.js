@@ -42,8 +42,14 @@ const Sidebar = () => {
     backgroundColor: isActive ? "#0d6efd" : "",
   });
   return (
-    <div className="sidebar ">
-      <div className="sidebar__logo">Animate</div>
+    <>
+    <nav>
+    <input type="checkbox" name="open" id="open" />
+    <label for="open" class="open">
+      <i class="fas fa-bars"></i>
+    </label>
+    <div className="sidebar">
+      <div className="sidebar__logo"></div>
       <div ref={sidebarRef} className="sidebar__menu">
         {sidebarNavItems.map((item, index) => (
           <NavLink
@@ -59,6 +65,9 @@ const Sidebar = () => {
         ))}
       </div>
     </div>
+    </nav>
+    </>
+    
   );
 };
 
