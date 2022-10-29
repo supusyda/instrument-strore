@@ -3,13 +3,19 @@ import Sequelize from "sequelize";
 require("dotenv").config();
 let createNewInstrument = async (data) => {
   try {
-    let res = await db.musicalInstrument.create({
+    let musicalInstrumentData = await db.musicalInstrument.create({
       name: data.name,
       price: data.price,
       type: data.type,
     });
+    let interactData = await db.interact.create({
+      view: 0,
+      likes: 0,
+      dislikes: 0,
+      intrumentID: musicalInstrumentData.id,
+    });
     return {
-      data: res,
+      data: [musicalInstrumentData, interactData],
       errMessage: "successlly create new musical Instrument",
       errCode: "0",
     };
@@ -42,6 +48,13 @@ let getAllInstrument = async (instrumentID) => {
     } else {
       let res = await db.musicalInstrument.findOne({
         where: { id: instrumentID },
+        include: [
+          {
+            model: db.interact,
+            as: "interact",
+            attributes: { exclude: ["blogID"] },
+          },
+        ],
       });
       if (res) {
         return {
@@ -146,7 +159,7 @@ let getBestSellerService = async () => {
           as: "instrument",
         },
       ],
-     
+
       order: Sequelize.literal("total DESC"),
       limit: 1,
     });

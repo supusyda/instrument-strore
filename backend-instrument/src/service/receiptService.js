@@ -2,7 +2,8 @@ import { json } from "sequelize";
 import db from "../models/index";
 import dataJS from "./dummydata.json";
 import sequelize from "sequelize";
-
+import { Op } from "sequelize";
+import moment from "moment";
 require("dotenv").config();
 let createReceiptService = async (data) => {
   try {
@@ -115,10 +116,18 @@ let totalInComeInWeek = async () => {
           [Op.gte]: moment().subtract(7, "days").toDate(),
         },
       },
+      attributes: [
+        
+        [sequelize.fn("sum", sequelize.col("totalMoney")), "total"],
+         [sequelize.fn('DATE', sequelize.col('createdAt')), 'Date']
+      ],
+      group: [sequelize.fn('DATE', sequelize.col('createdAt')), 'Date'],
+      raw: true,
+      order: sequelize.literal("total DESC"),
     });
     return {
       data: res,
-      errMessage: "successlly get allCode",
+      errMessage: "successlly get Income in week",
       errCode: "0",
     };
   } catch (error) {

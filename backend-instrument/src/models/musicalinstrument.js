@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
         as: "instrument",
       });
+      musicalInstrument.hasOne(models.interact, {
+        foreignKey: "instrumentID",
+        as: "interact",
+      });
+      // musicalInstrument.hasMany(models.comment, {
+      //   foreignKey: "id",
+      //   as: "comments",
+      // });
       // define association here
     }
   }

@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      comment.belongsTo(models.musicalInstrument, {
+        foreignKey: "instrumentID",
+        targetKey: "id",
+        as: "comments",
+      });
     }
   }
   comment.init({

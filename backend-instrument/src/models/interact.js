@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class interact extends Model {
     /**
@@ -11,16 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      interact.belongsTo(models.musicalInstrument, {
+        foreignKey: "instrumentID",
+        targetKey: "id",
+        as: "interact",
+      });
+      // musicalInstrument.hasOne(models.interact, {
+      //   foreignKey: "id",
+      //   as: "interact",
+      // });
     }
   }
-  interact.init({
-    postID: DataTypes.STRING,
-    view: DataTypes.INTEGER,
-    likes: DataTypes.INTEGER,
-    dislikes: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'interact',
-  });
+  interact.init(
+    {
+      blogID: DataTypes.INTEGER,
+      instrumentID: DataTypes.INTEGER,
+      view: DataTypes.INTEGER,
+      likes: DataTypes.INTEGER,
+      dislikes: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "interact",
+    }
+  );
   return interact;
 };
