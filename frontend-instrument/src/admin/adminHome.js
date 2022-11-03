@@ -16,11 +16,8 @@ const admin = () => {
   return (
     <>
       <div className="admin-contain">
-        <div className="left-content">
-          {/* <AppLayout></AppLayout> */}
-          <Sidebar></Sidebar>
-        </div>
-        <div className="right-content">
+        
+        <div>
           <AdminHeader></AdminHeader>{" "}
           <Switch>
             <Route path="/admin/started" component={Dashboard} />
@@ -29,6 +26,10 @@ const admin = () => {
             <Route path="/admin/product" component={Login} />
           </Switch>
           <ToastContainer></ToastContainer>
+        </div>
+        <div className="left-content">
+          {/* <AppLayout></AppLayout> */}
+          <Sidebar></Sidebar>
         </div>
       </div>
     </>

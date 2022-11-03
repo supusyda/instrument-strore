@@ -11,7 +11,7 @@ const sidebarNavItems = [
   },
   {
     display: "Getting Started",
-    icon: <i className="bx bx-star"></i>,
+    icon: <i class="fas fa-star"></i>,
     to: "/admin/started",
     section: "started",
   },
@@ -43,31 +43,31 @@ const Sidebar = () => {
   });
   return (
     <>
-    <nav>
-    <input type="checkbox" name="open" id="open" />
-    <label for="open" class="open">
-      <i class="fas fa-bars"></i>
-    </label>
-    <div className="sidebar">
-      <div className="sidebar__logo"></div>
-      <div ref={sidebarRef} className="sidebar__menu">
-        {sidebarNavItems.map((item, index) => (
-          <NavLink
-            to={item.to}
-            key={index}
-            style={navLinkStyle}
-            className="sidebar__menu__item"
-            exact={index === 0 ? true : false}
-          >
-            <div className="sidebar__menu__item__icon">{item.icon}</div>
-            <div className="sidebar__menu__item__text">{item.display}</div>
-          </NavLink>
-        ))}
-      </div>
-    </div>
-    </nav>
+      <nav>
+        <input type="checkbox" name="open" id="open" />
+        <label for="open" class="open">
+          <i class="fas fa-bars"></i>
+        </label>
+        <div className="sidebar">
+          <div className="sidebar__logo"></div>
+          <div ref={sidebarRef} className="sidebar__menu">
+            {sidebarNavItems.map((item, index) => (
+              <NavLink
+                to={item.to}
+                key={index}
+                style={navLinkStyle}
+                className="sidebar__menu__item"
+                exact={index === 0 ? true : false}
+              >
+                <div className="sidebar__menu__item__icon">{item.icon}</div>
+                <div className="sidebar__menu__item__text">{item.display}</div>
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      </nav>
     </>
-    
+
   );
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CalltoActionSection = () => {
   return (
@@ -9,9 +10,12 @@ const CalltoActionSection = () => {
             <div className="subscribe-head">
               <h2>Subscribe now !!!</h2>
               <p>Sign up free and become a member.</p>
-              <form className="form-section">
-                <input className="signup-buttton" value="Sign up now!" name="subscribe" type="submit" />
-              </form>
+              <Link to="/register" > 
+                <button>Sign up now</button>
+              </Link>
+              {/* <form className="form-section">
+                <input className="signup-buttton" value="Sign up now" name="subscribe" type="submit" />
+              </form> */}
             </div>
           </div>
         </div>
