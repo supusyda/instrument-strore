@@ -54,7 +54,7 @@ const ShopSection = () => {
 
                           <Rating
                           value={product.rating}
-                          text={`${product.numReviews} reviews`}
+                          text={`${product.numReviews}`}
                         />
                         
                           <h3>${product.price}</h3>
