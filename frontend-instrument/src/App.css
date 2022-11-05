@@ -222,22 +222,23 @@ textarea:focus {
   cursor: pointer;
 }
 .shopBack {
-  height: 250px;
+  height: 300px;
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 .shopBack img {
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: contain;
+  padding-bottom: 15px;
 }
 .shoptext {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   padding: 10px;
-  height: 180px;
+  height: 200px;
   justify-content: space-around;
   background-color: lightgray;
 }
@@ -254,11 +255,15 @@ textarea:focus {
   margin: 5px 0;
 }
 .rating i {
-  font-size: 12px;
-  color: #ebb450;
+  font-size: 15px;
+  color: #000;
+  transition: transform .2s;
+}
+.rating i:hover {
+  transform: scale(1.3);
 }
 .rating span {
-  margin-left: 10px;
+  margin: 0 10px 0 5px;
 }
 /* END OF SHOP */
 
