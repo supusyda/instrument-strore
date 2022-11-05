@@ -17,7 +17,7 @@ const admin = () => {
     <>
       <div className="admin-contain">
         <div className="left-content">
-          {/* <AppLayout></AppLayout> */}
+         
           <Sidebar></Sidebar>
         </div>
         <div className="right-content">

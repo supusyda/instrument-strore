@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+import useFetch from "../customize/useFetch";
 
-const Header = () => {
+const Header = (props) => {
+  const cookies = new Cookies();
+  let [userID, setUserID] = useState(cookies.get("userID"));
+  let [userData, setUserData] = useState(null);
+  let { res, refesh } = useFetch(
+    `http://localhost:8080/api/user/get?userID=${userID}`
+  );
+  if (props.froceRerender) {
+    if (props.updateSuccess === true) {
+      refesh();
+      props.froceRerender();
+    }
+  }
+  useEffect(() => {
+    if (props.getUserFormHeader) {
+      props.getUserFormHeader(res.data);
+      console.log("RỂNDẺ");
+    }
+    setUserData(res.data);
+
+    return () => {};
+  }, [res]);
+
   return (
     <div>
+      {console.log("userData", userData)}
+      {console.log("res", res)}
+
       <div className="header-menu">
         <div className="container ">
           <div className="d-flex space-between">
@@ -111,15 +138,36 @@ const Header = () => {
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                 <div className="btn-group">
-                  <button
-                    type="button"
-                    className="name-button dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Guest
-                  </button>
+                  {userData ? (
+                    <div
+                      type="button"
+                      className="name-button  rounded-circle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style={{
+                        backgroundImage: `url(${
+                          userData.image ? userData.image : ""
+                        })`,
+                        // background: "round",
+                        backgroundSize: "cover",
+                        height: "100px",
+                        width: "100px",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  ) : (
+                    <button
+                      type="button"
+                      className="name-button dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Guest
+                    </button>
+                  )}
+
                   <div className="dropdown-menu">
                     <Link className="dropdown-item" to="/profile">
                       Profile

@@ -26,38 +26,38 @@ const ShopSection = () => {
   }, []);
   return (
     <>
-      {console.log(instruments)}
+      
       <div className="container">
         <div className="section">
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
-                {instruments &&
-                  instruments.map((instrument) => (
+                {products &&
+                  products.map((product) => (
                     <div
                       className="shop col-lg-4 col-md-6 col-sm-6"
-                      key={instrument.id}
+                      key={product._id}
                     >
                       <div className="border-product shadow p-3 mb-5 bg-body rounded">
-                        <Link to={`/products/${instrument.id}`}>
+                        <Link to={`/products/${product._id}`}>
                           <div className="shopBack">
-                            <img src="/images/5.png" />
+                            <img src={product.image} />
                           </div>
                         </Link>
 
                         <div className="shoptext">
                           <p>
-                            <Link to={`/products/${instrument.id}`}>
-                              {instrument.name}
+                            <Link to={`/products/${product._id}`}>
+                              {product.name}
                             </Link>
                           </p>
 
                           <Rating
-                          value={instrument.rating}
-                          text={`${instrument.numReviews} reviews`}
+                          value={product.rating}
+                          text={`${product.numReviews} reviews`}
                         />
                         
-                          <h3>${instrument.price}</h3>
+                          <h3>${product.price}</h3>
                         </div>
                       </div>
                     </div>

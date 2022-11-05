@@ -3,6 +3,7 @@ import express from "express";
 import User from "../service/userService";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+let refreshTokens = [];
 require("dotenv").config();
 let homePage = async (req, res) => {
   return res.status(200).json({
@@ -64,7 +65,10 @@ let editUser = async (req, res) => {
 let loginUser = async (req, res) => {
   try {
     const loginInfo = req.body;
+
     let data = await User.loginUserService(loginInfo);
+    // res.cookie("token", data.data.accessToken, { httpOnly: true });
+
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
@@ -105,6 +109,7 @@ let testMail = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   homePage: homePage,
   createUser: createUser,
