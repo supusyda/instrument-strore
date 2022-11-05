@@ -62,8 +62,11 @@ textarea:focus {
   padding: 10px 0px 10px 0px;
 }
 .header-menu {
+  position: fixed;
   background-color: black;
   justify-content: stretch;
+  z-index: 1000;
+  width: 100%;
 }
 .nav-menu {
   display: flex;
@@ -148,7 +151,11 @@ textarea:focus {
   color: #ffffff !important;
 }
 .mobile-header {
+  margin-top: 50px;
   display: none;
+}
+.pc-header {
+  margin-top: 50px;
 }
 /* Slider */
 .slider {
@@ -278,31 +285,19 @@ textarea:focus {
 .subscribe-head {
   text-align: center;
 }
-/* .form-section input[type="email"] {
-  border: 0 none;
-  border-radius: 25px;
-  color: #9b9b9b;
-  font-size: 16px;
-  font-style: normal;
-  height: 51px;
-  letter-spacing: 0;
-  text-align: center;
-  width: 460px;
-} */
-.form-section input[type="submit"] {
+.subscribe-head a button {
   background: #fafafa;
   border: 0 none;
   border-radius: 50px;
   color: #000;
   height: 112px;
   letter-spacing: 0;
-  /* margin-left: -60px; */
   padding: 19px 58px;
   text-transform: uppercase;
   font-size: 36px;
   transition: transform .2s;
 }
-.form-section input[type="submit"]:hover {
+.subscribe-head a button:hover {
   transform: scale(1.1);
 }
 /* CONTACT */

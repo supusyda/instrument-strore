@@ -34,7 +34,6 @@ const App = () => {
         <Route path="/placeorder" component={PlaceOrderScreen} />
         <Route path="/order" component={OrderScreen} />
         <Route path="/admin" component={AdminPage} />
-
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
