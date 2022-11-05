@@ -3,27 +3,40 @@ import bcrypt, { compareSync } from "bcryptjs";
 const salt = bcrypt.genSaltSync(10);
 import jwt from "jsonwebtoken";
 require("dotenv").config();
+let refreshTokens = [];
+
 let hashPassword = async (password) => {
   var hashP = await bcrypt.hashSync(password, salt);
   return hashP;
 };
 let createNewUser = async (data) => {
   try {
+    console.log(data);
     let newPass = await hashPassword(data.password);
-    let res = await db.User.create({
-      password: newPass,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      gender: data.gender,
-      phoneNumber: data.phoneNumber,
-      address: data.address,
-      position: data.position,
-      image: data.image,
-    });
+    let res;
+    if (data.roleCreate === "admin") {
+      res = await db.User.create({
+        password: newPass,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        gender: data.gender,
+        phoneNumber: data.phoneNumber,
+        address: data.address,
+        position: data.position,
+        image: data.image,
+      });
+    } else {
+      res = await db.User.create({
+        password: newPass,
+        lastName: data.lastName,
+        email: data.email,
+      });
+    }
+
     return {
       data: res,
-      errMessage: "successlly create new user",
+      errMessage: `successlly create new user from ${data.roleCreate}`,
       errCode: "0",
     };
   } catch (error) {
@@ -41,24 +54,24 @@ let getAllUser = async (userID) => {
         attributes: { exclude: ["password"] },
         order: [["createdAt", "DESC"]],
         raw: true,
-        
       });
 
       if (data) {
-        data.map((item)=>{
-          item.image = new Buffer(item.image, "base64").toString("binary");
-        })
-
-       
-        
+        data.map((item) => {
+          if (item.image)
+            item.image = new Buffer(item.image, "base64").toString("binary");
+        });
       }
       return { data: data, errCode: 0, errMessage: "success get all users" };
     } else if (userID && userID != "ALL") {
       let data = await db.User.findOne({
         where: { id: userID },
         attributes: { exclude: ["password"] },
+        raw: true,
       });
       if (data) {
+        if (data.image)
+          data.image = new Buffer(data.image, "base64").toString("binary");
         return { data: data, errCode: 0, errMessage: "success get user" };
       } else {
         return { data: [], errCode: -1, errMessage: "no user found" };
@@ -151,30 +164,51 @@ let check_email = async (userEmail) => {
 };
 let loginUser = async (loginInfo) => {
   try {
+    console.log(loginInfo);
     let { email, password } = loginInfo;
     let haveUser = check_email(email);
 
     if (haveUser) {
-      let user = await db.User.findOne({ where: { email: email }, raw: true });
-      console.log(process.env.ACCESS_TOKEN_SERCECT);
-      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SERCECT, {
-        expiresIn: "15s",
+      let user = await db.User.findOne({
+        where: { email: email },
+        attributes: { exclude: ["refreshToken", "image"] },
       });
+      const isRightPass = await bcrypt.compare(password, user.password);
 
-      // const isRightPass = await bcrypt.compare(password, user.password);
+      if (isRightPass) {
+        let userPlain = (await user).get({ plain: true });
+        userPlain.password = null;
 
-      // console.log(isRightPass);
-      return {
-        data: { accessToken, user },
-        errCode: 0,
-        errMessage: "login Success",
-      };
+        console.log(process.env.ACCESS_TOKEN_SERCECT);
+        const accessToken = jwt.sign(
+          userPlain,
+          process.env.ACCESS_TOKEN_SERCECT,
+          {
+            expiresIn: "5s",
+          }
+        );
+        const refreshToken = jwt.sign(
+          userPlain,
+          process.env.ACCESS_TOKEN_REFRESH
+        );
+        if (user) {
+          user.refreshToken = refreshToken;
+          await user.save();
+        }
 
-      // if (isRightPass) {
-      //   return { data: user, errCode: 0, errMessage: "login Success" };
-      // } else {
-      //   return { data: [], errCode: -1, errMessage: "Worng password" };
-      // }
+        // console.log(isRightPass);
+        return {
+          data: { accessToken, refreshToken, userID: userPlain.id },
+          errCode: 0,
+          errMessage: "login Success",
+        };
+
+        // if (isRightPass) {
+        //   return { data: user, errCode: 0, errMessage: "login Success" };
+        // } else {
+        //   return { data: [], errCode: -1, errMessage: "Worng password" };
+        // }
+      }
     } else {
       return { data: [], errCode: -1, errMessage: "Worng email " };
     }

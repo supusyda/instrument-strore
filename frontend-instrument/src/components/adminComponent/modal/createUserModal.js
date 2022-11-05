@@ -79,9 +79,7 @@ const CreateUserModal = (props) => {
     console.log(copyUserdata[idAtr]);
     setUserData(copyUserdata);
   };
-  const handleRadio = (e) => {
-    console.log(e.target.value);
-  };
+
   const toggle = () => {
     setOpen(!open);
     props.setOpen(!open);
@@ -98,6 +96,7 @@ const CreateUserModal = (props) => {
         let res = await editUser(data);
         console.log("res", res);
       } else {
+        data.roleCreate = "admin";
         let res = await createUser(data);
       }
       console.log(res);

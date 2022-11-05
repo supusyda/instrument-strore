@@ -3,11 +3,33 @@ import Header from "../components/Header";
 import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import Orders from "./../components/profileComponents/Orders";
 
+import { useState, useEffect } from "react";
+
 const ProfileScreen = () => {
+  // let [userID, setUserID] = useState(cookies.get("userID"));
+  let [userData, setUserData] = useState(null);
+  let [updateSuccess, setUpdateSuccess] = useState(false);
+  const getUserFormHeader = (dataFromHeader) => {
+    setUserData(dataFromHeader);
+  };
+  const froceRerender = () => {
+    setUpdateSuccess(!updateSuccess);
+  };
+  // let { res } = useFetch(`http://localhost:8080/api/user/get?userID=${userID}`);
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   window.scrollTo(0, 0);
   return (
     <>
-      <Header />
+      <Header
+        getUserFormHeader={getUserFormHeader}
+        // updateSuccess={updateSuccess}
+        // setUpdateSuccess={setUpdateSuccess}
+        froceRerender={froceRerender}
+        updateSuccess={updateSuccess}
+      />
       <div className="container mt-lg-5 mt-3">
         <div className="row align-items-start">
           <div className="col-lg-4 p-0 shadow ">
@@ -15,11 +37,15 @@ const ProfileScreen = () => {
               <div className="author-card-cover"></div>
               <div className="author-card-profile row">
                 <div className="author-card-avatar col-md-5">
-                  <img src="./images/user.png" alt="userprofileimage" />
+                  {!userData ? (
+                    <img src="./images/user.png" alt="userprofileimage" />
+                  ) : (
+                    <img src={userData.image} alt="userprofileimage" />
+                  )}
                 </div>
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
-                    <strong>Admin Doe</strong>
+                    <strong>{userData && userData.lastName}</strong>
                   </h5>
                   <span className="author-card-position">
                     <>Joined Dec 12 2021</>
@@ -76,7 +102,7 @@ const ProfileScreen = () => {
               role="tabpanel"
               aria-labelledby="v-pills-home-tab"
             >
-              <ProfileTabs />
+              <ProfileTabs userData={userData} froceRerender={froceRerender} />
             </div>
             <div
               class="tab-pane fade"
@@ -84,7 +110,8 @@ const ProfileScreen = () => {
               role="tabpanel"
               aria-labelledby="v-pills-profile-tab"
             >
-              <Orders />
+              {userData&&<Orders userID={userData.id} />}
+              
             </div>
           </div>
         </div>

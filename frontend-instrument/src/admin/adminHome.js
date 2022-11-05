@@ -16,8 +16,12 @@ const admin = () => {
   return (
     <>
       <div className="admin-contain">
+
+     
+
         
         <div>
+
           <AdminHeader></AdminHeader>{" "}
           <Switch>
             <Route path="/admin/started" component={Dashboard} />
