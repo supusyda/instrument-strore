@@ -77,6 +77,12 @@ textarea:focus {
   list-style-type: none;
   color: #fff;
 }
+.nav-menu li p {
+  display: block;
+  padding: 0 20px;
+  line-height: 50px;
+  color: white;
+}
 .nav-menu li a {
   display: block;
   padding: 0 20px;

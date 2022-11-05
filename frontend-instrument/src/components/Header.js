@@ -47,6 +47,9 @@ const Header = (props) => {
             </ul>
             <ul className="nav-menu">
               <li>
+                <p>Hello, guy</p>
+              </li>
+              <li>
                 <Link to="/login">Login</Link>
               </li>
               <li>
