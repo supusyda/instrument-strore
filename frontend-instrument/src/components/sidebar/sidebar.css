@@ -4,7 +4,7 @@
   width: 320px;
   background-color: #fff;
   transition: 0.5s;
-  transform: translateX(-330px);
+  
 }
 .sidebar__logo {
   display: block;

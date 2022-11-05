@@ -15,10 +15,13 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 import AdminPage from "./admin/adminHome";
+import Header from "./components/Header";
 
 const App = () => {
   return (
+
     <Router>
+
       <Switch>
         <Route path="/" component={HomeScreen} exact />
         <Route path="/products/:id" component={SingleProduct} />

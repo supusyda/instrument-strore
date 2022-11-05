@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       gender: DataTypes.STRING,
       position: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
+      refreshToken: DataTypes.TEXT,
       image: DataTypes.BLOB("long"),
     },
     {

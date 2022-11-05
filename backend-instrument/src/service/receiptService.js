@@ -81,7 +81,7 @@ let getReceiptService = async (userID) => {
         include: [
           {
             model: db.receiptsDetail,
-            as: "IDofReceipt",
+            as: "ReceiptDetails",
             attributes: ["instrumentID", "amount", "money"],
           },
         ],
@@ -117,11 +117,10 @@ let totalInComeInWeek = async () => {
         },
       },
       attributes: [
-        
         [sequelize.fn("sum", sequelize.col("totalMoney")), "total"],
-         [sequelize.fn('DATE', sequelize.col('createdAt')), 'Date']
+        [sequelize.fn("DATE", sequelize.col("createdAt")), "Date"],
       ],
-      group: [sequelize.fn('DATE', sequelize.col('createdAt')), 'Date'],
+      group: [sequelize.fn("DATE", sequelize.col("createdAt")), "Date"],
       raw: true,
       order: sequelize.literal("total DESC"),
     });
