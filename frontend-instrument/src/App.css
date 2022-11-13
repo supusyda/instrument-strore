@@ -77,6 +77,12 @@ textarea:focus {
   list-style-type: none;
   color: #fff;
 }
+.nav-menu li p {
+  display: block;
+  padding: 0 20px;
+  line-height: 50px;
+  color: white;
+}
 .nav-menu li a {
   display: block;
   padding: 0 20px;
@@ -546,6 +552,27 @@ textarea:focus {
   color: #ffffff;
 }
 /* orders */
+#open-bar {
+  display: none;
+}
+.open-bar {
+  width: 100%;
+  border-radius: 2px;
+}
+.open-bar i {
+  display: flex;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #000;
+  padding: 10px 0 10px 0;
+  color: white;
+  justify-content: center;
+  border-radius: 5px;
+}
+.receipt {
+  display: none;
+}
 .link {
   color: blue;
   border-bottom: 1px solid blue;
@@ -557,6 +584,12 @@ textarea:focus {
 }
 .table-responsive {
   width: 100%;
+}
+#open-bar:checked ~ .receipt{
+  display: block;
+}
+.open-bar i:hover {
+  background-color: blue;
 }
 /* CART */
 .cart-iterm {

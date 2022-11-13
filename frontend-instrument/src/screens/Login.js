@@ -53,7 +53,7 @@ const Login = () => {
   };
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         <Form className="Login col-md-8 col-lg-4 col-11" onSubmit={onSubmit}>
           <input

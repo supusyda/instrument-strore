@@ -25,7 +25,7 @@ const SingleProduct = ({ match }) => {
       }
     };
     data();
-    return () => {};
+    return () => { };
   });
   return (
     <>
@@ -48,7 +48,7 @@ const SingleProduct = ({ match }) => {
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
 
-                  <span>VNĐ{product.price}</span>
+                  <span>{product.price}VNĐ</span>
 
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
@@ -63,7 +63,7 @@ const SingleProduct = ({ match }) => {
                   <h6>Reviews</h6>
                   <Rating
                     value={product.rating}
-                    text={`${product.numReviews} reviews`}
+                    text={`${product.numReviews}`}
                   />
                 </div>
                 {product.countInStock > 0 ? (
@@ -78,7 +78,9 @@ const SingleProduct = ({ match }) => {
                         ))}
                       </select>
                     </div>
-                    <button className="round-black-btn">Add To Cart</button>
+                    <Link to="/cart/:id?">
+                      <button className="round-black-btn">Add To Cart</button>
+                    </Link>
                   </>
                 ) : null}
               </div>

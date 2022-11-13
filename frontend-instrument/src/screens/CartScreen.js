@@ -33,7 +33,7 @@ const CartScreen = () => {
             <i className="fas fa-times"></i>
           </div>
           <div className="cart-image col-md-3">
-            <img src="/images/2.png" alt="nike" />
+            <img src="/images/1.png" alt="nike" />
           </div>
           <div className="cart-text col-md-5 d-flex align-items-center">
             <Link to="#">
