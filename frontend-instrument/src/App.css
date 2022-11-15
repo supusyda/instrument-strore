@@ -178,6 +178,20 @@ textarea:focus {
   padding-bottom: 6%;
   padding-top: 2%;
 }
+.heading-products h2 {
+  margin-bottom: 20px;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+}
+.heading-products h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: #000;
+  margin: 10px auto;
+}
 .sidebar_item {
   margin-bottom: 35px;
 }
@@ -212,15 +226,16 @@ textarea:focus {
   margin-bottom: 50px;
 }
 .border-product {
+  position: relative;
   padding: 15px;
   border: 1px solid #f3f3f3;
   border-radius: 5px;
   box-shadow: 0 0 3px #000;
   background-color: #fff;
   transition: transform .2s;
+  overflow: hidden;
 }
 .border-product:hover {
-  transform: scale(1.1);
   cursor: pointer;
 }
 .shopBack {
@@ -229,11 +244,72 @@ textarea:focus {
   overflow: hidden;
   width: 100%;
 }
-.shopBack img {
+.shopBack .option-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease .3s;
+  transition-delay: 0s;
+  transform: translateY(100%);
+}
+.border-product:hover .option-container {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.shopBack .options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shopBack .options a {
+  display: inline-block;
+  padding: 15px 40px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+  margin: 5px 0;
+}
+.shopBack .options .option-1 {
+  background-color: orange;
+  border: 1px solid orange;
+  color: #ffffff;
+  font-size: 14px;
+}
+.shopBack .options .option-2 {
+  background-color: green;
+  border: 1px solid green;
+  color: #ffffff;
+  font-size: 14px;
+}
+.shopBack .options .option-1:hover {
+  background-color: transparent;
+  color: orange;
+}
+.shopBack .options .option-2:hover {
+  background-color: transparent;
+  color: green;
+}
+.shopBack .img-box {
+  width: 100%;
+  height: 100%;
+}
+.shopBack img {
+  width: 100%;
+  height: 90%;
   object-fit: contain;
-  padding-bottom: 15px;
+}
+.border-product:hover img {
+  transform: scale(1.1);
 }
 .shoptext {
   display: flex;
@@ -722,15 +798,24 @@ textarea:focus {
   padding: 0 20px;
   font-size: 17px;
 }
-.order-detail p {
-  margin-top: 2px;
-}
 .order-detail {
   padding: 30px 0;
   background-color: #e5fee9;
+  border-radius: 30px;
+}
+.order-detail p {
+  margin-top: 2px;
 }
 .order-detail h5 {
   margin-bottom: 6px;
+}
+.paid-status {
+  background-color: #1cb803;
+  border-radius: 30px;
+}
+.deliveried-status {
+  background-color: red;
+  border-radius: 30px;
 }
 .order-box {
   border-radius: 100px;
@@ -797,13 +882,13 @@ textarea:focus {
 .aboutSection {
   padding: 70px 0;
 }
-.about-heading h2 {
+.heading-about h2 {
   margin-bottom: 20px;
   align-items: center;
   text-align: center;
   font-size: 40px;
 }
-.about-heading h2::after {
+.heading-about h2::after {
   content: "";
   display: block;
   width: 100px;

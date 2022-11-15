@@ -22,13 +22,16 @@ const ShopSection = () => {
       }
     };
     data();
-    return () => {};
+    return () => { };
   }, []);
   return (
     <>
-      
+
       <div className="container">
         <div className="section">
+          <div className="heading-products">
+            <h2>Our Products</h2>
+          </div>
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
@@ -41,7 +44,15 @@ const ShopSection = () => {
                       <div className="border-product shadow p-3 mb-5 bg-body rounded">
                         <Link to={`/products/${product._id}`}>
                           <div className="shopBack">
-                            <img src={product.image} />
+                            <div className="option-container">
+                              <div className="options">
+                                <Link className="option-1" to={"/cart"}>Add To Cart</Link>
+                                <Link className="option-2" to={"/shipping"}>Buy Now</Link>
+                              </div>
+                            </div>
+                            <div className="img-box">
+                              <img src={product.image} />
+                            </div>
                           </div>
                         </Link>
 
@@ -53,10 +64,10 @@ const ShopSection = () => {
                           </p>
 
                           <Rating
-                          value={product.rating}
-                          text={`${product.numReviews}`}
-                        />
-                        
+                            value={product.rating}
+                            text={`${product.numReviews}`}
+                          />
+
                           <h3>{product.price}VNĐ</h3>
                         </div>
                       </div>

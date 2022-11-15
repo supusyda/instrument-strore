@@ -10,7 +10,7 @@ const OrderScreen = () => {
     <>
       <Header />
       <div className="container">
-        <div className="row  order-detail">
+        <div className="row order-detail">
           <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
               <div className="col-md-4 center">
@@ -22,7 +22,7 @@ const OrderScreen = () => {
                 <h5>
                   <strong>Customer</strong>
                 </h5>
-                <p>Admin Doe</p>
+                <p>Admin</p>
                 <p>
                   <a href={`mailto:admin@example.com`}>admin@example.com</a>
                 </p>
@@ -44,12 +44,12 @@ const OrderScreen = () => {
                 <p>Shipping: Tanzania</p>
                 <p>Pay method: Paypal</p>
 
-                <div className="bg-info p-2 col-12">
-                  <p className="text-white text-center text-sm-start">
+              </div>
+                <div className="paid-status p-1 col-12">
+                  <p className="text-white text-center">
                     Paid on Jan 12 2021
                   </p>
                 </div>
-              </div>
             </div>
           </div>
           {/* 3 */}
@@ -67,12 +67,12 @@ const OrderScreen = () => {
                 <p>
                   Address: Arusha Tz, Ngaramtoni Crater, P.O BOX 1234 Arusha Tz
                 </p>
-                <div className="bg-danger p-1 col-12">
-                  <p className="text-white text-center text-sm-start">
+              </div>
+                <div className="deliveried-status bg-danger p-1 col-12">
+                  <p className="text-white text-center">
                     Not Delivered
                   </p>
                 </div>
-              </div>
             </div>
           </div>
         </div>
