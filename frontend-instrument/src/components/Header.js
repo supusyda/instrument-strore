@@ -123,7 +123,7 @@ const Header = (props) => {
                   <img
                     alt="logo"
                     src="/images/logo.png"
-                    className="shadow-sm bg-body rounded rounded-circle"
+                    className="shadow bg-body rounded rounded-circle"
                   />
                 </Link>
               </div>
@@ -131,7 +131,7 @@ const Header = (props) => {
                 <form className="input-group">
                   <input
                     type="search"
-                    className="form-control rounded search"
+                    className="form-control search"
                     placeholder="Search"
                   />
                   <button type="submit" className="search-button">

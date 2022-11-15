@@ -63,10 +63,11 @@ textarea:focus {
 }
 .header-menu {
   position: fixed;
-  background-color: black;
+  background-color: #ffffff;
   justify-content: stretch;
   z-index: 1000;
   width: 100%;
+  border-bottom: 0.1px solid #ebebeb;
 }
 .nav-menu {
   display: flex;
@@ -77,21 +78,16 @@ textarea:focus {
   list-style-type: none;
   color: #fff;
 }
-.nav-menu li p {
-  display: block;
-  padding: 0 20px;
-  line-height: 50px;
-  color: white;
-}
 .nav-menu li a {
   display: block;
   padding: 0 20px;
   line-height: 50px;
-  color: white;
+  color: #212529;
 }
 .nav-menu li a:hover {
   cursor: pointer;
-  background-color: gray;
+  background-color: #dee2e6;
+  border-radius: 10px;
 }
 .navbar-brand img {
   width: 60%;
@@ -258,7 +254,14 @@ textarea:focus {
   font-size: 19px;
 }
 .rating {
+  display: flex;
   margin: 5px 0;
+}
+.rating-icon {
+  background-color: rgba(0, 0, 0, 0.08);
+  margin-right: 8px;
+  border-radius: 8px;
+  padding: 6px 0 6px 8px ;
 }
 .rating i {
   font-size: 15px;
@@ -788,4 +791,57 @@ textarea:focus {
 
 .space-bottom {
   margin-bottom: 50px;
+}
+
+/* About Section */
+.aboutSection {
+  padding: 70px 0;
+}
+.about-heading h2 {
+  margin-bottom: 20px;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+}
+.about-heading h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: #000;
+  margin: 10px auto;
+}
+.about-Box,
+.box-about,
+.about-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box-about {
+  width: 90%;
+  flex-direction: column;
+  padding: 60px 0;
+  border-radius: 5px;
+  box-shadow: 0px 0px 27px 0px rgb(180, 180, 180);
+  background-color: #002c3e;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+.about-image {
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  color: #ffffff;
+}
+.box-about h5 {
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+.box-about p {
+  font-size: 16px;
+  text-align: center;
+  margin: 0 5px;
 }
