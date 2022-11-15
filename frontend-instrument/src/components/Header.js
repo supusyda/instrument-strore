@@ -23,7 +23,7 @@ const Header = (props) => {
     }
     setUserData(res.data);
 
-    return () => {};
+    return () => { };
   }, [res]);
 
   return (
@@ -39,7 +39,7 @@ const Header = (props) => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link>Product</Link>
+                <Link to={"/shopsection"}>Product</Link>
               </li>
               <li>
                 <Link to="/contactinfo">Contact</Link>
@@ -149,9 +149,8 @@ const Header = (props) => {
                       aria-haspopup="true"
                       aria-expanded="false"
                       style={{
-                        backgroundImage: `url(${
-                          userData.image ? userData.image : ""
-                        })`,
+                        backgroundImage: `url(${userData.image ? userData.image : ""
+                          })`,
                         // background: "round",
                         backgroundSize: "cover",
                         height: "100px",

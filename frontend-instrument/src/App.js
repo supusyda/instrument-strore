@@ -15,8 +15,8 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 import AdminPage from "./admin/adminHome";
-import Header from "./components/Header";
 import AboutSection from "./components/homeComponents/AboutSection";
+import ProductScreen from "./screens/ProductScreen"
 
 const App = () => {
   return (
@@ -36,7 +36,8 @@ const App = () => {
         <Route path="/order" component={OrderScreen} />
         <Route path="/admin" component={AdminPage} />
         <Route path="*" component={NotFound} />
-        <Route path="/about" component={AboutSection} />
+        <Route path="/allproducts" component={ProductScreen} />
+        <Route path="/about" component={AboutSection}/>
       </Switch>
     </Router>
   );

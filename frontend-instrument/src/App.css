@@ -159,19 +159,6 @@ textarea:focus {
 .pc-header {
   margin-top: 50px;
 }
-/* Slider */
-.slider {
-  height: 1000px;
-}
-
-.slider-item1 {
-   background: url("https://i.ytimg.com/vi/yUJwC7INGNo/maxresdefault.jpg") no-repeat top / cover;
-   height: 500px;
-}
-
-.space-bottom {
-  margin-bottom: 50px;
-}
 /* SHOP */
 .section {
   width: 100%;
@@ -300,6 +287,8 @@ textarea:focus {
   color: green;
 }
 .shopBack .img-box {
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
 }
