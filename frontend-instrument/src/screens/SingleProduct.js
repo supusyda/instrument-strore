@@ -5,19 +5,46 @@ import { Link, useParams } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import products from "../data/Products";
 import { getAllInstrument } from "../services/instrumentService";
-const SingleProduct = ({ match }) => {
+import useFetch from "../customize/useFetch";
+import Cookies from "universal-cookie";
+import { useHistory } from "react-router-dom";
 
+const SingleProduct = ({ match }) => {
+  window.scrollTo(0, 0);
+  const history = useHistory();
+
+  const cookies = new Cookies();
   const { id } = useParams();
   const product = products.find((p) => String(p._id) === id);
-
   let [instrument, setInstrument] = useState([]);
-  let [res, setRes] = useState([]);
+  let [islogin, setIsLogin] = useState(false);
   let [loading, setLoading] = useState(true);
+  let handleAddToCart = () => {
+    if (cookies.get("cartItemID")) {
+      const cartItemIDCookie = cookies.get("cartItemID");
+
+      if (match.params.id in cartItemIDCookie) {
+        cartItemIDCookie[match.params.id] =
+          Number(cartItemIDCookie[match.params.id]) + 1;
+      } else {
+        cartItemIDCookie[match.params.id] = 1;
+      }
+      const cartItemID = cartItemIDCookie;
+      cookies.set("cartItemID", cartItemID, { path: "/" });
+      console.log("cartItemID", cookies.get("cartItemID"));
+    } else {
+      let emtyArr = [];
+      emtyArr[match.params.id] = 1;
+      cookies.set("cartItemID", emtyArr, { path: "/" });
+      console.log(cookies.get("cartItemID"));
+    }
+    history.push("/cart");
+  };
   useEffect(() => {
     let data = async () => {
       try {
         let respones = await getAllInstrument(match.params.id);
-        setRes(respones.data);
+
         setLoading(false);
         setInstrument(respones.data.data);
       } catch (error) {
@@ -25,16 +52,30 @@ const SingleProduct = ({ match }) => {
       }
     };
     data();
-    return () => { };
-  });
+
+    return () => {};
+  }, []);
+
   return (
     <>
-      <Header />
+      {console.log("islogin", islogin)}
+      <Header setIsLogin={setIsLogin} />
       <div className="container single-product">
         <div className="row">
           <div className="col-md-6">
             <div className="single-image">
-              <img src={product.image} alt={instrument.name} />
+              <div
+                style={{
+                  backgroundImage: `url(${
+                    instrument.image ? instrument.image : ""
+                  })`,
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  height: "100%",
+                  width: "100%",
+                }}
+              ></div>
             </div>
           </div>
           <div className="col-md-6">
@@ -42,47 +83,79 @@ const SingleProduct = ({ match }) => {
               <div className="product-info">
                 <div className="product-name">{instrument.name}</div>
               </div>
-              <p>{product.description}</p>
+
+              <p>
+                {instrument.musicalInstrumentDetail
+                  ? instrument.musicalInstrumentDetail.description
+                  : ""}
+              </p>
 
               <div className="product-count col-lg-7 ">
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
 
+
                   <span>{product.price}VNĐ</span>
+
 
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>
-                  {product.countInStock > 0 ? (
+                  {instrument.inStock > 0 ? (
                     <span>In Stock</span>
                   ) : (
                     <span>unavailable</span>
                   )}
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
-                  <h6>Reviews</h6>
-                  <Rating
+                  <h6>Like</h6>
+                  {/* <Rating
                     value={product.rating}
+
                     text={`${product.numReviews}`}
                   />
+
                 </div>
-                {product.countInStock > 0 ? (
+                {instrument.inStock > 0 ? (
                   <>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Quantity</h6>
                       <select>
-                        {[...Array(product.countInStock).keys()].map((x) => (
+                        {[...Array(instrument.inStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
                             {x + 1}
                           </option>
                         ))}
                       </select>
                     </div>
+
+                    <button
+                      className="round-black-btn"
+                      onClick={() => {
+                        handleAddToCart();
+                      }}
+                    >
+                      Add To Cart
+                    </button>
+
                     <Link to="/cart/:id?">
                       <button className="round-black-btn">Add To Cart</button>
                     </Link>
+
                   </>
-                ) : null}
+                ) : (
+                  <>
+                    <div className="flex-box d-flex justify-content-between align-items-center">
+                      <h6>Quantity</h6>
+                      <select>
+                        <option key={0} value={0}>
+                          {0}
+                        </option>
+                      </select>
+                    </div>
+                    <button className="round-black-btn ">Out of Stock</button>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -134,15 +207,19 @@ const SingleProduct = ({ match }) => {
                 </button>
               </div>
             </form>
-            <div className="my-3">
-              <Message variant={"alert-warning"}>
-                Please{" "}
-                <Link to="/login">
-                  " <strong>Login</strong> "
-                </Link>{" "}
-                to write a review{" "}
-              </Message>
-            </div>
+            {islogin === true ? (
+              ""
+            ) : (
+              <div className="my-3">
+                <Message variant={"alert-warning"}>
+                  Please{" "}
+                  <Link to="/login">
+                    " <strong>Login</strong> "
+                  </Link>{" "}
+                  to write a review{" "}
+                </Message>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -11,4 +11,7 @@ const editUser = (userData) => {
 const login = (userData) => {
   return axios.post(`/api/user/login`, userData); //tim dc all va tim dc one nguoi
 };
-export { createUser, deleUser, editUser, login };
+const logout = (userData) => {
+  return axios.post(`/api/user/logout`, userData); //tim dc all va tim dc one nguoi
+};
+export { createUser, deleUser, editUser, login, logout };

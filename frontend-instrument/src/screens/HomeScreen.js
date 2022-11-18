@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./../components/Header";
 import ShopSection from "./../components/homeComponents/ShopSection";
 import ContactInfo from "./../components/homeComponents/ContactInfo";
@@ -8,11 +8,18 @@ import SlideShow from "../components/SlideShow";
 
 const HomeScreen = () => {
   window.scrollTo(0, 0);
+  let [cartItem, setCartItem] = useState(0);
+  let [islogin, setIsLogin] = useState(false);
+
+  let addToCart = (number) => {
+    setCartItem(cartItem + number);
+    console.log(number);
+  };
   return (
     <div>
-      <Header />
+      <Header cartItem={cartItem} setIsLogin={setIsLogin} />
       <SlideShow />
-      <ShopSection />
+      <ShopSection addToCart={addToCart} islogin={islogin} />
       <CalltoActionSection />
       <ContactInfo />
       <Footer />
