@@ -2,24 +2,57 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import useFetch from "../customize/useFetch";
+import { logout } from "../services/userService";
+import { useHistory } from "react-router-dom";
 
 const Header = (props) => {
   const cookies = new Cookies();
+  let history = useHistory();
   let [userID, setUserID] = useState(cookies.get("userID"));
+  let [cartItem, setCartItem] = useState(
+    cookies.get("cartItemID") ? cookies.get("cartItemID") : []
+  );
   let [userData, setUserData] = useState(null);
+  // let [cartItem,setCartItem]=useState([]);
   let { res, refesh } = useFetch(
     `http://localhost:8080/api/user/get?userID=${userID}`
   );
+  const getItemVolunm = (arrItem) => {
+    let sum = 0;
+    if (arrItem) {
+      arrItem.map((item) => {
+        if (item) sum += 1;
+      });
+    }
+    if (props.cartItem) return sum + props.cartItem;
+    return sum;
+  };
   if (props.froceRerender) {
     if (props.updateSuccess === true) {
       refesh();
       props.froceRerender();
     }
   }
+  let logoutUser = async () => {
+    if (userData) {
+      let res = await logout(userData);
+      setUserData(null);
+      cookies.remove("userID");
+      cookies.remove("refresh");
+      cookies.remove("token");
+      if (props.setIsLogin) {
+        props.setIsLogin(false);
+      }
+      console.log(cookies.get("token"));
+      history.push("/login");
+    }
+  };
   useEffect(() => {
     if (props.getUserFormHeader) {
       props.getUserFormHeader(res.data);
-      console.log("RỂNDẺ");
+    }
+    if (props.setIsLogin && res.data) {
+      props.setIsLogin(true);
     }
     setUserData(res.data);
 
@@ -28,9 +61,6 @@ const Header = (props) => {
 
   return (
     <div>
-      {console.log("userData", userData)}
-      {console.log("res", res)}
-
       <div className="header-menu">
         <div className="container ">
           <div className="d-flex space-between">
@@ -51,6 +81,11 @@ const Header = (props) => {
               </li>
               <li>
                 <Link to="/register">Register</Link>
+              </li>
+              <li>
+                <Link to="" onClick={() => logoutUser()}>
+                  logut
+                </Link>
               </li>
             </ul>
           </div>
@@ -181,7 +216,7 @@ const Header = (props) => {
 
                 <Link to="/cart" className="cart-pc-item">
                   <i class="fas fa-shopping-cart"></i>
-                  <span className="badge">4</span>
+                  <span className="badge">{getItemVolunm(cartItem)}</span>
                 </Link>
               </div>
             </div>

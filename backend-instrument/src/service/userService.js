@@ -26,6 +26,12 @@ let createNewUser = async (data) => {
         position: data.position,
         image: data.image,
       });
+    } else if (data.roleCreate === "google") {
+      res = await db.User.create({
+        image: data.image,
+        lastName: data.lastName,
+        email: data.email,
+      });
     } else {
       res = await db.User.create({
         password: newPass,
@@ -165,17 +171,15 @@ let check_email = async (userEmail) => {
 let loginUser = async (loginInfo) => {
   try {
     console.log(loginInfo);
-    let { email, password } = loginInfo;
+    let { email } = loginInfo;
     let haveUser = check_email(email);
 
     if (haveUser) {
-      let user = await db.User.findOne({
-        where: { email: email },
-        attributes: { exclude: ["refreshToken", "image"] },
-      });
-      const isRightPass = await bcrypt.compare(password, user.password);
-
-      if (isRightPass) {
+      if (loginInfo.logInWithGoogle === true) {
+        let user = await db.User.findOne({
+          where: { email: email },
+          attributes: { exclude: ["refreshToken", "image"] },
+        });
         let userPlain = (await user).get({ plain: true });
         userPlain.password = null;
 
@@ -202,6 +206,42 @@ let loginUser = async (loginInfo) => {
           errCode: 0,
           errMessage: "login Success",
         };
+      } else {
+        let { password } = loginInfo;
+        let user = await db.User.findOne({
+          where: { email: email },
+          attributes: { exclude: ["refreshToken", "image"] },
+        });
+        const isRightPass = await bcrypt.compare(password, user.password);
+
+        if (isRightPass) {
+          let userPlain = (await user).get({ plain: true });
+          userPlain.password = null;
+
+          console.log(process.env.ACCESS_TOKEN_SERCECT);
+          const accessToken = jwt.sign(
+            userPlain,
+            process.env.ACCESS_TOKEN_SERCECT,
+            {
+              expiresIn: "5s",
+            }
+          );
+          const refreshToken = jwt.sign(
+            userPlain,
+            process.env.ACCESS_TOKEN_REFRESH
+          );
+          if (user) {
+            user.refreshToken = refreshToken;
+            await user.save();
+          }
+
+          // console.log(isRightPass);
+          return {
+            data: { accessToken, refreshToken, userID: userPlain.id },
+            errCode: 0,
+            errMessage: "login Success",
+          };
+        }
 
         // if (isRightPass) {
         //   return { data: user, errCode: 0, errMessage: "login Success" };
@@ -217,11 +257,27 @@ let loginUser = async (loginInfo) => {
     return { errCode: -1, errMessage: "something wrong with service" };
   }
 };
-
+let logoutUser = async (logoutInfo) => {
+  try {
+    console.log(loginInfo);
+    let { userID } = logoutInfo;
+    let user = await db.User.findOne({
+      where: { id: userID },
+    });
+    if (user) {
+      user.refreshToken = "";
+      user.save();
+    }
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1, errMessage: "something wrong with service" };
+  }
+};
 module.exports = {
   createUserService: createNewUser,
   getAllUserService: getAllUser,
   deleteUserService: deleteUser,
   editUserService: editUser,
   loginUserService: loginUser,
+  logoutUserService: logoutUser,
 };

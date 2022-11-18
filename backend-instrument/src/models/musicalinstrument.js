@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "instrumentID",
         as: "interact",
       });
+      musicalInstrument.hasOne(models.markdown, {
+        foreignKey: "instrumentID",
+        as: "musicalInstrumentDetail",
+      });
       // musicalInstrument.hasMany(models.comment, {
       //   foreignKey: "id",
       //   as: "comments",
@@ -40,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       price: DataTypes.INTEGER,
       inStock: DataTypes.INTEGER,
+      image: DataTypes.BLOB("long"),
     },
     {
       sequelize,

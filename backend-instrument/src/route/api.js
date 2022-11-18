@@ -31,10 +31,14 @@ let initRouter = (app) => {
   router.delete("/api/user/delete", home.deleUser);
   router.put("/api/user/update", home.editUser);
   router.post("/api/user/login", home.loginUser);
+  router.post("/api/user/logout", home.logoutUser);
+
   router.get("/api/user/testMail", home.testMail);
 
   router.post("/api/instrument/create", Instrument.addinstrument);
   router.get("/api/instrument/get", Instrument.getinstrument);
+  router.post("/api/instrument/getSpecific", Instrument.getSpecificInstrument);
+
   router.delete("/api/instrument/delete", Instrument.deleteInstrument);
   router.put("/api/instrument/update", Instrument.updateInstrument);
   router.get("/api/instrument/bestSeller", Instrument.getBestSeller);
