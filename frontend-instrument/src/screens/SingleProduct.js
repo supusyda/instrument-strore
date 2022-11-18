@@ -52,8 +52,10 @@ const SingleProduct = ({ match }) => {
       }
     };
     data();
+
     return () => {};
   }, []);
+
   return (
     <>
       {console.log("islogin", islogin)}
@@ -92,7 +94,10 @@ const SingleProduct = ({ match }) => {
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
 
-                  <span>{instrument.price} vnđ</span>
+
+                  <span>{product.price}VNĐ</span>
+
+
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>
@@ -106,8 +111,10 @@ const SingleProduct = ({ match }) => {
                   <h6>Like</h6>
                   {/* <Rating
                     value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  /> */}
+
+                    text={`${product.numReviews}`}
+                  />
+
                 </div>
                 {instrument.inStock > 0 ? (
                   <>
@@ -121,6 +128,7 @@ const SingleProduct = ({ match }) => {
                         ))}
                       </select>
                     </div>
+
                     <button
                       className="round-black-btn"
                       onClick={() => {
@@ -129,6 +137,11 @@ const SingleProduct = ({ match }) => {
                     >
                       Add To Cart
                     </button>
+
+                    <Link to="/cart/:id?">
+                      <button className="round-black-btn">Add To Cart</button>
+                    </Link>
+
                   </>
                 ) : (
                   <>

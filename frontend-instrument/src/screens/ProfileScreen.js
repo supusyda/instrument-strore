@@ -17,7 +17,7 @@ const ProfileScreen = () => {
   };
   // let { res } = useFetch(`http://localhost:8080/api/user/get?userID=${userID}`);
   useEffect(() => {
-    return () => {};
+    return () => { };
   }, []);
 
   window.scrollTo(0, 0);
@@ -92,26 +92,32 @@ const ProfileScreen = () => {
           </div>
 
           {/* panels */}
-          <div
-            class="tab-content col-lg-8 pb-5 pt-lg-0 pt-3"
-            id="v-pills-tabContent"
-          >
+          <div className="col-lg-8">
+            <input type="checkbox" name="open-bar" id="open-bar" />
+            <label for="open-bar" class="open-bar">
+              <i class="fas fa-bars"></i>
+            </label>
             <div
-              class="tab-pane fade show active"
-              id="v-pills-home"
-              role="tabpanel"
-              aria-labelledby="v-pills-home-tab"
+              class="receipt tab-content col-lg-12"
+              id="v-pills-tabContent"
             >
-              <ProfileTabs userData={userData} froceRerender={froceRerender} />
-            </div>
-            <div
-              class="tab-pane fade"
-              id="v-pills-profile"
-              role="tabpanel"
-              aria-labelledby="v-pills-profile-tab"
-            >
-              {userData&&<Orders userID={userData.id} />}
-              
+              <div
+                class="tab-pane fade show active"
+                id="v-pills-home"
+                role="tabpanel"
+                aria-labelledby="v-pills-home-tab"
+              >
+                <ProfileTabs userData={userData} froceRerender={froceRerender} />
+              </div>
+              <div
+                class="tab-pane fade"
+                id="v-pills-profile"
+                role="tabpanel"
+                aria-labelledby="v-pills-profile-tab"
+              >
+                {userData && <Orders userID={userData.id} />}
+
+              </div>
             </div>
           </div>
         </div>
