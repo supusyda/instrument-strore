@@ -78,6 +78,22 @@ let loginUser = async (req, res) => {
     });
   }
 };
+let logoutUser = async (req, res) => {
+  try {
+    const loginInfo = req.body;
+
+    let data = await User.logoutUser(loginInfo);
+    // res.cookie("token", data.data.accessToken, { httpOnly: true });
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
 let testMail = async (req, res) => {
   try {
     let testAccount = await nodemailer.createTestAccount();
@@ -118,4 +134,5 @@ module.exports = {
   editUser: editUser,
   loginUser: loginUser,
   testMail: testMail,
+  logoutUser: logoutUser,
 };

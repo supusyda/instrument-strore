@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./../components/Header";
 import { Form } from "reactstrap";
 import { createUser } from "../services/userService";
 import { useHistory } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const Register = () => {
   window.scrollTo(0, 0);
+  const google = window.google;
 
   let [userData, setUserData] = useState({
     lastName: "",
@@ -26,7 +28,7 @@ const Register = () => {
     let data = userData;
     console.log("data=>", data);
     if (checkValidate(data) === true) {
-      data.roleCreate = "client";
+      data.roleCreate = "google";
       data.role = "R2";
       let res = await createUser(data);
       console.log(res);
@@ -43,6 +45,35 @@ const Register = () => {
     setUserData(tempData);
     console.log(tempData);
   };
+
+  const handleRespone = async (respone) => {
+    let userGoogleData = await jwtDecode(respone.credential);
+    let temp = userData;
+    temp.email = userGoogleData.email;
+    temp.lastName = userGoogleData.given_name;
+    // let toBase64 = await encodeImageFileAsURL(userGoogleData.picture);
+    temp.roleCreate = "client";
+    temp.role = "R2";
+    console.log(temp);
+    let res = await createUser(temp);
+    console.log(res);
+    alert("success Register");
+    history.push("/login");
+    console.log(userGoogleData);
+  };
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "865988452655-41c4rohrrp90fc36u48178sibfakisqt.apps.googleusercontent.com",
+      callback: handleRespone,
+    });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+    return () => {};
+  }, []);
   return (
     <>
       <Header />
@@ -74,6 +105,7 @@ const Register = () => {
           />
 
           <button type="submit">Register</button>
+          <p id="signInDiv"></p>
           <p>
             <Link to={"/login"}>
               I Have Account <strong>Login</strong>
