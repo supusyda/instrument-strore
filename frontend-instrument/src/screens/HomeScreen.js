@@ -6,6 +6,7 @@ import CalltoActionSection from "./../components/homeComponents/CalltoActionSect
 import Footer from "./../components/Footer";
 import SlideShow from "../components/SlideShow";
 import AboutSection from "../components/homeComponents/AboutSection";
+import Review from "../components/homeComponents/Review";
 
 const HomeScreen = () => {
   window.scrollTo(0, 0);
@@ -16,6 +17,7 @@ const HomeScreen = () => {
       <AboutSection />
       <ShopSection />
       <CalltoActionSection />
+      <Review />
       <ContactInfo />
       <Footer />
     </div>

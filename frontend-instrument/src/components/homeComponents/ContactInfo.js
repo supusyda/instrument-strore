@@ -3,6 +3,9 @@ import React from "react";
 const ContactInfo = () => {
   return (
     <div className="contactInfo container">
+      <div className="heading-about">
+        <h2>Our Contact</h2>
+      </div>
       <div className="row">
         <div className="col-12 col-md-4 contact-Box">
           <div className="box-info">

@@ -17,6 +17,7 @@ import NotFound from "./screens/NotFound";
 import AdminPage from "./admin/adminHome";
 import AboutSection from "./components/homeComponents/AboutSection";
 import ProductScreen from "./screens/ProductScreen"
+import Review from "./components/homeComponents/Review";
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="*" component={NotFound} />
         <Route path="/allproducts" component={ProductScreen} />
         <Route path="/about" component={AboutSection}/>
+        <Route path="/review" component={Review} />
       </Switch>
     </Router>
   );
