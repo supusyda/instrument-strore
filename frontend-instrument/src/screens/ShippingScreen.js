@@ -88,6 +88,7 @@ const ShippingScreen = () => {
       {console.log("paymentCode", paymentCode)}
       <Header getUserFormHeader={getUserFormHeader} />
       <div className="container d-flex justify-content-center align-items-center login-center">
+
         {userData ? (
           <>
             {" "}
@@ -137,6 +138,7 @@ const ShippingScreen = () => {
         ) : (
           <h6>LOGIN TO CONTINUTE</h6>
         )}
+
       </div>
     </>
   );

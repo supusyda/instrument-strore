@@ -58,7 +58,7 @@ const Header = (props) => {
     }
     setUserData(res.data);
 
-    return () => {};
+    return () => { };
   }, [res]);
 
   return (
@@ -71,7 +71,7 @@ const Header = (props) => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link>Product</Link>
+                <Link to={"/shopsection"}>Product</Link>
               </li>
               <li>
                 <Link to="/contactinfo">Contact</Link>
@@ -167,7 +167,7 @@ const Header = (props) => {
                   <img
                     alt="logo"
                     src="/images/logo.png"
-                    className="shadow-sm bg-body rounded rounded-circle"
+                    className="shadow bg-body rounded rounded-circle"
                   />
                 </Link>
               </div>
@@ -175,7 +175,7 @@ const Header = (props) => {
                 <form className="input-group">
                   <input
                     type="search"
-                    className="form-control rounded search"
+                    className="form-control search"
                     placeholder="Search"
                   />
                   <button type="submit" className="search-button">
@@ -193,9 +193,8 @@ const Header = (props) => {
                       aria-haspopup="true"
                       aria-expanded="false"
                       style={{
-                        backgroundImage: `url(${
-                          userData.image ? userData.image : ""
-                        })`,
+                        backgroundImage: `url(${userData.image ? userData.image : ""
+                          })`,
                         // background: "round",
                         backgroundSize: "cover",
                         height: "100px",
