@@ -1,12 +1,12 @@
 import React from "react";
 
-const Rating = ({ text }) => {
+const Rating = ({ like, dislike }) => {
   return (
     <div className="rating">
       <i class="fal fa-thumbs-up"></i>
-      <span>{text && text}</span>
+      <span>{like && like}</span>
       <i class="fal fa-thumbs-down"></i>
-      <span>{text && text}</span>
+      <span>{dislike && dislike}</span>
     </div>
   );
 };

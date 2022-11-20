@@ -113,8 +113,8 @@ let getSpecificInstrumentService = async (instrumentIDs, Number) => {
             item.image = new Buffer(item.image, "base64").toString("binary");
         });
         await res.map((item) => {
-          item.numberBuy = Number[item.id];
-          console.log("item.numberBuy", item);
+          item.amount = Number[item.id];
+          console.log("item.amount", item);
           return item;
         });
       }
