@@ -19,13 +19,21 @@ const SingleProduct = ({ match }) => {
   let [instrument, setInstrument] = useState([]);
   let [islogin, setIsLogin] = useState(false);
   let [loading, setLoading] = useState(true);
+  let [number, setNumber] = useState(1);
+  let handleInput = (number) => {
+    if (instrument.inStock - number < 0) {
+      alert("not enough in stock");
+    } else {
+      setNumber(number);
+    }
+  };
   let handleAddToCart = () => {
     if (cookies.get("cartItemID")) {
       const cartItemIDCookie = cookies.get("cartItemID");
 
       if (match.params.id in cartItemIDCookie) {
         cartItemIDCookie[match.params.id] =
-          Number(cartItemIDCookie[match.params.id]) + 1;
+          Number(cartItemIDCookie[match.params.id]) + Number(number);
       } else {
         cartItemIDCookie[match.params.id] = 1;
       }
@@ -34,7 +42,7 @@ const SingleProduct = ({ match }) => {
       console.log("cartItemID", cookies.get("cartItemID"));
     } else {
       let emtyArr = [];
-      emtyArr[match.params.id] = 1;
+      emtyArr[match.params.id] = number;
       cookies.set("cartItemID", emtyArr, { path: "/" });
       console.log(cookies.get("cartItemID"));
     }
@@ -58,7 +66,6 @@ const SingleProduct = ({ match }) => {
 
   return (
     <>
-      {console.log("islogin", islogin)}
       <Header setIsLogin={setIsLogin} />
       <div className="container single-product">
         <div className="row">
@@ -94,15 +101,12 @@ const SingleProduct = ({ match }) => {
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Price</h6>
 
-
-                  <span>{product.price}VNĐ</span>
-
-
+                  <span>{instrument.price}VNĐ</span>
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Status</h6>
                   {instrument.inStock > 0 ? (
-                    <span>In Stock</span>
+                    <span>In Stock : {instrument.inStock}</span>
                   ) : (
                     <span>unavailable</span>
                   )}
@@ -111,22 +115,30 @@ const SingleProduct = ({ match }) => {
                   <h6>Like</h6>
                   {/* <Rating
                     value={product.rating}
-
                     text={`${product.numReviews}`}
-                  />
-
+                  /> */}
                 </div>
                 {instrument.inStock > 0 ? (
                   <>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Quantity</h6>
-                      <select>
-                        {[...Array(instrument.inStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                      <input
+                        type="text"
+                        defaultValue={number}
+                        value={number}
+                        onPaste={(e) => {
+                          e.preventDefault();
+                          return false;
+                        }}
+                        onKeyPress={(event) => {
+                          if (!/[0-9]/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
+                        onChange={(e) => {
+                          handleInput(e.target.value);
+                        }}
+                      ></input>
                     </div>
 
                     <button
@@ -137,11 +149,6 @@ const SingleProduct = ({ match }) => {
                     >
                       Add To Cart
                     </button>
-
-                    <Link to="/cart/:id?">
-                      <button className="round-black-btn">Add To Cart</button>
-                    </Link>
-
                   </>
                 ) : (
                   <>
@@ -161,7 +168,6 @@ const SingleProduct = ({ match }) => {
           </div>
         </div>
 
-        {/* RATING */}
         <div className="row my-5">
           {/* <div className="col-md-6">
             <h6 className="mb-3">REVIEWS</h6>

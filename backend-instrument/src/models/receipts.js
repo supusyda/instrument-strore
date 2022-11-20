@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       receiptDetailID: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
       totalMoney: DataTypes.INTEGER,
+      payment: DataTypes.TEXT,
+      deliverAddress: DataTypes.TEXT,
     },
     {
       sequelize,

@@ -15,13 +15,11 @@ const ShopSection = (props) => {
   let [loading, setLoading] = useState(true);
   const addToCartHead = (itemID) => {
     if (cookies.get("cartItemID")) {
-      
       const cartItemIDCookie = cookies.get("cartItemID");
       if (itemID in cartItemIDCookie) {
-        if(cartItemIDCookie[itemID]===null)
-        {
+        if (cartItemIDCookie[itemID] === null) {
           props.addToCart(1);
-        }      
+        }
         cartItemIDCookie[itemID] = Number(cartItemIDCookie[itemID]) + 1;
       } else {
         console.log("why mot + 1");
@@ -133,10 +131,10 @@ const ShopSection = (props) => {
                             <button>Out Of Stock</button>
                           )}
 
-                          {/* <Rating
-                            value={instruments.rating}
-                            text={`${product.numReviews} reviews`}
-                          /> */}
+                          <Rating
+                            like={`${5} reviews`}
+                            dislike={`${5} reviews`}
+                          />
 
                           <h3>${instrument.price}</h3>
                         </div>

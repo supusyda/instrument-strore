@@ -15,7 +15,7 @@ const CartScreen = () => {
   let totalMoney = (itemInCart) => {
     let sum = 0;
     itemInCart.map((item) => {
-      sum = sum + item.numberBuy * item.price;
+      sum = sum + item.amount * item.price;
     });
     return sum;
   };
@@ -29,16 +29,19 @@ const CartScreen = () => {
     return check;
   };
   let handleInput = (index, newValue) => {
-    let tempItemInCart = [...itemInCart];
-
-    tempItemInCart[index].numberBuy = Number(newValue);
-    let indexRecietp = tempItemInCart[index].id;
-    console.log("itemInCart", itemInCart);
-    console.log(tempItemInCart);
-    setItemInCart(tempItemInCart);
-    let tempRecieptData = [...recieptData];
-    tempRecieptData[indexRecietp] = Number(newValue);
-    cookies.set("cartItemID", tempRecieptData, { path: "/" });
+    if (itemInCart[index].inStock - newValue >= 0) {
+      let tempItemInCart = [...itemInCart];
+      tempItemInCart[index].amount = Number(newValue);
+      let indexRecietp = tempItemInCart[index].id;
+      console.log("itemInCart", itemInCart);
+      console.log(tempItemInCart);
+      setItemInCart(tempItemInCart);
+      let tempRecieptData = [...recieptData];
+      tempRecieptData[indexRecietp] = Number(newValue);
+      cookies.set("cartItemID", tempRecieptData, { path: "/" });
+    } else {
+      alert("out of stock");
+    }
   };
   let handleDelete = async (itemID) => {
     let tempRecieptData = [...recieptData];
@@ -73,40 +76,17 @@ const CartScreen = () => {
       <Header />
       {/* Cart */}
       <div className="container">
-
-       {itemInCart && !checkItemIncart(itemInCart) ? (
-          
-
-        {/* <div className=" alert alert-info text-center mt-3">
-          Your cart is empty
-          <Link
-            className="btn btn-success mx-5 px-5 py-3"
-            to="/"
-            style={{
-              fontSize: "12px",
-            }}
-          >
-            SHOPPING NOW
-          </Link>
-        </div> */}
-        <div className=" alert alert-info text-center mt-3">
-          Total Cart Products
-          <Link className="text-success mx-2" to="/cart">
-            (4)
-          </Link>
-        </div>
-        {/* cartiterm */}
-        <div className="cart-iterm row">
-          <div className="remove-button d-flex justify-content-center align-items-center">
-            <i className="fas fa-times"></i>
-          </div>
-          <div className="cart-image col-md-3">
-            <img src="/images/1.png" alt="nike" />
-          </div>
-          <div className="cart-text col-md-5 d-flex align-items-center">
-            <Link to="#">
-              <h4>Nike Girls Shoe</h4>
-
+        {itemInCart && !checkItemIncart(itemInCart) ? (
+          <div className=" alert alert-info text-center mt-3">
+            Your cart is empty
+            <Link
+              className="btn btn-success mx-5 px-5 py-3"
+              to="/"
+              style={{
+                fontSize: "12px",
+              }}
+            >
+              SHOPPING NOW
             </Link>
           </div>
         ) : (
@@ -151,7 +131,8 @@ const CartScreen = () => {
 
                         <input
                           type="text"
-                          defaultValue={item.numberBuy}
+                          defaultValue={item.amount}
+                          value={item.amount}
                           onPaste={(e) => {
                             e.preventDefault();
                             return false;
@@ -168,7 +149,7 @@ const CartScreen = () => {
                       </div>
                       <div className="cart-price mt-3 mt-md-0 col-md-2 align-items-sm-end align-items-start  d-flex flex-column justify-content-center col-sm-7">
                         <h6>SUBTOTAL</h6>
-                        <h4>${Number(item.numberBuy * item.price)}</h4>
+                        <h4>${Number(item.amount * item.price)}</h4>
                       </div>
                     </div>
                   );
@@ -200,5 +181,4 @@ const CartScreen = () => {
     </>
   );
 };
-
 export default CartScreen;

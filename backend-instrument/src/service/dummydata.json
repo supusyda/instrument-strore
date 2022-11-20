@@ -1,6 +1,8 @@
 {
   "userID": 30,
   "totalMoney": 10000,
+  "payment":"",
+  
   "details": [
     { "amount": 3, "instrumentID": 3, "money": 100000 },
     { "amount": 3, "instrumentID": 4, "money": 100000 },

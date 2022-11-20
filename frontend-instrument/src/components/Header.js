@@ -40,6 +40,8 @@ const Header = (props) => {
       cookies.remove("userID");
       cookies.remove("refresh");
       cookies.remove("token");
+      cookies.remove("cartItemID");
+
       if (props.setIsLogin) {
         props.setIsLogin(false);
       }
@@ -76,20 +78,27 @@ const Header = (props) => {
               </li>
             </ul>
             <ul className="nav-menu">
-              <li>
-                <p>Hello, guy</p>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                <Link to="" onClick={() => logoutUser()}>
-                  logut
-                </Link>
-              </li>
+              {userData ? (
+                <>
+                  <li>
+                    <Link to="" onClick={() => logoutUser()}>
+                      logut
+                    </Link>
+                  </li>
+                  <li>
+                    <p>Hello, {userData.lastName}</p>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">Register</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
