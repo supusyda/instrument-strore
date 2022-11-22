@@ -7,15 +7,23 @@ let createNewInstrument = async (data) => {
       name: data.name,
       price: data.price,
       type: data.type,
+      inStock: data.inStock,
+      image: data.image,
     });
+    let instrumentID = musicalInstrumentData.id;
     let interactData = await db.interact.create({
       view: 0,
       likes: 0,
       dislikes: 0,
-      intrumentID: musicalInstrumentData.id,
+      instrumentID: instrumentID,
+    });
+    let instrumentData = await db.markdown.create({
+      description: data.description,
+      contentHTML: data.contentHTML,
+      instrumentID: data.instrumentID,
     });
     return {
-      data: [musicalInstrumentData, interactData],
+      data: [musicalInstrumentData, interactData, instrumentData],
       errMessage: "successlly create new musical Instrument",
       errCode: "0",
     };
@@ -40,6 +48,12 @@ let getAllInstrument = async (instrumentID) => {
           },
         ],
       });
+      if (res) {
+        res.map((item) => {
+          if (item.image)
+            item.image = new Buffer(item.image, "base64").toString("binary");
+        });
+      }
       return {
         data: res,
         errMessage: "successlly get all musical Instrument",
@@ -54,9 +68,17 @@ let getAllInstrument = async (instrumentID) => {
             as: "interact",
             attributes: { exclude: ["blogID"] },
           },
+          {
+            model: db.markdown,
+            as: "musicalInstrumentDetail",
+            attributes: ["description"],
+          },
         ],
       });
       if (res) {
+        if (res.image) {
+          res.image = new Buffer(res.image, "base64").toString("binary");
+        }
         return {
           data: res,
           errMessage: "successlly get an musical Instrument",
@@ -69,6 +91,41 @@ let getAllInstrument = async (instrumentID) => {
           errCode: "-1",
         };
       }
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      errMessage: "some thing wrong with service ....",
+      errCode: "-1",
+    };
+  }
+};
+let getSpecificInstrumentService = async (instrumentIDs, Number) => {
+  try {
+    if (instrumentIDs.length > 0) {
+      let res = await db.musicalInstrument.findAll({
+        where: { id: instrumentIDs },
+        raw: true,
+      });
+      if (res) {
+        res.map((item) => {
+          if (item.image)
+            item.image = new Buffer(item.image, "base64").toString("binary");
+        });
+        await res.map((item) => {
+          item.amount = Number[item.id];
+          console.log("item.amount", item);
+          return item;
+        });
+      }
+
+      return {
+        data: res,
+        errMessage: "successlly get specific musical Instrument",
+        errCode: "0",
+      };
+    } else {
+      return { data: [], errCode: -1, errMessage: "no data" };
     }
   } catch (error) {
     console.log(error);
@@ -182,4 +239,5 @@ module.exports = {
   deleteInstrumentService: deleteInstrument,
   editInstrumentService: editInstrument,
   getBestSellerService: getBestSellerService,
+  getSpecificInstrumentService: getSpecificInstrumentService,
 };
