@@ -17,15 +17,16 @@ const admin = () => {
       <div className="admin-contain">
         <AdminHeader></AdminHeader>{" "}
         <div className="left-content">
-       
           <Sidebar></Sidebar>
         </div>
+        <div className="right-content">
         <Switch>
           <Route path="/admin/started" component={Dashboard} />
           <Route path="/admin/product" component={Product} />
           <Route path="/admin/user" component={Users} />
           <Route path="/admin/product" component={Login} />
         </Switch>
+        </div>
         <ToastContainer></ToastContainer>
       </div>
     </>

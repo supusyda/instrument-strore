@@ -4,12 +4,6 @@ import "./sidebar.css";
 
 const sidebarNavItems = [
   {
-    display: "Dashboard",
-    icon: <i class="fas fa-chart-line"></i>,
-    to: "/admin/",
-    section: "",
-  },
-  {
     display: "Getting Started",
     icon: <i class="fas fa-star"></i>,
     to: "/admin/started",
@@ -64,7 +58,7 @@ const Sidebar = () => {
         </label>
         {isOpen && (
           <div className="sidebar">
-            <div className="sidebar__logo"></div>
+            <div className="sidebar__title">Dashboard</div>
             <div ref={sidebarRef} className="sidebar__menu">
               {sidebarNavItems.map((item, index) => (
                 <NavLink

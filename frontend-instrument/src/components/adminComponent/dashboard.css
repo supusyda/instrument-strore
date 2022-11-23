@@ -1,5 +1,18 @@
 .dashboard {
-  margin-top: 80px;
   width: 100%;
   height: 1000px;
 }/*# sourceMappingURL=dashboard.css.map */
+
+.dashboard .card-list {
+  justify-content: space-evenly;
+}
+.dashboard .card-icon {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard .card-title,
+.dashboard .card-text {
+  text-align: right;
+}
