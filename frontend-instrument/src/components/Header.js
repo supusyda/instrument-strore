@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import useFetch from "../customize/useFetch";
 import { logout } from "../services/userService";
 import { useHistory } from "react-router-dom";
+import auth from "../utils/auth";
 
 const Header = (props) => {
   const cookies = new Cookies();
@@ -13,10 +14,27 @@ const Header = (props) => {
     cookies.get("cartItemID") ? cookies.get("cartItemID") : []
   );
   let [userData, setUserData] = useState(null);
-  // let [cartItem,setCartItem]=useState([]);
+  let [searchContent, setSearchContent] = useState("");
+
   let { res, refesh } = useFetch(
     `http://localhost:8080/api/user/get?userID=${userID}`
   );
+  const handleSearchInput = (e) => {
+    let value = e.target.value;
+    if (value !== "") {
+      const onlyLettersPattern = /^[A-Za-z]+$/;
+      if (!value.match(onlyLettersPattern)) {
+        alert("No special characters and no numbers, please!");
+      } else {
+        setSearchContent(value);
+      }
+    } else {
+      setSearchContent(value);
+    }
+  };
+  const handleSearchSubmit = () => {
+    history.push(`/shopsection/${searchContent}`);
+  };
   const getItemVolunm = (arrItem) => {
     let sum = 0;
     if (arrItem) {
@@ -35,18 +53,22 @@ const Header = (props) => {
   }
   let logoutUser = async () => {
     if (userData) {
-      let res = await logout(userData);
-      setUserData(null);
-      cookies.remove("userID");
-      cookies.remove("refresh");
-      cookies.remove("token");
-      cookies.remove("cartItemID");
-
-      if (props.setIsLogin) {
-        props.setIsLogin(false);
-      }
-      console.log(cookies.get("token"));
-      history.push("/login");
+      auth.logout(async () => {
+        let res = await logout(userData);
+        if (res.data.errCode == 0) {
+          setUserData(null);
+          await cookies.remove("userID");
+          await cookies.remove("refresh");
+          await cookies.remove("token");
+          await cookies.remove("cartItemID");
+          if (props.setIsLogin) {
+            props.setIsLogin(false);
+          }
+          history.push("/login");
+        } else {
+          alert("some thinng wrong");
+        }
+      });
     }
   };
   useEffect(() => {
@@ -58,7 +80,7 @@ const Header = (props) => {
     }
     setUserData(res.data);
 
-    return () => { };
+    return () => {};
   }, [res]);
 
   return (
@@ -71,7 +93,7 @@ const Header = (props) => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to={"/shopsection"}>Product</Link>
+                <Link to={"/shopsection/"}>Product</Link>
               </li>
               <li>
                 <Link to="/contactinfo">Contact</Link>
@@ -81,9 +103,9 @@ const Header = (props) => {
               {userData ? (
                 <>
                   <li>
-                    <Link to="" onClick={() => logoutUser()}>
+                    <div to="/login" onClick={() => logoutUser()}>
                       logut
-                    </Link>
+                    </div>
                   </li>
                   <li>
                     <p>Hello, {userData.lastName}</p>
@@ -150,7 +172,7 @@ const Header = (props) => {
                       className="form-control rounded search"
                       placeholder="Search"
                     />
-                    <button type="submit" className="search-button">
+                    <button type="submit" className="search-button" on>
                       Search
                     </button>
                   </form>
@@ -177,8 +199,18 @@ const Header = (props) => {
                     type="search"
                     className="form-control search"
                     placeholder="Search"
+                    value={searchContent}
+                    onChange={(e) => {
+                      handleSearchInput(e);
+                    }}
                   />
-                  <button type="submit" className="search-button">
+                  <button
+                    type="button"
+                    className="search-button"
+                    onClick={() => {
+                      handleSearchSubmit();
+                    }}
+                  >
                     Search
                   </button>
                 </form>
@@ -193,8 +225,9 @@ const Header = (props) => {
                       aria-haspopup="true"
                       aria-expanded="false"
                       style={{
-                        backgroundImage: `url(${userData.image ? userData.image : ""
-                          })`,
+                        backgroundImage: `url(${
+                          userData.image ? userData.image : ""
+                        })`,
                         // background: "round",
                         backgroundSize: "cover",
                         height: "100px",
@@ -218,10 +251,11 @@ const Header = (props) => {
                     <Link className="dropdown-item" to="/profile">
                       Profile
                     </Link>
-
-                    <Link className="dropdown-item" to="#">
-                      Logout
-                    </Link>
+                    {userData && userData.position && (
+                      <Link className="dropdown-item" to="/admin">
+                        Admin
+                      </Link>
+                    )}
                   </div>
                 </div>
 

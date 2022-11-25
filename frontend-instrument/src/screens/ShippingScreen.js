@@ -6,15 +6,20 @@ import PlaceOrderScreen from "./PlaceOrderScreen";
 import Cookies from "universal-cookie";
 import { getSpecificInstrument } from "../services/instrumentService";
 import { getPaymentCode, createReceipt } from "../services/recieptService";
-
+import { useHistory } from "react-router-dom";
+import Done from "./done";
 const ShippingScreen = () => {
   const cookies = new Cookies();
   let [paymentCode, setPaymentCode] = useState();
   let [userData, setUserData] = useState(null);
-  let [doneStep, setDoneStep] = useState({ deliver: false, payment: false });
+  let [doneStep, setDoneStep] = useState({
+    deliver: false,
+    payment: false,
+    alldone: false,
+  });
   let [payment, setPayment] = useState(null);
   let [itemIncart, setItemIncart] = useState();
-
+  const history = useHistory();
   let [recieptData, setRecieptData] = useState(
     cookies.get("cartItemID") ? cookies.get("cartItemID") : []
   );
@@ -24,12 +29,21 @@ const ShippingScreen = () => {
     console.log(temp);
     setUserData(temp);
   };
-  let handlePlaceOrderSubmit = () => {
+  let handlePlaceOrderSubmit = async () => {
     let userID = userData.id;
+    let address = userData.address;
+    let itemCartDatabase = itemIncart.map((item) => {
+      return {
+        amount: item.amount,
+        instrumentID: item.id,
+        money: Number(item.amount * item.price),
+      };
+    });
+
     let totalMoney = () => {
       let sum = 0;
       itemIncart.map((item) => {
-        sum = sum + item.amount * item.price;
+        sum = sum + Number(item.amount * item.price);
       });
       return sum;
     };
@@ -37,10 +51,21 @@ const ShippingScreen = () => {
 
     let sendToDatabase = {
       userID: userID,
-      totalMoney: totalMoney,
+      totalMoney: totalMoney(),
       payment: paymentKeyMap,
-
+      deliverAdress: address,
+      details: itemCartDatabase,
+      status: "S2",
     };
+    let res = await createReceipt(sendToDatabase);
+    console.log(res);
+    if (res.data.errCode == 0) {
+      cookies.remove("cartItemID");
+
+      alert("Success place Order");
+      setDoneStep({ ...doneStep, alldone: true });
+      // history.push("/");
+    }
   };
   const checkValidate = (data) => {
     for (let k in data) {
@@ -88,7 +113,6 @@ const ShippingScreen = () => {
       {console.log("paymentCode", paymentCode)}
       <Header getUserFormHeader={getUserFormHeader} />
       <div className="container d-flex justify-content-center align-items-center login-center">
-
         {userData ? (
           <>
             {" "}
@@ -126,19 +150,20 @@ const ShippingScreen = () => {
                 paymentCode={paymentCode}
               ></PaymentScreen>
             )}
-            {doneStep.deliver === true && doneStep.payment === true && (
+            {doneStep.deliver === true && doneStep.payment === true && doneStep.alldone ===false&& (
               <PlaceOrderScreen
                 itemIncart={itemIncart}
                 payment={payment}
                 userData={userData}
                 paymentCode={paymentCode}
+                handlePlaceOrderSubmit={handlePlaceOrderSubmit}
               ></PlaceOrderScreen>
             )}
+            {doneStep.alldone === true && <Done></Done>}
           </>
         ) : (
           <h6>LOGIN TO CONTINUTE</h6>
         )}
-
       </div>
     </>
   );

@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   receipts.init(
     {
-      receiptDetailID: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
       totalMoney: DataTypes.INTEGER,
       payment: DataTypes.TEXT,
-      deliverAddress: DataTypes.TEXT,
+      deliverAdress: DataTypes.TEXT,
+      status: DataTypes.TEXT,
     },
     {
       sequelize,

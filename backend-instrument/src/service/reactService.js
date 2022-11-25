@@ -18,22 +18,28 @@ let createInteractService = async (data) => {
 };
 let updateInteractService = async (data) => {
   try {
-    let { action, instrumentID, blogID } = data;
+    let { action, instrumentID, blogID, userID } = data;
     let interact = null;
+    let interactDetail;
+
     if (action === "like" || action === "dislike") {
       if (instrumentID) {
         interact = await db.interact.findOne({
           where: { instrumentID: instrumentID },
         });
-      } else {
-        interact = await db.interact.findOne({
-          where: { blogID: blogID },
-        });
       }
+      // else {
+      //   interact = await db.interact.findOne({
+      //     where: { blogID: blogID },
+      //   });
+      // }
       if (interact) {
-        
         if (action === "like") {
           interact.likes = interact.likes + 1;
+          interactDetail = await db.interactDetail.create({
+            interactID: interact.id,
+            userID: userID,
+          });
         } else {
           interact.dislikes = interact.dislikes + 1;
         }
@@ -49,11 +55,15 @@ let updateInteractService = async (data) => {
         interact = await db.interact.findOne({
           where: { instrumentID: instrumentID },
         });
-      } else {
-        interact = await db.interact.findOne({
-          where: { blogID: blogID },
+        interactDetail = await db.interactDetail.destroy({
+          where: { interactID: interact.id, userID: userID },
         });
       }
+      // else {
+      //   interact = await db.interact.findOne({
+      //     where: { blogID: blogID },
+      //   });
+      // }
       if (interact) {
         console.log(interact);
         if (action === "unlike") {
@@ -71,6 +81,7 @@ let updateInteractService = async (data) => {
     }
 
     return {
+      data: interactDetail,
       errMessage: `successlly ${action} `,
       errCode: "0",
     };

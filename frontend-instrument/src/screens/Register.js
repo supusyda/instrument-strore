@@ -28,7 +28,7 @@ const Register = () => {
     let data = userData;
     console.log("data=>", data);
     if (checkValidate(data) === true) {
-      data.roleCreate = "google";
+      data.roleCreate = "client";
       data.role = "R2";
       let res = await createUser(data);
       console.log(res);
@@ -52,7 +52,7 @@ const Register = () => {
     temp.email = userGoogleData.email;
     temp.lastName = userGoogleData.given_name;
     // let toBase64 = await encodeImageFileAsURL(userGoogleData.picture);
-    temp.roleCreate = "client";
+    temp.roleCreate = "google";
     temp.role = "R2";
     console.log(temp);
     let res = await createUser(temp);

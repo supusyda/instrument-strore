@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   color: #2b2b2b;
   font-family: "Roboto", sans-serif;
 }
@@ -30,4 +30,6 @@ a {
   margin-top: 70px;
   width: 75%;
   height: 100vh;
+
 } /* #sourceMappingURL=adminHome.css.map */
+

@@ -6,7 +6,7 @@ import { login } from "../services/userService";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
-const Login = () => {
+const Login = (props) => {
   const cookies = new Cookies();
   const google = window.google;
   window.scrollTo(0, 0);
@@ -25,22 +25,26 @@ const Login = () => {
   };
   let onSubmit = async (event) => {
     event.preventDefault();
+
     let data = userData;
     console.log("data=>", data);
     if (checkValidate(data) === true) {
       let res = await login(data);
       console.log(res);
-      let accessToken = res.data.data.accessToken;
-      let refreshToken = res.data.data.refreshToken;
-      let userID = res.data.data.userID;
-      console.log(refreshToken);
-      cookies.set("token", accessToken, { path: "/" });
-      cookies.set("refresh", refreshToken, { path: "/" });
-      cookies.set("userID", userID, { path: "/" });
-
-      // Pacman
-      alert("success Register");
-      history.push("/");
+      if (res.data.errCode === 0) {
+        let accessToken = res.data.data.accessToken;
+        let refreshToken = res.data.data.refreshToken;
+        let userID = res.data.data.userID;
+        console.log(refreshToken);
+        cookies.set("token", accessToken, { path: "/" });
+        cookies.set("refresh", refreshToken, { path: "/" });
+        cookies.set("userID", userID, { path: "/" });
+        let verify = jwtDecode(accessToken);
+        if (verify.position === "R1") history.push("/admin");
+        else history.push("/");
+      } else {
+        alert("wrong password or email ");
+      }
     } else {
       alert("not full info");
     }

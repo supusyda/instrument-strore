@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 const PlaceOrderScreen = (props) => {
   const shipMoney = 20;
   const placeOrderHandler = (e) => {
     e.preventDefault();
+    props.handlePlaceOrderSubmit();
   };
   let totalMoney = (itemInCart) => {
     let sum = 0;
@@ -59,6 +61,7 @@ const PlaceOrderScreen = (props) => {
             </div>
           </div>
           {/* 3 */}
+
           <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
               <div className="col-md-4 center">
@@ -137,14 +140,38 @@ const PlaceOrderScreen = (props) => {
                 </tr>
               </tbody>
             </table>
-            <button type="submit" onClick={placeOrderHandler}>
-              <Link to="/order" className="text-white">
-                PLACE ORDER
-              </Link>
-            </button>
+            {props.payment === "PAY1" ? (
+              <button type="submit" onClick={placeOrderHandler}>
+                <div className="text-white">PLACE ORDER</div>
+              </button>
+            ) : (
+              <div className="" style={{ width: "100%" }}>
+                <PayPalButtons
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            value: totalMoney(props.itemIncart).toString(),
+                          },
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={(data, actions) => {
+                    return actions.order.capture().then(function (details) {
+                      // Your code here after capture the order
+
+                      props.handlePlaceOrderSubmit();
+                    });
+                  }}
+                />
+              </div>
+            )}
+
             {/* <div className="my-3 col-12">
                 <Message variant="alert-danger">{error}</Message>
-              </div> */}
+              </div>  */}
           </div>
         </div>
       </div>

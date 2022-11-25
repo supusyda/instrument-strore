@@ -6,13 +6,13 @@ require("dotenv").config();
 let refreshTokens = [];
 
 let hashPassword = async (password) => {
-  var hashP = await bcrypt.hashSync(password, salt);
+  var hashP = bcrypt.hashSync(password, salt);
   return hashP;
 };
 let createNewUser = async (data) => {
   try {
-    console.log(data);
     let newPass = await hashPassword(data.password);
+
     let res;
     if (data.roleCreate === "admin") {
       res = await db.User.create({
@@ -31,12 +31,14 @@ let createNewUser = async (data) => {
         image: data.image,
         lastName: data.lastName,
         email: data.email,
+        position: data.role,
       });
     } else {
       res = await db.User.create({
         password: newPass,
         lastName: data.lastName,
         email: data.email,
+        position: data.role,
       });
     }
 
@@ -173,7 +175,6 @@ let loginUser = async (loginInfo) => {
     console.log(loginInfo);
     let { email } = loginInfo;
     let haveUser = check_email(email);
-
     if (haveUser) {
       if (loginInfo.logInWithGoogle === true) {
         let user = await db.User.findOne({
@@ -212,7 +213,17 @@ let loginUser = async (loginInfo) => {
           where: { email: email },
           attributes: { exclude: ["refreshToken", "image"] },
         });
-        const isRightPass = await bcrypt.compare(password, user.password);
+        console.log("HAVE USER", user);
+        let isRightPass;
+        if (user) {
+          isRightPass = await bcrypt.compare(password, user.password);
+        } else {
+          return {
+            data: [],
+            errCode: -1,
+            errMessage: "Worng email or Password",
+          };
+        }
 
         if (isRightPass) {
           let userPlain = (await user).get({ plain: true });
@@ -234,20 +245,12 @@ let loginUser = async (loginInfo) => {
             user.refreshToken = refreshToken;
             await user.save();
           }
-
-          // console.log(isRightPass);
           return {
             data: { accessToken, refreshToken, userID: userPlain.id },
             errCode: 0,
             errMessage: "login Success",
           };
         }
-
-        // if (isRightPass) {
-        //   return { data: user, errCode: 0, errMessage: "login Success" };
-        // } else {
-        //   return { data: [], errCode: -1, errMessage: "Worng password" };
-        // }
       }
     } else {
       return { data: [], errCode: -1, errMessage: "Worng email " };
@@ -259,14 +262,19 @@ let loginUser = async (loginInfo) => {
 };
 let logoutUser = async (logoutInfo) => {
   try {
-    console.log(loginInfo);
-    let { userID } = logoutInfo;
+    console.log(logoutInfo);
+    let { id } = logoutInfo;
     let user = await db.User.findOne({
-      where: { id: userID },
+      where: { id: id },
     });
     if (user) {
-      user.refreshToken = "";
+      console.log(user.refreshToken);
+      user.refreshToken = null;
       user.save();
+      return {
+        errCode: 0,
+        errMessage: `successfully logout user ${user.lastName}`,
+      };
     }
   } catch (error) {
     console.log(error);

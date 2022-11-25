@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "interact",
       });
+      interact.hasMany(models.interactDetail, {
+        foreignKey: "interactID",
+        as: "interactDetails",
+      });
       // musicalInstrument.hasOne(models.interact, {
       //   foreignKey: "id",
       //   as: "interact",
@@ -22,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   interact.init(
     {
-      blogID: DataTypes.INTEGER,
+      
       instrumentID: DataTypes.INTEGER,
       view: DataTypes.INTEGER,
       likes: DataTypes.INTEGER,

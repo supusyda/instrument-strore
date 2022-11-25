@@ -6,15 +6,15 @@ require("dotenv").config();
 let authenToken = async (req, res, next) => {
   try {
     const authorizationHeader = req.headers["authorization"];
+    if (!authorizationHeader) return res.sendStatus(401);
     const token = authorizationHeader.split(" ")[1];
     // const token = authorizationHeader;
-
-    console.log(token);
+    
     if (!token) res.sendStatus(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SERCECT, (err, data) => {
       if (err) {
         console.log(err);
-        res.sendStatus(403);
+       return res.sendStatus(403);
       } else {
         next();
       }
@@ -25,8 +25,8 @@ let authenToken = async (req, res, next) => {
 };
 let refreshTokens = async (req, res) => {
   try {
-    console.log(req.body);
     const refreshToken = req.body.refreshToken;
+    if (!refreshToken) return res.sendStatus(401);
 
     //   const refreshTokens = refreshTokenss;
     let haveRefreshToken = await db.User.findOne({
@@ -35,8 +35,7 @@ let refreshTokens = async (req, res) => {
       attributes: ["refreshToken"],
     });
 
-    if (!refreshToken) res.sendStatus(401);
-    if (!haveRefreshToken) res.sendStatus(403);
+    if (!haveRefreshToken) return res.sendStatus(403);
     jwt.verify(refreshToken, process.env.ACCESS_TOKEN_REFRESH, (err, data) => {
       if (err) res.sendStatus(403);
       let payload = data;

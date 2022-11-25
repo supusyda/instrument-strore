@@ -38,6 +38,10 @@ let initRouter = (app) => {
   router.post("/api/instrument/create", Instrument.addinstrument);
   router.get("/api/instrument/get", Instrument.getinstrument);
   router.post("/api/instrument/getSpecific", Instrument.getSpecificInstrument);
+  router.post(
+    "/api/instrument/getWithAction",
+    Instrument.getInstrumentWithAction
+  );
 
   router.delete("/api/instrument/delete", Instrument.deleteInstrument);
   router.put("/api/instrument/update", Instrument.updateInstrument);
@@ -54,7 +58,7 @@ let initRouter = (app) => {
   router.get("/api/react/get", react.getReact);
   router.post("/api/react/update", react.updateReact);
 
-  router.post("/refreshToken", react.updateReact);
+  router.post("/refreshToken", refreshTokens);
 
   return app.use("/", router);
 };

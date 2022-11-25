@@ -7,15 +7,18 @@ import moment from "moment";
 require("dotenv").config();
 let createReceiptService = async (data) => {
   try {
-    let data2 = await JSON.parse(JSON.stringify(dataJS));
-
+    // let data2 = await JSON.parse(JSON.stringify(dataJS));
+    console.log(data);
     let receipt = (
       await db.receipts.create({
-        userID: data2.userID,
-        totalMoney: data2.totalMoney,
+        userID: data.userID,
+        totalMoney: data.totalMoney,
+        payment: data.payment,
+        deliverAdress: data.deliverAdress,
+        status: data.status,
       })
     ).get({ plain: true });
-    let details = data2.details;
+    let details = data.details;
     details.map(async (item) => {
       //tru inStock vs so amount
       item.receiptID = receipt.id;
@@ -23,7 +26,7 @@ let createReceiptService = async (data) => {
         where: { id: item.instrumentID },
         // raw: true,
       });
-      console.log(product);
+
       product.inStock = product.inStock - item.amount;
       if (product.inStock >= 0) {
         await product.save();

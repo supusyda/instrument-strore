@@ -46,6 +46,11 @@ let getAllInstrument = async (instrumentID) => {
             as: "typeOfInstrument",
             attributes: ["valueEn", "valueVN"],
           },
+          {
+            model: db.interact,
+            as: "interact",
+            attributes: { exclude: ["blogID"] },
+          },
         ],
       });
       if (res) {
@@ -67,6 +72,12 @@ let getAllInstrument = async (instrumentID) => {
             model: db.interact,
             as: "interact",
             attributes: { exclude: ["blogID"] },
+            include: [
+              {
+                model: db.interactDetail,
+                as: "interactDetails",
+              },
+            ],
           },
           {
             model: db.markdown,
@@ -105,6 +116,7 @@ let getSpecificInstrumentService = async (instrumentIDs, Number) => {
     if (instrumentIDs.length > 0) {
       let res = await db.musicalInstrument.findAll({
         where: { id: instrumentIDs },
+
         raw: true,
       });
       if (res) {
@@ -127,6 +139,141 @@ let getSpecificInstrumentService = async (instrumentIDs, Number) => {
     } else {
       return { data: [], errCode: -1, errMessage: "no data" };
     }
+  } catch (error) {
+    console.log(error);
+    return {
+      errMessage: "some thing wrong with service ....",
+      errCode: "-1",
+    };
+  }
+};
+let getWithAction = async (actionClient) => {
+  try {
+    const { action } = actionClient;
+    const constant = {
+      new: "new",
+      like: "like",
+      all: "ALL",
+      total: "total",
+      paging: "paging",
+      query: "query",
+    };
+    let limit = 6;
+    let res;
+    if (action === constant.new) {
+      res = await db.musicalInstrument.findAll({
+        limit: limit,
+        include: [
+          {
+            model: db.allCodes,
+            as: "typeOfInstrument",
+            attributes: ["valueEn", "valueVN"],
+          },
+          {
+            model: db.interact,
+            as: "interact",
+            attributes: { exclude: ["blogID"] },
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+      });
+    } else if (action === constant.like) {
+      res = await db.musicalInstrument.findAll({
+        limit: limit,
+
+        include: [
+          {
+            model: db.allCodes,
+            as: "typeOfInstrument",
+            attributes: ["valueEn", "valueVN"],
+          },
+          {
+            model: db.interact,
+            as: "interact",
+            attributes: { exclude: ["blogID"] },
+          },
+        ],
+        order: [["interact", "likes", "DESC"]],
+      });
+    } else if (action === constant.all) {
+      {
+        res = await db.musicalInstrument.findAll({
+          order: [["createdAt", "DESC"]],
+          include: [
+            {
+              model: db.allCodes,
+              as: "typeOfInstrument",
+              attributes: ["valueEn", "valueVN"],
+            },
+            {
+              model: db.interact,
+              as: "interact",
+              attributes: { exclude: ["blogID"] },
+            },
+          ],
+        });
+      }
+    } else if (action === constant.total) {
+      if (actionClient.query) {
+        let query = actionClient.query;
+        res = await db.musicalInstrument.count({
+          where: { name: { [Sequelize.Op.like]: `%${query}%` } },
+        });
+      } else {
+        res = await db.musicalInstrument.count();
+      }
+    } else if (action === constant.paging || action === constant.query) {
+      let { onPage, currentPage } = actionClient.pagination;
+      let offset = Number((currentPage - 1) * onPage);
+      if (action === constant.paging) {
+        res = await db.musicalInstrument.findAll({
+          offset: offset,
+          limit: onPage,
+          include: [
+            {
+              model: db.allCodes,
+              as: "typeOfInstrument",
+              attributes: ["valueEn", "valueVN"],
+            },
+            {
+              model: db.interact,
+              as: "interact",
+              attributes: { exclude: ["blogID"] },
+            },
+          ],
+        });
+      } else if (action === constant.query) {
+        let query = actionClient.query;
+        res = await db.musicalInstrument.findAll({
+          offset: offset,
+          limit: onPage,
+          where: { name: { [Sequelize.Op.like]: `%${query}%` } },
+          include: [
+            {
+              model: db.allCodes,
+              as: "typeOfInstrument",
+              attributes: ["valueEn", "valueVN"],
+            },
+            {
+              model: db.interact,
+              as: "interact",
+              attributes: { exclude: ["blogID"] },
+            },
+          ],
+        });
+      }
+    }
+    if (res && res.length > 0) {
+      res.map((item) => {
+        if (item.image)
+          item.image = new Buffer(item.image, "base64").toString("binary");
+      });
+    }
+    return {
+      data: res,
+      errMessage: `successlly get ${action} musical Instrument`,
+      errCode: "0",
+    };
   } catch (error) {
     console.log(error);
     return {
@@ -216,7 +363,6 @@ let getBestSellerService = async () => {
           as: "instrument",
         },
       ],
-
       order: Sequelize.literal("total DESC"),
       limit: 1,
     });
@@ -240,4 +386,5 @@ module.exports = {
   editInstrumentService: editInstrument,
   getBestSellerService: getBestSellerService,
   getSpecificInstrumentService: getSpecificInstrumentService,
+  getWithActionService: getWithAction,
 };
