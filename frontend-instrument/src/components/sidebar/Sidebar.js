@@ -24,8 +24,8 @@ const sidebarNavItems = [
   {
     display: "Blog",
     icon: <i class="fab fa-blogger-b"></i>,
-    to: "/admin/order",
-    section: "order",
+    to: "/admin/blog",
+    section: "blog",
   },
 ];
 
