@@ -166,16 +166,22 @@ const CartScreen = () => {
 
         <hr />
         <div className="cart-buttons d-flex align-items-center row">
-          <Link to="/" className="col-md-6 ">
-            <button>Continue To Shopping</button>
-          </Link>
-          <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-            <button>
-              <Link to="/shipping" className="text-white">
-                Checkout
+          {itemInCart && !checkItemIncart(itemInCart) ? (
+            ""
+          ) : (
+            <>
+              <Link to="/" className="col-md-6 ">
+                <button>Continue To Shopping</button>
               </Link>
-            </button>
-          </div>
+              <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+                <button>
+                  <Link to="/shipping" className="text-white">
+                    Checkout
+                  </Link>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

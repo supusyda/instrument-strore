@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, GridColumn } from "@progress/kendo-react-grid";
-
+import { process } from "@progress/kendo-data-query";
 import "@progress/kendo-theme-default/dist/all.css";
 import useFetch from "../../customize/useFetch";
 import CreateUserModal from "./modal/createUserModal";
@@ -14,8 +14,14 @@ const Users = () => {
   let { res, loading, refesh } = useFetch(
     "http://localhost:8080/api/user/get?userID=ALL"
   );
+
+  const [dataState, setDataState] = useState({ skip: 0, take: 4 });
+  const [result, setResult] = useState(null);
   useEffect(() => {
     setUserData(res.data);
+    if (res.data && res.data.length > 0) {
+      setResult(process(res.data, dataState));
+    }
   }, [res]);
   const handleDeleUser = async (id) => {
     let res = await deleUser(id);
@@ -60,7 +66,6 @@ const Users = () => {
     );
   };
   const imageCell = (props) => {
-  
     return (
       <td>
         <div
@@ -76,6 +81,10 @@ const Users = () => {
   };
   const handleCreteUser = () => {
     setopenModal(true);
+  };
+  const onDataStateChange = (event) => {
+    setDataState(event.dataState);
+    setResult(process(userData, event.dataState));
   };
   return (
     <>
@@ -103,17 +112,35 @@ const Users = () => {
             ""
           )}
         </div>
-        {userData && (
-          <Grid data={userData}>
-            <GridColumn field="image" title="Image" cell={imageCell} />
-            <GridColumn field="firstName" title="First Name" />
-            <GridColumn field="lastName" title="Last Name" />
+        {console.log(result)}
+        {result !== null
+          ? userData &&
+            userData.length > 0 && (
+              <Grid
+                data={result}
+                filterable={true}
+                onDataStateChange={(e) => {
+                  onDataStateChange(e);
+                }}
+                pageable={true}
+                total={userData.length}
+                {...dataState}
+              >
+                <GridColumn
+                  field="image"
+                  title="Image"
+                  cell={imageCell}
+                  filterable={false}
+                />
+                <GridColumn field="firstName" title="First Name" />
+                <GridColumn field="lastName" title="Last Name" />
 
-            <GridColumn field="position" title="Role" />
-            <GridColumn title="Del" cell={deleteCell} />
-            <GridColumn title="Edit" cell={editCell} />
-          </Grid>
-        )}
+                <GridColumn field="position" title="Role" />
+                <GridColumn title="Del" cell={deleteCell} filterable={false} />
+                <GridColumn title="Edit" cell={editCell} filterable={false} />
+              </Grid>
+            )
+          : ""}
 
         {/* <GridColumn field="Category.CategoryName" title="CategoryName" />
         <GridColumn field="UnitPrice" title="Price" />

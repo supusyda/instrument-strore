@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./adminHome.css";
-import AppLayout from "../components/adminLayout/layout";
 import Sidebar from "../components/sidebar/Sidebar";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from "../screens/Login";
 import Users from "../components/adminComponent/users";
 import Product from "../components/adminComponent/product";
@@ -10,14 +9,29 @@ import Dashboard from "../components/adminComponent/dashboard";
 import AdminHeader from "../components/adminComponent/adminHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "universal-cookie";
+import jwtDecode from "jwt-decode";
+import { useHistory } from "react-router-dom";
+import Header from "../components/Header";
 
-const admin = () => {
+const Admin = () => {
+  const cookies = new Cookies();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (cookies.get("token")) {
+      let tokenData = jwtDecode(cookies.get("token"));
+      if (tokenData.position !== "R1") {
+        history.push("/");
+      }
+    }
+  }, []);
+
   return (
     <>
       <div className="admin-contain">
         <AdminHeader></AdminHeader>{" "}
         <div className="left-content">
-       
           <Sidebar></Sidebar>
         </div>
         <Switch>
@@ -32,4 +46,4 @@ const admin = () => {
   );
 };
 
-export default admin;
+export default Admin;

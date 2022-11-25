@@ -11,6 +11,7 @@ body {
 a {
   text-decoration: none;
   color: black;
+  font-weight: bold;
 }
 a:hover {
   color: black;
@@ -85,7 +86,19 @@ textarea:focus {
   line-height: 50px;
   color: #212529;
 }
+
+.nav-menu li div {
+  display: block;
+  padding: 0 20px;
+  line-height: 50px;
+  color: #212529;
+}
 .nav-menu li a:hover {
+  cursor: pointer;
+  background-color: #dee2e6;
+  border-radius: 10px;
+}
+.nav-menu li div:hover {
   cursor: pointer;
   background-color: #dee2e6;
   border-radius: 10px;
@@ -95,7 +108,6 @@ textarea:focus {
 }
 .navbar-brand img:hover {
   background-color: #808080;
-  
 }
 .input-group {
   height: 50px;
@@ -220,7 +232,7 @@ textarea:focus {
   border-radius: 5px;
   box-shadow: 0 0 3px #000;
   background-color: #fff;
-  transition: transform .2s;
+  transition: transform 0.2s;
   overflow: hidden;
 }
 .border-product:hover {
@@ -245,7 +257,7 @@ textarea:focus {
   z-index: 3;
   opacity: 0;
   visibility: hidden;
-  transition: all ease .3s;
+  transition: all ease 0.3s;
   transition-delay: 0s;
   transform: translateY(100%);
 }
@@ -259,7 +271,23 @@ textarea:focus {
   flex-direction: column;
   align-items: center;
 }
+.shopBack .options div {
+  display: inline-block;
+  padding: 15px 40px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+  margin: 5px 0;
+}
 .shopBack .options a {
+  display: inline-block;
+  padding: 15px 40px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+  margin: 5px 0;
+}
+.shopBack .options button {
   display: inline-block;
   padding: 15px 40px;
   border-radius: 30px;
@@ -279,6 +307,22 @@ textarea:focus {
   color: #ffffff;
   font-size: 14px;
 }
+.shopBack .options .option-3 {
+  background-color: black;
+  border: 1px solid black;
+  color: #ffffff;
+  font-size: 14px;
+}
+.shopBack .options .option-4 {
+  background-color: gray;
+  border: 1px solid gray;
+  color: #ffffff;
+  font-size: 14px;
+}
+.shopBack .options .option-4:hover {
+  background-color: transparent;
+  color: gray;
+}
 .shopBack .options .option-1:hover {
   background-color: transparent;
   color: orange;
@@ -286,6 +330,10 @@ textarea:focus {
 .shopBack .options .option-2:hover {
   background-color: transparent;
   color: green;
+}
+.shopBack .options .option-3:hover {
+  background-color: transparent;
+  color: black;
 }
 .shopBack .img-box {
   display: flex;
@@ -327,12 +375,12 @@ textarea:focus {
   background-color: rgba(0, 0, 0, 0.08);
   margin-right: 8px;
   border-radius: 8px;
-  padding: 6px 0 6px 8px ;
+  padding: 6px 0 6px 8px;
 }
 .rating i {
   font-size: 15px;
   color: #000;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 .rating i:hover {
   transform: scale(1.3);
@@ -345,7 +393,8 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://media.istockphoto.com/photos/musical-instruments-picture-id894058154?b=1&k=20&m=894058154&s=170667a&w=0&h=wRL6bkGY0cBz8HWUedi128F5g9VyoEdAT-p4AVNrjjI=")  no-repeat scroll center / cover;
+    url("https://media.istockphoto.com/photos/musical-instruments-picture-id894058154?b=1&k=20&m=894058154&s=170667a&w=0&h=wRL6bkGY0cBz8HWUedi128F5g9VyoEdAT-p4AVNrjjI=")
+      no-repeat scroll center / cover;
   padding: 100px 0 100px;
   margin-bottom: 100px;
 }
@@ -376,7 +425,7 @@ textarea:focus {
   padding: 19px 58px;
   text-transform: uppercase;
   font-size: 36px;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 .subscribe-head a button:hover {
   transform: scale(1.1);
@@ -543,7 +592,7 @@ textarea:focus {
 .Login p a {
   display: block;
   color: #7a7a7a;
-}  
+}
 .Login p a:hover {
   color: white;
   background-color: black;
@@ -655,7 +704,7 @@ textarea:focus {
 .table-responsive {
   width: 100%;
 }
-#open-bar:checked ~ .receipt{
+#open-bar:checked ~ .receipt {
   display: block;
 }
 .open-bar i:hover {
@@ -849,6 +898,11 @@ textarea:focus {
   padding: 10px 30px;
   color: black;
 }
+.pagination .page-link.active {
+  padding: 10px 30px;
+  color: white;
+  background-color: black;
+}
 .page-item.active .page-link {
   background-color: black;
   border: 1px solid black;
@@ -930,7 +984,7 @@ textarea:focus {
   background: #fafafa;
   margin-top: -6%;
   width: 80%;
- 
+
   margin-left: auto;
   margin-right: auto;
   padding-top: 6%;

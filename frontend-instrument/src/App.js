@@ -10,38 +10,61 @@ import Register from "./screens/Register";
 import CartScreen from "./screens/CartScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 import AdminPage from "./admin/adminHome";
-import AboutSection from "./components/homeComponents/AboutSection";
-import ProductScreen from "./screens/ProductScreen"
-import Review from "./components/homeComponents/Review";
-
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import ProductScreen from "./screens/ProductScreen";
+import { ProtectedRoute } from "./protected.route";
+import useAuth from "./customize/useAuth";
 const App = () => {
+  // const [isAuth, login, logout] = useAuth();
   return (
+    <PayPalScriptProvider
+      options={{
+        "client-id":
+          "AWYPe8jSULQnrvMhGWSnFsnGGOrDOMt4ce8lRh2ijcR4E22WkcIopi1i6u9I2AZQ8WZV7sr4tfmcA7-w",
+      }}
+    >
+      <Router>
+        <Switch>
+          <Route path="/" component={HomeScreen} exact />
+          <Route path="/products/:id" component={SingleProduct} />
+          <Route
+            path="/login"
+            render={(props) => {
+              return <Login {...props}></Login>;
+            }}
+          />
+          <Route path="/register" component={Register} />
+          {/* <ProtectedRoute
+            path="/profile"
+            component={ProfileScreen}
+            isAuth={isAuth}
+          /> */}
+          <Route path="/profile" component={ProfileScreen} />
+          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/shipping" component={ShippingScreen} />
+          {/* <Route path="/payment" component={PaymentScreen} /> */}
+          <Route path="/placeorder" component={PlaceOrderScreen} />
+          <Route path="/order" component={OrderScreen} />
+          <Route path="/shopsection/:q?" component={ProductScreen} />
 
-    <Router>
-
-      <Switch>
-        <Route path="/" component={HomeScreen} exact />
-        <Route path="/products/:id" component={SingleProduct} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/profile" component={ProfileScreen} />
-        <Route path="/cart/:id?" component={CartScreen} />
-        <Route path="/shipping" component={ShippingScreen} />
-        <Route path="/payment" component={PaymentScreen} />
-        <Route path="/placeorder" component={PlaceOrderScreen} />
-        <Route path="/order" component={OrderScreen} />
-        <Route path="/admin" component={AdminPage} />
-        <Route path="*" component={NotFound} />
-        <Route path="/allproducts" component={ProductScreen} />
-        <Route path="/about" component={AboutSection}/>
-        <Route path="/review" component={Review} />
-      </Switch>
-    </Router>
+          {/* <ProtectedRoute
+            exact
+            path="/admin"
+            component={AdminPage}
+            isAuth={isAuth}
+          /> */}
+          <Route path="/admin" component={AdminPage} />
+          <Route path="*" component={NotFound} />
+          {/* <Route path="/allproducts" component={ProductScreen} /> */}
+          {/* <Route path="/about" component={AboutSection}/> */}
+          {/* <Route path="/review" component={Review} /> */}
+        </Switch>
+      </Router>
+    </PayPalScriptProvider>
   );
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./../components/Header";
-import { PayPalButton } from "react-paypal-button-v2";
 
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 const OrderScreen = () => {
   window.scrollTo(0, 0);
 
@@ -43,13 +43,10 @@ const OrderScreen = () => {
                 </h5>
                 <p>Shipping: Tanzania</p>
                 <p>Pay method: Paypal</p>
-
               </div>
-                <div className="paid-status p-1 col-12">
-                  <p className="text-white text-center">
-                    Paid on Jan 12 2021
-                  </p>
-                </div>
+              <div className="paid-status p-1 col-12">
+                <p className="text-white text-center">Paid on Jan 12 2021</p>
+              </div>
             </div>
           </div>
           {/* 3 */}
@@ -68,11 +65,9 @@ const OrderScreen = () => {
                   Address: Arusha Tz, Ngaramtoni Crater, P.O BOX 1234 Arusha Tz
                 </p>
               </div>
-                <div className="deliveried-status bg-danger p-1 col-12">
-                  <p className="text-white text-center">
-                    Not Delivered
-                  </p>
-                </div>
+              <div className="deliveried-status bg-danger p-1 col-12">
+                <p className="text-white text-center">Not Delivered</p>
+              </div>
             </div>
           </div>
         </div>
@@ -131,7 +126,14 @@ const OrderScreen = () => {
               </tbody>
             </table>
             <div className="col-12">
-              <PayPalButton amount={345} />
+              <PayPalScriptProvider
+                options={{
+                  "client-id":
+                    "AWYPe8jSULQnrvMhGWSnFsnGGOrDOMt4ce8lRh2ijcR4E22WkcIopi1i6u9I2AZQ8WZV7sr4tfmcA7",
+                }}
+              >
+                <PayPalButtons style={{ layout: "horizontal" }} />
+              </PayPalScriptProvider>
             </div>
           </div>
         </div>

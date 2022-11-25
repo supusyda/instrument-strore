@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
-import Rating from "../components/homeComponents/Rating";
+
 import { Link, useParams } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import products from "../data/Products";
 import { getAllInstrument } from "../services/instrumentService";
-import useFetch from "../customize/useFetch";
+
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
-
+import LikeButtonCompoent from "../components/homeComponents/likes";
 const SingleProduct = ({ match }) => {
-  window.scrollTo(0, 0);
   const history = useHistory();
-
   const cookies = new Cookies();
   const { id } = useParams();
   const product = products.find((p) => String(p._id) === id);
@@ -66,6 +64,7 @@ const SingleProduct = ({ match }) => {
 
   return (
     <>
+      {console.log(instrument)}
       <Header setIsLogin={setIsLogin} />
       <div className="container single-product">
         <div className="row">
@@ -113,6 +112,19 @@ const SingleProduct = ({ match }) => {
                 </div>
                 <div className="flex-box d-flex justify-content-between align-items-center">
                   <h6>Like</h6>
+                  {console.log(instrument)}
+                  {/* {console.log(instrument)}
+                  {instrument && (
+                    <LikeButtonCompoent
+                      inittialState={instrument.interact.likes}
+                    ></LikeButtonCompoent>
+                  )} */}
+                  {instrument && instrument.interact && (
+                    <LikeButtonCompoent
+                      interact={instrument.interact}
+                      instrumentID={instrument.id}
+                    ></LikeButtonCompoent>
+                  )}
                   {/* <Rating
                     value={product.rating}
                     text={`${product.numReviews}`}
