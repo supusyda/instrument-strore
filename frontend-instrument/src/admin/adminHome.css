@@ -23,10 +23,13 @@ a {
 .admin-contain .left-content {
   width: -webkit-fit-content;
   width: -moz-fit-content;
-  width: fit-content;
+  width: 25%;
   height: 100vh;
 }
 .admin-contain .right-content {
-  flex-grow: 1;
+  margin-top: 70px;
+  width: 75%;
   height: 100vh;
-}/*# sourceMappingURL=adminHome.css.map */
+
+} /* #sourceMappingURL=adminHome.css.map */
+

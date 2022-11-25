@@ -1,0 +1,22 @@
+.tm-content-row {
+  justify-content: space-between;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.tm-block-col {
+  margin-bottom: 30px;
+}
+.tm-product-table-container {
+  max-height: 465px;
+  margin-bottom: 15px;
+  overflow-y: scroll;
+}
+.table {
+  background-color: #f0f0f0;
+  font-size: 100%;
+  margin-bottom: 0;
+}
+.option-product-bar {
+  display: flex;
+  justify-content: space-evenly;
+}

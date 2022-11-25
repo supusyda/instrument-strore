@@ -22,7 +22,7 @@ const Dashboard = (props) => {
     <>
       <div className="dashboard container">
         <div className="row ">
-          <div className="col-6 d-flex flex-wrap justify-content-space-evenly gap-2">
+          <div className="card-list col-12 d-flex flex-wrap">
             <div className="col-md-4 d-flex justify-content-center">
               <div
                 class="card  shadow p-3  bg-body rounded"
@@ -32,19 +32,16 @@ const Dashboard = (props) => {
               >
                 <div class="row no-gutters">
                   <div
-                    class="col-md-4 bg-success p-2 text-white bg-opacity-75"
+                    class="card-icon col-md-4"
                     style={{
                       background: "round",
                     }}
-                  ></div>
+                  >
+                    <i class="fas fa-users"></i>
+                  </div>
                   <div class="col-md-8">
-                    <h5 class="card-title">Top Seller</h5>
-                    <h2 class="card-text">19</h2>
-                    <p class="card-text">
-                      <small class="text-muted text-wrap">
-                        Last updated 3 mins ago
-                      </small>
-                    </p>
+                    <h5 class="card-title">Clients</h5>
+                    <h2 class="card-text">519</h2>
                   </div>
                 </div>
               </div>
@@ -58,22 +55,20 @@ const Dashboard = (props) => {
               >
                 <div class="row no-gutters">
                   <div
-                    class="col-md-4 bg-success p-2 text-white bg-opacity-75"
+                    class="card-icon col-md-4"
                     style={{
                       background: "round",
                     }}
-                  ></div>
+                  >
+                    <i class="fas fa-coins"></i>
+                  </div>
                   <div class="col-md-8">
-                    <h5 class="card-title">Card title</h5>
-                    <h2 class="card-text">19</h2>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                    <h5 class="card-title">Sale</h5>
+                    <h2 class="card-text">$ 7567</h2>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="w-100"></div>
             <div className="col-md-4 d-flex justify-content-center">
               <div
                 class="card  shadow p-3 bg-body rounded"
@@ -83,49 +78,24 @@ const Dashboard = (props) => {
               >
                 <div class="row no-gutters">
                   <div
-                    class="col-md-4 bg-success p-2 text-white bg-opacity-75"
+                    class="card-icon col-md-4"
                     style={{
                       background: "round",
                     }}
-                  ></div>
-                  <div class="col-md-8">
-                    <h5 class="card-title">Card title</h5>
-                    <h2 class="card-text">19</h2>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                  >
+                    <i class="fas fa-chart-line"></i>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 d-flex justify-content-center">
-              <div
-                class="card  shadow p-3  bg-body rounded"
-                style={{
-                  width: "18rem",
-                }}
-              >
-                <div class="row no-gutters">
-                  <div
-                    class="col-md-4 bg-success p-2 text-white bg-opacity-75"
-                    style={{
-                      background: "round",
-                    }}
-                  ></div>
                   <div class="col-md-8">
-                    <h5 class="card-title">Card title</h5>
-                    <h2 class="card-text">19</h2>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                    <h5 class="card-title">Performance</h5>
+                    <h2 class="card-text">234%</h2>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="row mt-2">
-          <div className="col-6 ">
+        <div className="row mt-4">
+          <div className="col-12 ">
             <div class="card w-100 mb-3 shadow mb-5 bg-body rounded">
               <div class="card-header">Quote</div>
               <div class="card-body">
@@ -133,7 +103,7 @@ const Dashboard = (props) => {
               </div>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-12">
             <div class="card w-100 mb-3 shadow  mb-5 bg-body rounded">
               <div class="card-header">Quote</div>
               <div class="card-body">
