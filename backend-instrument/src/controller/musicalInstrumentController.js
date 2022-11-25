@@ -32,11 +32,27 @@ let getSpecificInstrument = async (req, res) => {
         return id != null ? index : undefined;
       })
       .filter((x) => x);
-let instrumentVolumn= req.body.ids;
-    let data = await Intrusment.getSpecificInstrumentService(instrumentID,instrumentVolumn);
+    let instrumentVolumn = req.body.ids;
+    let data = await Intrusment.getSpecificInstrumentService(
+      instrumentID,
+      instrumentVolumn
+    );
     return res.status(200).json(data);
   } catch (error) {
     return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+let getInstrumentWithAction = async (req, res) => {
+  try {
+    let actionClient = req.body;
+    console.log(actionClient);
+    let data = await Intrusment.getWithActionService(actionClient);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -95,4 +111,5 @@ module.exports = {
   getBestSeller: getBestSeller,
   getSpecificInstrument: getSpecificInstrument,
   getIncomeWeek: getIncomeWeek,
+  getInstrumentWithAction: getInstrumentWithAction,
 };

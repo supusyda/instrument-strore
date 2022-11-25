@@ -82,8 +82,7 @@ let logoutUser = async (req, res) => {
   try {
     const loginInfo = req.body;
 
-    let data = await User.logoutUser(loginInfo);
-    // res.cookie("token", data.data.accessToken, { httpOnly: true });
+    let data = await User.logoutUserService(loginInfo);
 
     return res.status(200).json(data);
   } catch (error) {
