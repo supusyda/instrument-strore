@@ -7,15 +7,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AppLayout from "../components/adminLayout/layout";
 import Sidebar from "../components/sidebar/Sidebar";
 
-import { Switch, Route } from "react-router-dom";
-
 import Login from "../screens/Login";
 import Users from "../components/adminComponent/users";
 import Product from "../components/adminComponent/product";
 import Dashboard from "../components/adminComponent/dashboard";
 import AdminHeader from "../components/adminComponent/adminHeader";
 import Blog from "../components/adminComponent/Blog"
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
