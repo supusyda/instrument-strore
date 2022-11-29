@@ -1,5 +1,5 @@
 import db from "../models/index";
-import Sequelize from "sequelize";
+import Sequelize, { where } from "sequelize";
 require("dotenv").config();
 let createNewInstrument = async (data) => {
   try {
@@ -18,9 +18,9 @@ let createNewInstrument = async (data) => {
       instrumentID: instrumentID,
     });
     let instrumentData = await db.markdown.create({
-      description: data.description,
-      contentHTML: data.contentHTML,
-      instrumentID: data.instrumentID,
+      description: data.musicalInstrumentDetail,
+      // contentHTML: data.contentHTML,
+      instrumentID: instrumentID,
     });
     return {
       data: [musicalInstrumentData, interactData, instrumentData],
@@ -40,16 +40,29 @@ let getAllInstrument = async (instrumentID) => {
     if (instrumentID == "ALL") {
       let res = await db.musicalInstrument.findAll({
         order: [["createdAt", "DESC"]],
+        group: ["id"],
         include: [
           {
             model: db.allCodes,
             as: "typeOfInstrument",
-            attributes: ["valueEn", "valueVN"],
           },
           {
             model: db.interact,
             as: "interact",
             attributes: { exclude: ["blogID"] },
+          },
+          {
+            model: db.receiptsDetail,
+            as: "receiptsDetail",
+            // attributes: ["amount"],
+            attributes: [
+              [Sequelize.fn("sum", Sequelize.col("amount")), "total"],
+            ],
+          },
+          {
+            model: db.markdown,
+            as: "musicalInstrumentDetail",
+            attributes: ["description"],
           },
         ],
       });
@@ -149,6 +162,7 @@ let getSpecificInstrumentService = async (instrumentIDs, Number) => {
 };
 let getWithAction = async (actionClient) => {
   try {
+    console.log(actionClient);
     const { action } = actionClient;
     const constant = {
       new: "new",
@@ -157,12 +171,16 @@ let getWithAction = async (actionClient) => {
       total: "total",
       paging: "paging",
       query: "query",
+      type: "type",
+      order: "order",
     };
     let limit = 6;
     let res;
+    let total;
     if (action === constant.new) {
       res = await db.musicalInstrument.findAll({
         limit: limit,
+        where: { isActive: 1 },
         include: [
           {
             model: db.allCodes,
@@ -180,6 +198,7 @@ let getWithAction = async (actionClient) => {
     } else if (action === constant.like) {
       res = await db.musicalInstrument.findAll({
         limit: limit,
+        where: { isActive: 1 },
 
         include: [
           {
@@ -217,51 +236,94 @@ let getWithAction = async (actionClient) => {
       if (actionClient.query) {
         let query = actionClient.query;
         res = await db.musicalInstrument.count({
-          where: { name: { [Sequelize.Op.like]: `%${query}%` } },
+          where: { name: { [Sequelize.Op.like]: `%${query}%` }, isActive: 1 },
         });
       } else {
-        res = await db.musicalInstrument.count();
+        res = await db.musicalInstrument.count({ where: { isActive: 1 } });
       }
     } else if (action === constant.paging || action === constant.query) {
       let { onPage, currentPage } = actionClient.pagination;
+
       let offset = Number((currentPage - 1) * onPage);
-      if (action === constant.paging) {
-        res = await db.musicalInstrument.findAll({
-          offset: offset,
-          limit: onPage,
-          include: [
-            {
-              model: db.allCodes,
-              as: "typeOfInstrument",
-              attributes: ["valueEn", "valueVN"],
-            },
-            {
-              model: db.interact,
-              as: "interact",
-              attributes: { exclude: ["blogID"] },
-            },
-          ],
-        });
-      } else if (action === constant.query) {
-        let query = actionClient.query;
-        res = await db.musicalInstrument.findAll({
-          offset: offset,
-          limit: onPage,
-          where: { name: { [Sequelize.Op.like]: `%${query}%` } },
-          include: [
-            {
-              model: db.allCodes,
-              as: "typeOfInstrument",
-              attributes: ["valueEn", "valueVN"],
-            },
-            {
-              model: db.interact,
-              as: "interact",
-              attributes: { exclude: ["blogID"] },
-            },
-          ],
-        });
+      let configDataFind = {};
+
+      if (actionClient.dataFromFilter && actionClient.dataFromFilter.type) {
+        configDataFind.where = {
+          type: actionClient.dataFromFilter.type,
+        };
+      } else {
+        configDataFind.where = "";
       }
+      console.log(
+        "---------------------------------------------------------------------------------"
+      );
+      if (actionClient.smallNum) {
+        if (actionClient.dataFromFilter.type) {
+          configDataFind.where = {
+            type: { ...configDataFind.where },
+            price: {
+              [Sequelize.Op.between]: [
+                Number(actionClient.dataFromFilter.smallNum),
+                Number(actionClient.dataFromFilter.bigNum),
+              ],
+            },
+          };
+        } else {
+          configDataFind.where = {
+            price: {
+              [Sequelize.Op.between]: [
+                Number(actionClient.dataFromFilter.smallNum),
+                Number(actionClient.dataFromFilter.bigNum),
+              ],
+            },
+          };
+        }
+      }
+      if (actionClient.dataFromFilter && actionClient.dataFromFilter.order) {
+        configDataFind.order = ["createdAt", actionClient.dataFromFilter.order];
+      }
+
+      let query = actionClient.query;
+      let queryFind = {
+        offset: offset,
+        limit: onPage,
+        where: { name: { [Sequelize.Op.like]: `%${query}%` }, isActive: 1 },
+        include: [
+          {
+            model: db.allCodes,
+            as: "typeOfInstrument",
+            attributes: ["valueEn", "valueVN"],
+          },
+          {
+            model: db.interact,
+            as: "interact",
+            attributes: { exclude: ["blogID"] },
+          },
+        ],
+      };
+      if (action === constant.paging) {
+        queryFind.where = { isActive: 1 };
+        if (configDataFind.where.type) {
+          queryFind.where = { ...configDataFind.where, isActive: 1 };
+        }
+      }
+      configDataFind = {
+        ...queryFind,
+        where: { ...queryFind.where, ...configDataFind.where },
+        order: [configDataFind.order],
+      };
+      console.log(actionClient);
+      if (!actionClient.dataFromFilter) {
+        delete configDataFind.order;
+      } else if (actionClient.dataFromFilter) {
+        if (!actionClient.dataFromFilter.order) {
+          delete configDataFind.order;
+        }
+      }
+
+      console.log(configDataFind);
+      res = await db.musicalInstrument.findAll(configDataFind);
+      total = await db.musicalInstrument.count(configDataFind);
     }
     if (res && res.length > 0) {
       res.map((item) => {
@@ -271,6 +333,7 @@ let getWithAction = async (actionClient) => {
     }
     return {
       data: res,
+
       errMessage: `successlly get ${action} musical Instrument`,
       errCode: "0",
     };
@@ -288,6 +351,7 @@ let deleteInstrument = async (instrumentID) => {
       let data = await db.musicalInstrument.destroy({
         where: { id: instrumentID },
       });
+
       if (data) {
         return {
           data: data,
@@ -307,27 +371,35 @@ let deleteInstrument = async (instrumentID) => {
 };
 let editInstrument = async (newData) => {
   try {
-    const { name, price, type } = newData;
-    console.log("newData=>", newData);
     if (newData) {
       let Instrument = await db.musicalInstrument.findOne({
         where: { id: newData.instrumentID },
         include: [
           {
-            model: db.allCode,
-            as: "typeOfInstrument",
-            attributes: ["valueEn", "valueVN"],
+            model: db.markdown,
+            as: "musicalInstrumentDetail",
+            attributes: ["description"],
           },
         ],
       });
-      console.log("Instrument=>", Instrument);
       if (Instrument) {
-        await Instrument.update({
-          name: name,
-          price: price,
-          type: type,
-        });
-
+        if (newData.isActive !== null) {
+          Instrument.isActive = newData.isActive ? 1 : 0;
+          await Instrument.save();
+        } else {
+          const { name, price, type, musicalInstrumentDetail } = newData;
+          let markdown = await db.markdown.findOne({
+            where: { instrumentID: newData.instrumentID },
+          });
+          await Instrument.update({
+            name: name,
+            price: price,
+            type: type,
+          });
+          await markdown.update({
+            musicalInstrumentDetail: musicalInstrumentDetail,
+          });
+        }
         return {
           data: [],
           errCode: 0,

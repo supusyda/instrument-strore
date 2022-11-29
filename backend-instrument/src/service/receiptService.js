@@ -59,6 +59,8 @@ let getReceiptService = async (userID) => {
   try {
     if (userID == "ALL") {
       let res = await db.receipts.findAll({
+        logging: console.log,
+
         include: [
           {
             model: db.receiptsDetail,
@@ -68,6 +70,7 @@ let getReceiptService = async (userID) => {
               {
                 model: db.musicalInstrument,
                 as: "instrument",
+                attributes: ["name"],
               },
             ],
           },

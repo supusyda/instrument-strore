@@ -14,7 +14,34 @@ let getAllCode = async (req, res) => {
     });
   }
 };
-
+let createAllCode = async (req, res) => {
+  try {
+    let newData = req.body;
+    let data = await allCodes.createAllCodesService(newData);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+let updateAllCode = async (req, res) => {
+  try {
+    let newData = req.body;
+    let data = await allCodes.updateAllCodesService(newData);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
 module.exports = {
   getAllCode: getAllCode,
+  createAllCode: createAllCode,
+  updateAllCode: updateAllCode,
 };

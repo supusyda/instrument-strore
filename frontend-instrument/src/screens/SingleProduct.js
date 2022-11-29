@@ -50,7 +50,6 @@ const SingleProduct = ({ match }) => {
     let data = async () => {
       try {
         let respones = await getAllInstrument(match.params.id);
-
         setLoading(false);
         setInstrument(respones.data.data);
       } catch (error) {
@@ -125,11 +124,8 @@ const SingleProduct = ({ match }) => {
                       instrumentID={instrument.id}
                     ></LikeButtonCompoent>
                   )}
-                  {/* <Rating
-                    value={product.rating}
-                    text={`${product.numReviews}`}
-                  /> */}
                 </div>
+
                 {instrument.inStock > 0 ? (
                   <>
                     <div className="flex-box d-flex justify-content-between align-items-center">
@@ -152,15 +148,25 @@ const SingleProduct = ({ match }) => {
                         }}
                       ></input>
                     </div>
-
-                    <button
-                      className="round-black-btn"
-                      onClick={() => {
-                        handleAddToCart();
-                      }}
-                    >
-                      Add To Cart
-                    </button>
+                    {islogin === true ? (
+                      <button
+                        className="round-black-btn"
+                        onClick={() => {
+                          handleAddToCart();
+                        }}
+                      >
+                        Add To Cart
+                      </button>
+                    ) : (
+                      <button
+                        className="round-black-btn"
+                        onClick={() => {
+                          history.push("/login");
+                        }}
+                      >
+                        Login
+                      </button>
+                    )}
                   </>
                 ) : (
                   <>
@@ -220,9 +226,20 @@ const SingleProduct = ({ match }) => {
                 ></textarea>
               </div>
               <div className="my-3">
-                <button className="col-12 bg-black border-0 p-3 rounded text-white">
-                  SUBMIT
-                </button>
+                {islogin === true ? (
+                  <button
+                    className="col-12 bg-black border-0 p-3 rounded text-white"
+                    onClick={() => {
+                      history.push("/login");
+                    }}
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <button className="col-12 bg-black border-0 p-3 rounded text-white">
+                    SUBMIT
+                  </button>
+                )}
               </div>
             </form>
             {islogin === true ? (

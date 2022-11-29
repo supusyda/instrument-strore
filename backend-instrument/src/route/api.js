@@ -46,10 +46,13 @@ let initRouter = (app) => {
   router.delete("/api/instrument/delete", Instrument.deleteInstrument);
   router.put("/api/instrument/update", Instrument.updateInstrument);
   router.get("/api/instrument/bestSeller", Instrument.getBestSeller);
+  // router.put("/api/instrument/toggelActive", Instrument.toggelActive);
 
   router.post("/api/markdown/create", Markdown.createMarkdown);
 
   router.get("/api/allCode/get", allCodes.getAllCode);
+  router.post("/api/allCode/create", allCodes.createAllCode);
+  router.put("/api/allCode/update", allCodes.updateAllCode);
 
   router.post("/api/receipt/create", receipt.addReceipt);
   router.get("/api/receipt/get", receipt.getReceipt);

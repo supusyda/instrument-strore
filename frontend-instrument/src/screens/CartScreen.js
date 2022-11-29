@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./../components/Header";
 import { Link } from "react-router-dom";
-import useFetch from "../customize/useFetch";
+
 import { getSpecificInstrument } from "../services/instrumentService";
 import Cookies from "universal-cookie";
 

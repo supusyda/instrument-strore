@@ -62,18 +62,19 @@ const Login = (props) => {
     data.logInWithGoogle = true;
     console.log("data=>", data);
     let res = await login(data);
-    console.log(res);
-    let accessToken = res.data.data.accessToken;
-    let refreshToken = res.data.data.refreshToken;
-    let userID = res.data.data.userID;
-    console.log(refreshToken);
-    cookies.set("token", accessToken, { path: "/" });
-    cookies.set("refresh", refreshToken, { path: "/" });
-    cookies.set("userID", userID, { path: "/" });
-
-    // Pacman
-    alert("success Register");
-    history.push("/");
+    if (res.data.errCode === 0) {
+      let accessToken = res.data.data.accessToken;
+      let refreshToken = res.data.data.refreshToken;
+      let userID = res.data.data.userID;
+      console.log(refreshToken);
+      cookies.set("token", accessToken, { path: "/" });
+      cookies.set("refresh", refreshToken, { path: "/" });
+      cookies.set("userID", userID, { path: "/" });
+      alert("success Login");
+      history.push("/");
+    } else {
+      alert("Pls register");
+    }
   };
   useEffect(() => {
     try {

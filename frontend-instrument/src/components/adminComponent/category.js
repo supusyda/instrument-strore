@@ -5,11 +5,11 @@ import { process } from "@progress/kendo-data-query";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./product.css";
 import useFetch from "../../customize/useFetch";
-import { updateProduct } from "../../services/instrumentService";
-import CreateProductModal from "./modal/createProduct";
+import { createNewCategory,updateCategory } from "../../services/categoryService";
+import CreateCategoryModal from "./modal/createCategory.js";
 
-const Product = () => {
-  let [productData, setProductData] = useState([]);
+const Category = () => {
+  let [categoryData, setCategoryData] = useState([]);
   const [dataState, setDataState] = useState({ skip: 0, take: 4 });
   const [result, setResult] = useState(null);
   let [openModal, setopenModal] = useState(false);
@@ -17,28 +17,28 @@ const Product = () => {
   let [editData, setEditData] = useState({});
 
   let { res, loading, refesh } = useFetch(
-    "http://localhost:8080/api/instrument/get?instrumentID=ALL"
+    "http://localhost:8080/api/allCode/get?type=TYPE"
   );
   const onDataStateChange = (event) => {
     setDataState(event.dataState);
-    setResult(process(productData, event.dataState));
+    setResult(process(categoryData, event.dataState));
   };
-  const handleToggelproduct = async (instrumentID, isActive) => {
+  const handleToggelCategory = async (typeKeyMap, isActive) => {
     let dataSend = {
-      instrumentID,
+      typeKeyMap,
       isActive,
     };
-    let res = await updateProduct(dataSend);
+    let res = await updateCategory(dataSend);
     console.log(res);
     refesh();
   };
-  const handleEditproduct = (productData) => {
+  const handleEditCateGory = (categoryData) => {
     setopenModal(true);
-    setEditData(productData);
+    setEditData(categoryData);
     setIsEdit(true);
   };
   const deleteCell = (props) => {
-    let productID = props.dataItem.id;
+    let id = props.dataItem.id;
     let isActive = props.dataItem.isActive;
     console.log(props.dataItem);
     if (isActive == null) {
@@ -51,7 +51,7 @@ const Product = () => {
             type="button"
             className="btn btn-danger"
             onClick={() => {
-              handleToggelproduct(productID, true);
+              handleToggelCategory(id, true);
             }}
           >
             <span>
@@ -64,7 +64,7 @@ const Product = () => {
             type="button"
             className="btn btn-success"
             onClick={() => {
-              handleToggelproduct(productID, false);
+              handleToggelCategory(id, false);
             }}
           >
             <span>
@@ -76,14 +76,14 @@ const Product = () => {
     );
   };
   const editCell = (props) => {
-    let productData = props.dataItem;
+    let categoryData = props.dataItem;
     return (
       <td>
         <button
           type="button"
           class="btn btn-info"
           onClick={() => {
-            handleEditproduct(productData);
+            handleEditCateGory(categoryData);
           }}
         >
           <span>&#9997;</span>
@@ -91,35 +91,14 @@ const Product = () => {
       </td>
     );
   };
-  const imageCell = (props) => {
-    return (
-      <td>
-        <div
-          className="avatar"
-          style={{
-            backgroundImage: `url(${
-              props.dataItem.image ? props.dataItem.image : ""
-            })`,
-          }}
-        ></div>
-      </td>
-    );
-  };
+
   useEffect(() => {
     if (res.data && res.data.length > 0) {
-      setProductData(res.data);
+      setCategoryData(res.data);
       setResult(process(res.data, dataState));
     }
   }, [res]);
-  const hello = (props) => {
-    let sold;
-    if (props.dataItem.receiptsDetail.length > 0) {
-      sold = props.dataItem.receiptsDetail[0].total;
-    } else if (props.dataItem.receiptsDetail.length === 0) {
-      sold = 0;
-    }
-    return <td>{sold}</td>;
-  };
+
   const handleCreteProduct = () => {
     setopenModal(true);
   };
@@ -136,20 +115,20 @@ const Product = () => {
           <span>Create Product</span>
         </button>
         {openModal ? (
-          <CreateProductModal
+          <CreateCategoryModal
             isOpen={openModal}
             setOpen={setopenModal}
             refesh={refesh}
             editData={editData}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
-          ></CreateProductModal>
+          ></CreateCategoryModal>
         ) : (
           ""
         )}
         {result !== null
-          ? productData &&
-            productData.length > 0 && (
+          ? categoryData &&
+            categoryData.length > 0 && (
               <Grid
                 data={result}
                 filterable={true}
@@ -157,21 +136,11 @@ const Product = () => {
                   onDataStateChange(e);
                 }}
                 pageable={true}
-                total={productData.length}
+                total={categoryData.length}
                 {...dataState}
               >
-                <GridColumn
-                  field="image"
-                  title="Image"
-                  cell={imageCell}
-                  filterable={false}
-                />
-                <GridColumn field="name" title="Instrument Name" />
-                <GridColumn field="price" title="Price" filterable={false} />
-
-                <GridColumn field="typeOfInstrument.valueEn" title="Type" />
-                <GridColumn field="inStock" title="Amount" />
-                <GridColumn title="Has Sold" cell={hello} filterable={false} />
+                <GridColumn field="keyMap" title="KeyMap" />
+                <GridColumn field="valueEN" title="valueEN" />
 
                 <GridColumn
                   title="Active"
@@ -187,4 +156,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Category;
