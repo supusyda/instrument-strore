@@ -7,6 +7,7 @@ body {
   font-size: 17px;
   padding: 0;
   box-sizing: border-box;
+  background-color: #fff;
 }
 a {
   text-decoration: none;
@@ -150,21 +151,7 @@ textarea:focus {
   margin: 0 15px;
 }
 
-.dropdown-menu {
-  background-color: black !important;
-  border: 0 !important;
-  padding: 0 !important;
-  overflow: hidden;
-}
-.dropdown-menu a {
-  padding: 10px 20px !important;
-  color: #ffffff !important;
-  margin: 0 !important;
-}
-.dropdown-menu a:hover {
-  background-color: gray !important;
-  color: #ffffff !important;
-}
+
 .mobile-header {
   margin-top: 50px;
   display: none;
@@ -974,7 +961,11 @@ textarea:focus {
   color: black;
   height: 100%;
 }
-
+.slide-container {
+  width: 100%;
+  max-height: 800px;
+  background-size: contain;
+}
 .carousel .slide img {
   width: 139px !important;
   border-radius: 50%;

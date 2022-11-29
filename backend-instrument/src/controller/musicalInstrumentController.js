@@ -81,6 +81,7 @@ let updateInstrument = async (req, res) => {
     });
   }
 };
+
 let getBestSeller = async (req, res) => {
   try {
     let data = await Intrusment.getBestSellerService();

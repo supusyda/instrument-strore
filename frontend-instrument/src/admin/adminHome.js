@@ -7,15 +7,14 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AppLayout from "../components/adminLayout/layout";
 import Sidebar from "../components/sidebar/Sidebar";
 
-import { Switch, Route } from "react-router-dom";
-
 import Login from "../screens/Login";
 import Users from "../components/adminComponent/users";
 import Product from "../components/adminComponent/product";
 import Dashboard from "../components/adminComponent/dashboard";
 import AdminHeader from "../components/adminComponent/adminHeader";
-import Blog from "../components/adminComponent/Blog"
-import { ToastContainer, toast } from "react-toastify";
+import Blog from "../components/adminComponent/Blog";
+import Category from "../components/adminComponent/category.js";
+
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
@@ -43,12 +42,13 @@ const Admin = () => {
           <Sidebar></Sidebar>
         </div>
         <div className="right-content">
-        <Switch>
-          <Route path="/admin/started" component={Dashboard} />
-          <Route path="/admin/product" component={Product} />
-          <Route path="/admin/user" component={Users} />
-          <Route path="/admin/blog" component={Blog} />
-        </Switch>
+          <Switch>
+            <Route path="/admin/started" component={Dashboard} />
+            <Route path="/admin/product" component={Product} />
+            <Route path="/admin/user" component={Users} />
+            <Route path="/admin/blog" component={Blog} />
+            <Route path="/admin/category" component={Category} />
+          </Switch>
         </div>
         <ToastContainer></ToastContainer>
       </div>

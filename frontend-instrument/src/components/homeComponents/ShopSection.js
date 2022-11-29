@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import Pagination from "./pagination";
 import products from "../../data/Products";
-// import { getAllInstrument } from "../../services/instrumentService";
+
 import { getWithAction } from "../../services/instrumentService";
 import Loading from "../LoadingError/Loading";
 import Cookies from "universal-cookie";
 const ShopSection = (props) => {
   const cookies = new Cookies();
   let [instruments, setInstruments] = useState([]);
-
   let [isloading, setisLoading] = useState(true);
   let [pagination, setPagination] = useState({
     onPage: 6,
@@ -48,20 +47,22 @@ const ShopSection = (props) => {
       try {
         let respones;
         if (props.isPaging) {
-          console.log("props.action", props.action);
           let dataSend;
           if (props.action === "query") {
             dataSend = {
               action: props.action,
               pagination: { ...pagination },
               query: props.query,
+              dataFromFilter: { ...props.dataFromFilter },
             };
           } else {
-            console.log("props.action", props.action);
+            dataSend = {
+              action: "paging",
+              pagination: pagination,
 
-            dataSend = { action: "paging", pagination: pagination };
+              dataFromFilter: { ...props.dataFromFilter },
+            };
           }
-
           respones = await getWithAction(dataSend);
         } else {
           let dataSend = { action: props.action };
@@ -76,7 +77,7 @@ const ShopSection = (props) => {
     };
     data();
     return () => {};
-  }, [pagination, props.query, props.action]);
+  }, [pagination, props.query, props.action, props.dataFromFilter]);
   return (
     <>
       {isloading === true ? (
@@ -156,8 +157,7 @@ const ShopSection = (props) => {
                             </p>
                             {instrument.interact && (
                               <Rating
-                                like={`${instrument.interact.likes} reviews`}
-                                dislike={`${instrument.interact.dislikes} reviews`}
+                                like={`${instrument.interact.likes} LIKE`}
                               />
                             )}
 

@@ -160,7 +160,7 @@ const PlaceOrderScreen = (props) => {
                   }}
                   onApprove={(data, actions) => {
                     return actions.order.capture().then(function (details) {
-                      // Your code here after capture the order
+                     
 
                       props.handlePlaceOrderSubmit();
                     });

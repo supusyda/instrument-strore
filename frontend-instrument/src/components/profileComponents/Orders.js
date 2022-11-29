@@ -9,6 +9,7 @@ const Orders = (props) => {
     `http://localhost:8080/api/receipt/get?userID=${userID}`
   );
   useEffect(() => {
+    console.log(res);
     SetReceipts(res);
 
     return () => {};
@@ -41,7 +42,7 @@ const Orders = (props) => {
                         </td>
                         <td>Confirmed</td>
                         <td>{moment(item.createdAt).format("MM/DD/YYYY")}</td>
-                        <td>{item.totalMoney}VND</td>
+                        <td>{item.totalMoney} USD</td>
                       </tr>
                     )}
                     {item.status === "S3" && (
@@ -53,7 +54,7 @@ const Orders = (props) => {
                         </td>
                         <td>Paid</td>
                         <td>{moment(item.createdAt).format("MM/DD/YYYY")}</td>
-                        <td>{item.totalMoney}VND</td>
+                        <td>{item.totalMoney}USD</td>
                       </tr>
                     )}
                     {item.status === "S4" && (
@@ -65,7 +66,7 @@ const Orders = (props) => {
                         </td>
                         <td>Cancel</td>
                         <td>{moment(item.createdAt).format("MM/DD/YYYY")}</td>
-                        <td>{item.totalMoney}VND</td>
+                        <td>{item.totalMoney}USD</td>
                       </tr>
                     )}
                   </>

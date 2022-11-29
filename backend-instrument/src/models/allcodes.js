@@ -12,9 +12,34 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: "positionID",
       //   as: "positionData",
       // });
-      allCodes.hasMany(models.musicalInstrument, {
-        foreignKey: "type",
-        as: "typeOfInstrument",
+      // allCodes.belongsTo(models.musicalInstrument, {
+      //   foreignKey: "keyMap",
+      //   targetKey: "type",
+      //   as: "sameTypeInstrument",
+      // });
+      allCodes.hasMany(
+        models.musicalInstrument,
+        {
+          foreignKey: "type",
+          as: "sameTypeItem",
+        }
+        //   , {
+        //   foreignKey: {
+        //     name: "type",
+        //     allowNull: false,
+        //   },
+        //   as: "sameIntrumentType",
+        // }
+      );
+      // allCodes.belongsTo(models.musicalInstrument, {
+      //   foreignKey: "keyMap",
+      //   targetKey: "type",
+
+      //   // as: "sameIntrumentType2",
+      // });
+      allCodes.hasMany(models.typedetail, {
+        foreignKey: "typeKeyMap",
+        as: "typeDetail",
       });
     }
   }

@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as:"instrument"
       });
+      // receiptsDetail.belongsTo(models.musicalInstrument);
     }
   }
   receiptsDetail.init(

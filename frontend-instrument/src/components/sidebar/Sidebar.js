@@ -16,6 +16,12 @@ const sidebarNavItems = [
     section: "calendar",
   },
   {
+    display: "Category",
+    icon: <i class="fal fa-list-ul"></i>,
+    to: "/admin/category",
+    section: "category",
+  },
+  {
     display: "User",
     icon: <i class="fas fa-users"></i>,
     to: "/admin/user",

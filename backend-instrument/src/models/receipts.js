@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "receiptID",
         as: "ReceiptDetails",
       });
+      
       // receipts.belongsTo(models.receiptsDetail, {
       //   foreignKey: "id",
       //   targetKey: "receiptID",

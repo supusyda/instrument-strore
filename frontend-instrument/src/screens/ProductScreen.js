@@ -3,11 +3,14 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ShopSection from "../components/homeComponents/ShopSection";
 import { getWithAction } from "../services/instrumentService";
+import Filter from "../components/productComponent/filterComponent";
 const ProductScreen = ({ match }) => {
   let [cartItem, setCartItem] = useState(0);
   let [islogin, setIsLogin] = useState(false);
   let [totalItem, setTotalItem] = useState(0);
-  const [query, setQuery] = useState(match.params.q);
+  let [query, setQuery] = useState(match.params.q);
+  let [dataFromFilter, setDataFromFilter] = useState({});
+
   useEffect(() => {
     let data = async () => {
       try {
@@ -45,6 +48,7 @@ const ProductScreen = ({ match }) => {
   return (
     <div>
       <Header cartItem={cartItem} setIsLogin={setIsLogin} />
+      <Filter setDataFromFilter={setDataFromFilter}></Filter>
       {totalItem > 0 ? (
         <ShopSection
           addToCart={addToCart}
@@ -54,6 +58,7 @@ const ProductScreen = ({ match }) => {
           sectionName={sectionName.all}
           isPaging={true}
           totalItem={totalItem}
+          dataFromFilter={dataFromFilter}
         />
       ) : (
         <h1 style={{ textAlign: "center" }}>0 FOUND</h1>

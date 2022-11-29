@@ -174,15 +174,15 @@ let loginUser = async (loginInfo) => {
   try {
     console.log(loginInfo);
     let { email } = loginInfo;
-    let haveUser = check_email(email);
+    let haveUser = await check_email(email);
+    console.log("haveUser", haveUser);
     if (haveUser) {
       if (loginInfo.logInWithGoogle === true) {
         let user = await db.User.findOne({
           where: { email: email },
-          attributes: { exclude: ["refreshToken", "image"] },
+          attributes: { exclude: ["refreshToken", "image", "password"] },
         });
-        let userPlain = (await user).get({ plain: true });
-        userPlain.password = null;
+        let userPlain = user.get({ plain: true });
 
         console.log(process.env.ACCESS_TOKEN_SERCECT);
         const accessToken = jwt.sign(
@@ -194,7 +194,10 @@ let loginUser = async (loginInfo) => {
         );
         const refreshToken = jwt.sign(
           userPlain,
-          process.env.ACCESS_TOKEN_REFRESH
+          process.env.ACCESS_TOKEN_REFRESH,
+          {
+            expiresIn: "24h",
+          }
         );
         if (user) {
           user.refreshToken = refreshToken;
@@ -253,7 +256,7 @@ let loginUser = async (loginInfo) => {
         }
       }
     } else {
-      return { data: [], errCode: -1, errMessage: "Worng email " };
+      return { data: [], errCode: -1, errMessage: "Worng email" };
     }
   } catch (error) {
     console.log(error);

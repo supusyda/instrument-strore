@@ -41,7 +41,7 @@ const ProfileScreen = () => {
   const froceRerender = () => {
     setUpdateSuccess(!updateSuccess);
   };
-  // let { res } = useFetch(`http://localhost:8080/api/user/get?userID=${userID}`);
+
   useEffect(() => {
     if (!cookies.get("token")) {
       history.push("/login");

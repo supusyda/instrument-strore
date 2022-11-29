@@ -8,20 +8,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // musicalInstrument.belongsTo(models.allCodes, {
+      //   foreignKey: "type",
+      //   targetKey: "keyMap",
+      //   as: "typeOfInstrument",
+      // });
       musicalInstrument.belongsTo(models.allCodes, {
         foreignKey: "type",
         targetKey: "keyMap",
         as: "typeOfInstrument",
       });
-      // musicalInstrument.belongsTo(models.receiptsDetail);
-      // musicalInstrument.belongsTo(models.receiptsDetail, {
-      //   foreignKey: "id",
-      //   targetKey: "instrumentID",
-      //   as:"instrument"
-      // });
       musicalInstrument.hasMany(models.receiptsDetail, {
-        foreignKey: "id",
-        as: "instrument",
+        foreignKey: "instrumentID",
+        as: "receiptsDetail",
       });
       musicalInstrument.hasOne(models.interact, {
         foreignKey: "instrumentID",
@@ -44,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       price: DataTypes.INTEGER,
       inStock: DataTypes.INTEGER,
+      isActive: DataTypes.BOOLEAN,
       image: DataTypes.BLOB("long"),
     },
     {

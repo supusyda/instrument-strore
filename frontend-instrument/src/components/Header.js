@@ -53,22 +53,21 @@ const Header = (props) => {
   }
   let logoutUser = async () => {
     if (userData) {
-      auth.logout(async () => {
-        let res = await logout(userData);
-        if (res.data.errCode == 0) {
-          setUserData(null);
-          await cookies.remove("userID");
-          await cookies.remove("refresh");
-          await cookies.remove("token");
-          await cookies.remove("cartItemID");
-          if (props.setIsLogin) {
-            props.setIsLogin(false);
-          }
-          history.push("/login");
-        } else {
-          alert("some thinng wrong");
+      let res = await logout(userData);
+      console.log("logout", res);
+      if (res.data.errCode == 0) {
+        setUserData(null);
+        await cookies.remove("userID");
+        await cookies.remove("refresh");
+        await cookies.remove("token");
+        await cookies.remove("cartItemID");
+        if (props.setIsLogin) {
+          props.setIsLogin(false);
         }
-      });
+        history.push("/login");
+      } else {
+        alert("some thinng wrong");
+      }
     }
   };
   useEffect(() => {
@@ -78,6 +77,7 @@ const Header = (props) => {
     if (props.setIsLogin && res.data) {
       props.setIsLogin(true);
     }
+    console.log(res);
     setUserData(res.data);
 
     return () => {};
@@ -144,7 +144,7 @@ const Header = (props) => {
                     <button
                       type="button"
                       className="name-button dropdown-toggle"
-                      data-toggle="dropdown"
+                      data-bs-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
@@ -216,29 +216,30 @@ const Header = (props) => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-                <div className="btn-group">
+                <div className="dropdown">
                   {userData ? (
-                    <div
+                    <button
                       type="button"
-                      className="name-button  rounded-circle"
-                      data-toggle="dropdown"
+                      className="btn btn-secondary rounded-circle"
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
                       style={{
                         backgroundImage: `url(${
                           userData.image ? userData.image : ""
                         })`,
-                        // background: "round",
                         backgroundSize: "cover",
                         height: "100px",
                         width: "100px",
                         backgroundPosition: "center",
                       }}
-                    ></div>
+                    ></button>
                   ) : (
                     <button
+                      className="btn btn-secondary dropdown-toggle"
                       type="button"
-                      className="name-button dropdown-toggle"
+                      id="dropdownMenuButton"
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
@@ -246,12 +247,14 @@ const Header = (props) => {
                       Guest
                     </button>
                   )}
-
-                  <div className="dropdown-menu">
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
                     <Link className="dropdown-item" to="/profile">
                       Profile
                     </Link>
-                    {userData && userData.position && (
+                    {userData && userData.position === "R1" && (
                       <Link className="dropdown-item" to="/admin">
                         Admin
                       </Link>

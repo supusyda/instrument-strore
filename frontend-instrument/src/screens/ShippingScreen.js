@@ -61,9 +61,8 @@ const ShippingScreen = () => {
     console.log(res);
     if (res.data.errCode == 0) {
       cookies.remove("cartItemID");
-
-      alert("Success place Order");
       setDoneStep({ ...doneStep, alldone: true });
+   
       // history.push("/");
     }
   };
