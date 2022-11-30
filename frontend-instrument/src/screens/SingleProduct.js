@@ -58,7 +58,7 @@ const SingleProduct = ({ match }) => {
     };
     data();
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -71,9 +71,8 @@ const SingleProduct = ({ match }) => {
             <div className="single-image">
               <div
                 style={{
-                  backgroundImage: `url(${
-                    instrument.image ? instrument.image : ""
-                  })`,
+                  backgroundImage: `url(${instrument.image ? instrument.image : ""
+                    })`,
                   backgroundPosition: "center",
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
@@ -187,13 +186,15 @@ const SingleProduct = ({ match }) => {
         </div>
 
         <div className="row my-5">
-          {/* <div className="col-md-6">
+          <div className="col-md-6">
             <h6 className="mb-3">REVIEWS</h6>
             <Message variant={"alert-info mt-3"}>No Reviews</Message>
             <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
-              <strong>Admin</strong>
-              <Rating />
-              <span>dd/mm/yy</span>
+              <div className="head-review">
+                <strong>Name</strong>
+
+                <span>dd/mm/yy</span>
+              </div>
               <div className="alert alert-info mt-3">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
@@ -201,8 +202,8 @@ const SingleProduct = ({ match }) => {
                 of type and scrambled it to make a type specimen book
               </div>
             </div>
-          </div> */}
-          <div className="col-md-12">
+          </div>
+          <div className="col-md-6">
             <h6>WRITE A CUSTOMER REVIEW</h6>
             <div className="my-4"></div>
 

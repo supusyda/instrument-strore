@@ -48,7 +48,9 @@ const AdminHeader = () => {
             </ul>
             <ul className="nav-menu">
               <li onClick={() => logoutUser()}>
-                <div>Logout</div>
+                <div>
+                  <a>Logout</a>
+                </div>
               </li>
             </ul>
           </div>
