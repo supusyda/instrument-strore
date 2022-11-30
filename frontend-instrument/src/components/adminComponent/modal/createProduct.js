@@ -14,10 +14,6 @@ import {
   FormGroup,
   Label,
   Input,
-  TextInput,
-  FormText,
-  InputGroupText,
-  InputGroup,
   Row,
   Col,
 } from "reactstrap";

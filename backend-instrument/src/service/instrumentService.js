@@ -257,30 +257,34 @@ let getWithAction = async (actionClient) => {
       console.log(
         "---------------------------------------------------------------------------------"
       );
-      if (actionClient.smallNum) {
-        if (actionClient.dataFromFilter.type) {
+      if (actionClient.dataFromFilter && actionClient.dataFromFilter.between) {
+        if (configDataFind.where.type) {
           configDataFind.where = {
-            type: { ...configDataFind.where },
+            type: configDataFind.where.type,
             price: {
               [Sequelize.Op.between]: [
-                Number(actionClient.dataFromFilter.smallNum),
-                Number(actionClient.dataFromFilter.bigNum),
+                Number(actionClient.dataFromFilter.between.smallNum),
+                Number(actionClient.dataFromFilter.between.bigNum),
               ],
             },
           };
+          console.log("configDataFind", configDataFind);
         } else {
           configDataFind.where = {
             price: {
               [Sequelize.Op.between]: [
-                Number(actionClient.dataFromFilter.smallNum),
-                Number(actionClient.dataFromFilter.bigNum),
+                Number(actionClient.dataFromFilter.between.smallNum),
+                Number(actionClient.dataFromFilter.between.bigNum),
               ],
             },
           };
         }
       }
-      if (actionClient.dataFromFilter && actionClient.dataFromFilter.order) {
-        configDataFind.order = ["createdAt", actionClient.dataFromFilter.order];
+      if (actionClient.dataFromFilter && actionClient.dataFromFilter.value) {
+        configDataFind.order = [
+          actionClient.dataFromFilter.value.field,
+          actionClient.dataFromFilter.value.order,
+        ];
       }
 
       let query = actionClient.query;
@@ -316,7 +320,7 @@ let getWithAction = async (actionClient) => {
       if (!actionClient.dataFromFilter) {
         delete configDataFind.order;
       } else if (actionClient.dataFromFilter) {
-        if (!actionClient.dataFromFilter.order) {
+        if (!actionClient.dataFromFilter.value) {
           delete configDataFind.order;
         }
       }
