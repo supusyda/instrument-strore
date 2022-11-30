@@ -21,18 +21,19 @@ const Filter = (props) => {
       action: {
         sort: "between",
         option: [
-          { value: { smallNum: 0, bigNum: 100 }, lable: "Under 200$" },
+          { value: null, label: "Default" },
+          { value: { smallNum: 1, bigNum: 100 }, label: "Under 100$" },
           {
             value: { smallNum: 101, bigNum: 200 },
-            lable: "between 100$ and 200$",
+            label: "Between 100$ and 200$",
           },
           {
             value: { smallNum: 201, bigNum: 500 },
-            lable: "between 201$ and 500$",
+            label: "Between 201$ and 500$",
           },
           {
             value: { smallNum: 500, bigNum: 1000 },
-            lable: "between 500$ and 1000$",
+            label: "Between 500$ and 1000$",
           },
         ],
       },
@@ -44,32 +45,36 @@ const Filter = (props) => {
         sort: "value",
         option: [
           {
+            value: null,
+            label: "Default",
+          },
+          {
             value: {
               field: "price",
               order: "ASC",
             },
-            lable: "price ascending ",
+            label: "Price Ascending ",
           },
           {
             value: {
               field: "price",
               order: "DESC",
             },
-            lable: "price descending  ",
+            label: "Price Descending  ",
           },
           {
             value: {
               field: "name",
               order: "DESC",
             },
-            lable: "name from A - Z ",
+            label: "Name From A - Z ",
           },
           {
             value: {
               field: "name",
               order: "DESC",
             },
-            lable: "name from Z - A ",
+            label: "Name From Z - A ",
           },
         ],
       },
@@ -119,7 +124,10 @@ const Filter = (props) => {
 
           return (
             <Col md="2">
-              <Dropdown dropDownData={item}></Dropdown>
+              <Dropdown
+                dropDownData={item}
+                onChangeAllFilterData={onChangeAllFilterData}
+              ></Dropdown>
             </Col>
           );
         })}

@@ -6,8 +6,13 @@ import useFetch from "../../customize/useFetch";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { UserData as dummyData } from "./dummyData";
+import { UserAmount } from "../../services/userService";
+import { getIncomeInWeek } from "../../services/recieptService";
 
 const Dashboard = (props) => {
+  let [userCount, setUserCount] = useState();
+  let [inComeWeek, setInComeWeek] = useState();
+
   let [userData, setUserData] = useState({
     labels: dummyData.map((data) => data.year),
     datasets: [
@@ -18,6 +23,27 @@ const Dashboard = (props) => {
       },
     ],
   });
+  useEffect(() => {
+    let data = async () => {
+      try {
+        let amount = await UserAmount();
+        let IncomeWeek = await getIncomeInWeek();
+
+        // console.log("amount", amount);
+        setUserCount(amount.data.data);
+        let total = 0;
+        IncomeWeek.data.data.map((item) => {
+          total = total + item.total;
+        });
+        setInComeWeek(total);
+        // setInstrument(respones.data.data);
+      } catch (error) {
+        // console.log(error);
+      }
+    };
+    data();
+  }, []);
+
   return (
     <>
       <div className="dashboard container">
@@ -41,7 +67,7 @@ const Dashboard = (props) => {
                   </div>
                   <div class="col-md-8">
                     <h5 class="card-title">Clients</h5>
-                    <h2 class="card-text">519</h2>
+                    <h2 class="card-text">{userCount}</h2>
                   </div>
                 </div>
               </div>
@@ -63,8 +89,8 @@ const Dashboard = (props) => {
                     <i class="fas fa-coins"></i>
                   </div>
                   <div class="col-md-8">
-                    <h5 class="card-title">Sale</h5>
-                    <h2 class="card-text">$ 7567</h2>
+                    <h5 class="card-title">Income in Week</h5>
+                    <h2 class="card-text">$ {inComeWeek}</h2>
                   </div>
                 </div>
               </div>

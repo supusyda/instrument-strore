@@ -61,6 +61,8 @@ let initRouter = (app) => {
   router.get("/api/react/get", react.getReact);
   router.post("/api/react/update", react.updateReact);
 
+  router.get("/api/user/amount", home.getUserAmount);
+
   router.post("/refreshToken", refreshTokens);
 
   return app.use("/", router);

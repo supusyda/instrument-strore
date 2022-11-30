@@ -22,6 +22,18 @@ let createUser = async (req, res) => {
     });
   }
 };
+let getUserAmount = async (req, res) => {
+  try {
+    let data = await User.getUserAmountService();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+
 let getUser = async (req, res) => {
   try {
     const userID = req.query.userID;
@@ -134,4 +146,5 @@ module.exports = {
   loginUser: loginUser,
   testMail: testMail,
   logoutUser: logoutUser,
+  getUserAmount: getUserAmount,
 };

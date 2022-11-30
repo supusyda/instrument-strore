@@ -3,10 +3,21 @@ import Select from "react-select";
 
 const Dropdown = (props) => {
   const { sort, option } = props.dropDownData.action;
+  const handleOnClick = (e) => {
+    console.log(e.value);
+    let dropdownData;
+    if (sort === "between") {
+      dropdownData = { between: e.value };
+    } else if (sort === "value") {
+      dropdownData = { value: e.value };
+    }
+
+    props.onChangeAllFilterData(dropdownData);
+  };
 
   return (
     <>
-      <div className="dropdown">
+      {/* <div className="dropdown">
         <button
           className="btn btn-secondary dropdown-toggle"
           type="button"
@@ -20,13 +31,25 @@ const Dropdown = (props) => {
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {option.map((item) => {
             return (
-              <a className="dropdown-item" href="#">
-                Action
+              <a
+                className="dropdown-item"
+                value={item.value}
+                onClick={(e) => {
+                  handleOnClick(e);
+                }}
+              >
+                {item.lable}
               </a>
             );
           })}
         </div>
-      </div>
+      </div> */}
+      {console.log(option)}
+      <Select
+        options={option}
+        defaultValue={{ value: null, label: "default" }}
+        onChange={(e) => handleOnClick(e)}
+      />
     </>
   );
 };
