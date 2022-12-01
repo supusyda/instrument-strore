@@ -23,10 +23,10 @@ const AdminHeader = () => {
       let res = await logout(userData);
       if (res.data.errCode == 0) {
         setUserData(null);
-        await cookies.remove("userID");
-        await cookies.remove("refresh");
-        await cookies.remove("token");
-        await cookies.remove("cartItemID");
+        await cookies.remove("userID", { path: "/" });
+        await cookies.remove("refresh", { path: "/" });
+        await cookies.remove("token", { path: "/" });
+        await cookies.remove("cartItemID", { path: "/" });
         history.push("/login");
       } else {
         alert("some thinng wrong");

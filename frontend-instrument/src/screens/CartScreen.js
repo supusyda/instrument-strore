@@ -7,7 +7,7 @@ import Cookies from "universal-cookie";
 
 const CartScreen = () => {
   const cookies = new Cookies();
-
+  let [amountDele, setAmountDele] = useState(0);
   let [recieptData, setRecieptData] = useState(
     cookies.get("cartItemID") ? cookies.get("cartItemID") : []
   );
@@ -52,16 +52,15 @@ const CartScreen = () => {
     let newtempItemInCart = tempItemInCart.filter((item) => {
       return item.id !== itemID;
     });
-    console.log(newtempItemInCart);
     setItemInCart(newtempItemInCart);
+    let tempDele = amountDele;
+    setAmountDele(Number(tempDele + 1));
   };
   useEffect(() => {
     let data = async () => {
       try {
         let instrumentIDs = { ids: recieptData };
-
         let respones = await getSpecificInstrument(instrumentIDs);
-
         setItemInCart(respones.data.data);
       } catch (error) {
         console.log(error);
@@ -72,8 +71,7 @@ const CartScreen = () => {
 
   return (
     <>
-      {console.log()}
-      <Header />
+      <Header amountDele={amountDele} />
       {/* Cart */}
       <div className="container">
         {itemInCart && !checkItemIncart(itemInCart) ? (

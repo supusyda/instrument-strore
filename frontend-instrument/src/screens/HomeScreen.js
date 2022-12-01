@@ -12,7 +12,7 @@ const HomeScreen = () => {
   let [islogin, setIsLogin] = useState(false);
   let addToCart = (number) => {
     setCartItem(cartItem + number);
-    console.log(number);
+   
   };
   const action = {
     new: "new",

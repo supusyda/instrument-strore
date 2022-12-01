@@ -8,11 +8,11 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { UserData as dummyData } from "./dummyData";
 import { UserAmount } from "../../services/userService";
 import { getIncomeInWeek } from "../../services/recieptService";
-
+import { bestSellerProduct } from "../../services/instrumentService";
 const Dashboard = (props) => {
   let [userCount, setUserCount] = useState();
   let [inComeWeek, setInComeWeek] = useState();
-
+  let [bestSeller, setBestSeller] = useState();
   let [userData, setUserData] = useState({
     labels: dummyData.map((data) => data.year),
     datasets: [
@@ -28,7 +28,7 @@ const Dashboard = (props) => {
       try {
         let amount = await UserAmount();
         let IncomeWeek = await getIncomeInWeek();
-
+        let bestSellerRes = await bestSellerProduct();
         // console.log("amount", amount);
         setUserCount(amount.data.data);
         let total = 0;
@@ -36,6 +36,8 @@ const Dashboard = (props) => {
           total = total + item.total;
         });
         setInComeWeek(total);
+        setBestSeller(bestSellerRes.data.data);
+
         // setInstrument(respones.data.data);
       } catch (error) {
         // console.log(error);
@@ -72,29 +74,7 @@ const Dashboard = (props) => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 d-flex justify-content-center">
-              <div
-                class="card  shadow p-3  bg-body rounded"
-                style={{
-                  width: "18rem",
-                }}
-              >
-                <div class="row no-gutters">
-                  <div
-                    class="card-icon col-md-4"
-                    style={{
-                      background: "round",
-                    }}
-                  >
-                    <i class="fas fa-coins"></i>
-                  </div>
-                  <div class="col-md-8">
-                    <h5 class="card-title">Income in Week</h5>
-                    <h2 class="card-text">$ {inComeWeek}</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
             <div className="col-md-4 d-flex justify-content-center">
               <div
                 class="card  shadow p-3 bg-body rounded"
@@ -112,8 +92,14 @@ const Dashboard = (props) => {
                     <i class="fas fa-chart-line"></i>
                   </div>
                   <div class="col-md-8">
-                    <h5 class="card-title">Performance</h5>
-                    <h2 class="card-text">234%</h2>
+                    <h5 class="card-title">Best Seller</h5>
+
+                    {bestSeller && (
+                      <>
+                        <h2 class="card-text">{bestSeller.instrument.name}</h2>
+                        <h2 class="card-text">Total : {bestSeller.total}</h2>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

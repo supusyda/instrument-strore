@@ -15,6 +15,8 @@ const ShopSection = (props) => {
     onPage: 6,
     currentPage: 1,
   });
+  let [isPageChange, setIsPageChange] = useState(false);
+  let [total, setTotal] = useState();
   const addToCartHead = (itemID) => {
     if (cookies.get("cartItemID")) {
       const cartItemIDCookie = cookies.get("cartItemID");
@@ -40,7 +42,10 @@ const ShopSection = (props) => {
   };
   const handleOnPageChange = (newPage) => {
     let temp = { ...pagination, currentPage: newPage };
+
     setPagination(temp);
+    setIsPageChange(true);
+    console.log();
   };
   useEffect(() => {
     let data = async () => {
@@ -49,19 +54,41 @@ const ShopSection = (props) => {
         if (props.isPaging) {
           let dataSend;
           if (props.action === "query") {
-            dataSend = {
-              action: props.action,
-              pagination: { ...pagination },
-              query: props.query,
-              dataFromFilter: { ...props.dataFromFilter },
-            };
-          } else {
-            dataSend = {
-              action: "paging",
-              pagination: pagination,
+            if (isPageChange === false) {
+              console.log("isPageChange");
+              dataSend = {
+                action: props.action,
+                pagination: { ...pagination, currentPage: 1 },
+                query: props.query,
+                dataFromFilter: { ...props.dataFromFilter },
+              };
+            } else {
+              console.log("isPageChange");
 
-              dataFromFilter: { ...props.dataFromFilter },
-            };
+              dataSend = {
+                action: props.action,
+                pagination: { ...pagination },
+                query: props.query,
+                dataFromFilter: { ...props.dataFromFilter },
+              };
+            }
+          } else {
+            console.log("isPageChange");
+            if (isPageChange === false) {
+              dataSend = {
+                action: "paging",
+                pagination: { ...pagination, currentPage: 1 },
+
+                dataFromFilter: { ...props.dataFromFilter },
+              };
+            } else {
+              dataSend = {
+                action: "paging",
+                pagination: { ...pagination },
+
+                dataFromFilter: { ...props.dataFromFilter },
+              };
+            }
           }
           respones = await getWithAction(dataSend);
         } else {
@@ -71,6 +98,8 @@ const ShopSection = (props) => {
 
         setisLoading(false);
         setInstruments(respones.data.data);
+        setTotal(respones.data.total);
+        setIsPageChange(false);
       } catch (error) {
         console.log(error);
       }
@@ -161,18 +190,18 @@ const ShopSection = (props) => {
                               />
                             )}
 
-                            <h3>{instrument.price}USD</h3>
+                            <h3>{instrument.price} $</h3>
                           </div>
                         </div>
                       </div>
                     ))}
 
                   {/* Pagination */}
-                  {props.isPaging && (
+                  {props.isPaging && total > 0 && (
                     <Pagination
                       onPageChange={handleOnPageChange}
                       pagination={pagination}
-                      totalRow={props.totalItem}
+                      totalRow={total}
                     />
                   )}
                 </div>

@@ -14,7 +14,7 @@ import Dashboard from "../components/adminComponent/dashboard";
 import AdminHeader from "../components/adminComponent/adminHeader";
 import Blog from "../components/adminComponent/Blog";
 import Category from "../components/adminComponent/category.js";
-
+import Receipt from "../components/adminComponent/receipts";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
@@ -48,6 +48,7 @@ const Admin = () => {
             <Route path="/admin/user" component={Users} />
             <Route path="/admin/blog" component={Blog} />
             <Route path="/admin/category" component={Category} />
+            <Route path="/admin/receipts" component={Receipt} />
           </Switch>
         </div>
         <ToastContainer></ToastContainer>

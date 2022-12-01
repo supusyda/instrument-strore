@@ -55,16 +55,41 @@ let createReceiptService = async (data) => {
     };
   }
 };
-let getReceiptService = async (userID) => {
+
+let updateReceiptService = async (newData) => {
   try {
-    if (userID == "ALL") {
+    let { receiptID, status } = newData;
+    let res = await db.receipts.findOne({
+      where: { id: receiptID },
+    });
+    if (res) {
+      res.status = status;
+      await res.save();
+      return {
+        data: res,
+        errMessage: `success update status to ${status}`,
+        errCode: "0",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      errMessage: "some thing wrong with service ....",
+      errCode: "-1",
+    };
+  }
+};
+let getReceiptService = async (receiptID) => {
+  try {
+    if (receiptID == "ALL") {
       let res = await db.receipts.findAll({
-        logging: console.log,
+        order: [["createdAt", "DESC"]],
         include: [
           {
             model: db.receiptsDetail,
             as: "ReceiptDetails",
             attributes: ["instrumentID", "amount", "money"],
+
             include: [
               {
                 model: db.musicalInstrument,
@@ -82,7 +107,7 @@ let getReceiptService = async (userID) => {
       };
     } else {
       let res = await db.receipts.findAll({
-        where: { userID: userID },
+        where: { userID: receiptID },
         include: [
           {
             model: db.receiptsDetail,
@@ -142,8 +167,54 @@ let totalInComeInWeek = async () => {
     };
   }
 };
+let getDetailService = async (data) => {
+  try {
+    let res = await db.receipts.findOne({
+      where: {
+        id: data,
+      },
+      include: [
+        {
+          model: db.receiptsDetail,
+          as: "ReceiptDetails",
+          attributes: ["instrumentID", "amount", "money"],
+
+          include: [
+            {
+              model: db.musicalInstrument,
+              as: "instrument",
+              // attributes: ["name"],
+            },
+          ],
+        },
+      ],
+    });
+    if (res) {
+      res.ReceiptDetails.map((item) => {
+        if (item.instrument.image)
+          item.instrument.image = new Buffer(
+            item.instrument.image,
+            "base64"
+          ).toString("binary");
+      });
+    }
+    return {
+      data: res,
+      errMessage: "successlly get Income in week",
+      errCode: "0",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      errMessage: "some thing wrong with service ....",
+      errCode: "-1",
+    };
+  }
+};
 module.exports = {
   createReceiptService: createReceiptService,
   getReceiptService: getReceiptService,
   totalInComeInWeek: totalInComeInWeek,
+  updateReceiptService: updateReceiptService,
+  getDetailService: getDetailService,
 };

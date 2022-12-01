@@ -169,7 +169,7 @@ const Product = () => {
                 <GridColumn field="name" title="Instrument Name" />
                 <GridColumn field="price" title="Price" filterable={false} />
 
-                <GridColumn field="typeOfInstrument.valueEn" title="Type" />
+                <GridColumn field="typeOfInstrument.valueEN" title="Type" />
                 <GridColumn field="inStock" title="Amount" />
                 <GridColumn title="Has Sold" cell={hello} filterable={false} />
 

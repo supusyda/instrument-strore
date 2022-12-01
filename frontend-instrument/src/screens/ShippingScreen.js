@@ -60,9 +60,13 @@ const ShippingScreen = () => {
     let res = await createReceipt(sendToDatabase);
     console.log(res);
     if (res.data.errCode == 0) {
-      cookies.remove("cartItemID");
-      setDoneStep({ ...doneStep, alldone: true });
-   
+      cookies.remove("cartItemID", { path: "/" });
+      let temp = { ...doneStep, alldone: true };
+      setDoneStep(temp);
+      if (temp.deliver === true && temp.payment === true && temp.alldone) {
+        console.log(`cookies.remove("cartItemID");`);
+        cookies.remove("cartItemID");
+      }
       // history.push("/");
     }
   };
@@ -149,15 +153,17 @@ const ShippingScreen = () => {
                 paymentCode={paymentCode}
               ></PaymentScreen>
             )}
-            {doneStep.deliver === true && doneStep.payment === true && doneStep.alldone ===false&& (
-              <PlaceOrderScreen
-                itemIncart={itemIncart}
-                payment={payment}
-                userData={userData}
-                paymentCode={paymentCode}
-                handlePlaceOrderSubmit={handlePlaceOrderSubmit}
-              ></PlaceOrderScreen>
-            )}
+            {doneStep.deliver === true &&
+              doneStep.payment === true &&
+              doneStep.alldone === false && (
+                <PlaceOrderScreen
+                  itemIncart={itemIncart}
+                  payment={payment}
+                  userData={userData}
+                  paymentCode={paymentCode}
+                  handlePlaceOrderSubmit={handlePlaceOrderSubmit}
+                ></PlaceOrderScreen>
+              )}
             {doneStep.alldone === true && <Done></Done>}
           </>
         ) : (

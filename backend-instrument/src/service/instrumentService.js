@@ -337,7 +337,7 @@ let getWithAction = async (actionClient) => {
     }
     return {
       data: res,
-
+      total: total,
       errMessage: `successlly get ${action} musical Instrument`,
       errCode: "0",
     };
@@ -427,7 +427,7 @@ let editInstrument = async (newData) => {
 };
 let getBestSellerService = async () => {
   try {
-    let res = await db.receiptsDetail.findAll({
+    let res = await db.receiptsDetail.findOne({
       attributes: [
         "instrumentID",
         [Sequelize.fn("sum", Sequelize.col("amount")), "total"],
@@ -437,6 +437,7 @@ let getBestSellerService = async () => {
         {
           model: db.musicalInstrument,
           as: "instrument",
+          where: { isActive: 1 },
         },
       ],
       order: Sequelize.literal("total DESC"),

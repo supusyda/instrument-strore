@@ -133,7 +133,6 @@ const ProfileScreen = () => {
                       aria-selected="false"
                     >
                       Orders List
-                      <span className="badge2">3</span>
                     </button>
                   </div>
                 </div>
@@ -167,7 +166,9 @@ const ProfileScreen = () => {
                   role="tabpanel"
                   aria-labelledby="v-pills-profile-tab"
                 >
-                  {userData && <Orders userID={userData.id} />}
+                  {userData && (
+                    <Orders userID={userData.id} userData={userData} />
+                  )}
                 </div>
               </div>
             </div>
