@@ -14,8 +14,8 @@ function SlideShow() {
         </div>
 
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3 className="m-4">We have a lot of instruments</h3>
+          <p className="m-4">Guitar, Piano, Violin, Drums, Saxophone, Flute, Clarinet, Cello, Trumpet</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -29,8 +29,8 @@ function SlideShow() {
         </div>
 
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3 className="m-4">New arrival</h3>
+          <p className="m-4">We always arrival new products</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -44,9 +44,9 @@ function SlideShow() {
         </div>
 
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          <h3 className="m-4">Join with us</h3>
+          <p className="m-4">
+            You will receive many attractive discounts
           </p>
         </Carousel.Caption>
       </Carousel.Item>

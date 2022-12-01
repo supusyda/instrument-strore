@@ -130,6 +130,7 @@ const SingleProduct = ({ match }) => {
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Quantity</h6>
                       <input
+                        className="quantity-input"
                         type="text"
                         defaultValue={number}
                         value={number}
@@ -196,10 +197,7 @@ const SingleProduct = ({ match }) => {
                 <span>dd/mm/yy</span>
               </div>
               <div className="alert alert-info mt-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Write your review here
               </div>
             </div>
           </div>

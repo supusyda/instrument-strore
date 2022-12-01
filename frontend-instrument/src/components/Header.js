@@ -99,7 +99,7 @@ const Header = (props) => {
                 <Link to={"/shopsection/"}>Product</Link>
               </li>
               <li>
-                <Link to="/contactinfo">Contact</Link>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
             <ul className="nav-menu">

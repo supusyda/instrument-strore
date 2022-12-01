@@ -14,9 +14,11 @@ a {
   color: black;
   font-weight: bold;
 }
+
 a:hover {
   color: black;
 }
+
 i,
 a,
 p,
@@ -30,40 +32,48 @@ span {
   padding: 0;
   margin: 0;
 }
+
 input:focus,
 select:focus,
 textarea:focus {
   outline: 0px;
 }
+
 .row,
 .col-6,
 .col-4 {
   margin: 0;
   padding: 0;
 }
+
 .space-between {
   justify-content: space-between;
 }
+
 .Announcement {
   background-color: black;
   padding: 10px 0px 6px 0px;
   margin: auto;
 }
+
 .Announcement .col-md-6 p {
   color: white;
   margin-right: 6rem;
   font-size: 15px;
 }
+
 .Announcement .col-12 a {
   color: white;
   margin-right: 2rem;
   font-size: 15px;
 }
+
 /* Header */
 .header {
   padding: 10px 0px 10px 0px;
   margin-bottom: 25px;
 }
+
 .header-menu {
   position: fixed;
   background-color: #ffffff;
@@ -72,15 +82,18 @@ textarea:focus {
   width: 100%;
   border-bottom: 0.1px solid #ebebeb;
 }
+
 .nav-menu {
   display: flex;
   margin: 0;
   padding-left: 0;
 }
+
 .nav-menu li {
   list-style-type: none;
   color: #fff;
 }
+
 .nav-menu li a {
   display: block;
   padding: 0 20px;
@@ -95,26 +108,32 @@ textarea:focus {
   color: #212529;
   font-weight: bold;
 }
+
 .nav-menu li a:hover {
   cursor: pointer;
   background-color: #dee2e6;
   border-radius: 10px;
 }
+
 .nav-menu li div:hover {
   cursor: pointer;
   background-color: #dee2e6;
   border-radius: 10px;
 }
+
 .navbar-brand img {
   width: 60%;
 }
+
 .navbar-brand img:hover {
   background-color: #808080;
 }
+
 .input-group {
   height: 50px;
   width: 90%;
 }
+
 .search-button {
   width: 20%;
   background-color: black;
@@ -124,18 +143,22 @@ textarea:focus {
   font-size: 12px;
   border-radius: 5px;
 }
+
 .search-button:hover {
   background-color: gray;
 }
+
 .Login-Register a {
   text-transform: uppercase;
   font-size: 15px;
   margin-right: 2rem;
   position: relative;
 }
+
 .Login-Register a:nth-last-child(1) {
   margin-right: 0rem;
 }
+
 .badge {
   background-color: red;
   position: absolute;
@@ -144,6 +167,7 @@ textarea:focus {
   padding: 5px 7px;
   font-size: 12px;
 }
+
 .name-button {
   padding: 5px 15px;
   border: 1px solid #e4e4e4;
@@ -157,21 +181,25 @@ textarea:focus {
   margin-top: 50px;
   display: none;
 }
+
 .pc-header {
   margin-top: 50px;
 }
+
 /* SHOP */
 .section {
   width: 100%;
   padding-bottom: 6%;
   padding-top: 2%;
 }
+
 .heading-products h2 {
   margin-bottom: 20px;
   align-items: center;
   text-align: center;
   font-size: 40px;
 }
+
 .heading-products h2::after {
   content: "";
   display: block;
@@ -180,19 +208,23 @@ textarea:focus {
   background: #000;
   margin: 10px auto;
 }
+
 .sidebar_item {
   margin-bottom: 35px;
 }
+
 .sidebar_item h4 {
   color: #1c1c1c;
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 25px;
 }
+
 .sidebar_item ul {
   margin: 0;
   padding: 0;
 }
+
 .sidebar_item ul li {
   list-style: none;
   display: flex;
@@ -205,14 +237,17 @@ textarea:focus {
   display: block;
   font-family: "Open Sans", sans-serif;
 }
+
 .sidebar_item ul li img {
   width: 25px;
   object-fit: contain;
   margin-left: 20px;
 }
+
 .shop {
   margin-bottom: 50px;
 }
+
 .border-product {
   position: relative;
   padding: 15px;
@@ -223,15 +258,18 @@ textarea:focus {
   transition: transform 0.2s;
   overflow: hidden;
 }
+
 .border-product:hover {
   cursor: pointer;
 }
+
 .shopBack {
   height: 300px;
   position: relative;
   overflow: hidden;
   width: 100%;
 }
+
 .shopBack .option-container {
   position: absolute;
   top: 0;
@@ -249,16 +287,19 @@ textarea:focus {
   transition-delay: 0s;
   transform: translateY(100%);
 }
+
 .border-product:hover .option-container {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
+
 .shopBack .options {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .shopBack .options div {
   display: inline-block;
   padding: 15px 40px;
@@ -267,6 +308,7 @@ textarea:focus {
   text-align: center;
   margin: 5px 0;
 }
+
 .shopBack .options a {
   display: inline-block;
   padding: 15px 40px;
@@ -275,6 +317,7 @@ textarea:focus {
   text-align: center;
   margin: 5px 0;
 }
+
 .shopBack .options button {
   display: inline-block;
   padding: 15px 40px;
@@ -283,60 +326,72 @@ textarea:focus {
   text-align: center;
   margin: 5px 0;
 }
+
 .shopBack .options .option-1 {
   background-color: orange;
   border: 1px solid orange;
   color: #ffffff;
   font-size: 14px;
 }
+
 .shopBack .options .option-2 {
   background-color: green;
   border: 1px solid green;
   color: #ffffff;
   font-size: 14px;
 }
+
 .shopBack .options .option-3 {
   background-color: black;
   border: 1px solid black;
   color: #ffffff;
   font-size: 14px;
 }
+
 .shopBack .options .option-4 {
   background-color: gray;
   border: 1px solid gray;
   color: #ffffff;
   font-size: 14px;
 }
+
 .shopBack .options .option-4:hover {
   background-color: transparent;
   color: gray;
 }
+
 .shopBack .options .option-1:hover {
   background-color: transparent;
   color: orange;
 }
+
 .shopBack .options .option-2:hover {
   background-color: transparent;
   color: green;
 }
+
 .shopBack .options .option-3:hover {
   background-color: transparent;
   color: black;
 }
+
 .shopBack .img-box {
   display: flex;
   align-items: center;
   width: 100%;
   height: 100%;
 }
+
 .shopBack img {
   width: 100%;
   height: 90%;
   object-fit: contain;
 }
+
 .border-product:hover img {
   transform: scale(1.1);
 }
+
 .shoptext {
   display: flex;
   flex-direction: column;
@@ -344,48 +399,56 @@ textarea:focus {
   padding: 10px;
   height: 200px;
   justify-content: space-around;
-  background-color: lightgray;
+  background-color: #fff;
 }
+
 .shoptext p a {
   color: #252525;
 }
+
 .shoptext h3 {
   color: #252525;
   margin-top: 13px;
   font-weight: bold;
   font-size: 19px;
 }
+
 .rating {
   display: flex;
   margin: 5px 0;
 }
+
 .rating-icon {
   background-color: rgba(0, 0, 0, 0.08);
   margin-right: 8px;
   border-radius: 8px;
   padding: 6px 0 6px 8px;
 }
+
 .rating i {
   font-size: 15px;
   color: #000;
   transition: transform 0.2s;
 }
+
 .rating i:hover {
   transform: scale(1.3);
 }
+
 .rating span {
   margin: 0 10px 0 5px;
 }
+
 /* END OF SHOP */
 
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://media.istockphoto.com/photos/musical-instruments-picture-id894058154?b=1&k=20&m=894058154&s=170667a&w=0&h=wRL6bkGY0cBz8HWUedi128F5g9VyoEdAT-p4AVNrjjI=")
-      no-repeat scroll center / cover;
+    url("https://media.istockphoto.com/photos/musical-instruments-picture-id894058154?b=1&k=20&m=894058154&s=170667a&w=0&h=wRL6bkGY0cBz8HWUedi128F5g9VyoEdAT-p4AVNrjjI=") no-repeat scroll center / cover;
   padding: 100px 0 100px;
   margin-bottom: 100px;
 }
+
 .subscribe-head h2 {
   color: #fff;
   font-size: 30px;
@@ -394,15 +457,18 @@ textarea:focus {
   margin: 0 0 13px;
   text-transform: uppercase;
 }
+
 .subscribe-head p {
   color: #fff;
   font-size: 18px;
   line-height: 22px;
   margin: 0 0 39px;
 }
+
 .subscribe-head {
   text-align: center;
 }
+
 .subscribe-head a button {
   background: #fafafa;
   border: 0 none;
@@ -415,13 +481,16 @@ textarea:focus {
   font-size: 36px;
   transition: transform 0.2s;
 }
+
 .subscribe-head a button:hover {
   transform: scale(1.1);
 }
+
 /* CONTACT */
 .contactInfo {
   padding: 70px 0;
 }
+
 .contact-Box,
 .box-info,
 .info-image {
@@ -429,6 +498,7 @@ textarea:focus {
   justify-content: center;
   align-items: center;
 }
+
 .box-info {
   width: 80%;
   flex-direction: column;
@@ -436,6 +506,7 @@ textarea:focus {
   border-radius: 5px;
   box-shadow: 0px 0px 27px 0px rgb(180, 180, 180);
 }
+
 .info-image {
   width: 50px;
   height: 50px;
@@ -444,14 +515,179 @@ textarea:focus {
   font-size: 20px;
   color: black;
 }
+
 .box-info h5 {
   font-weight: bold;
   font-size: 19px;
   margin-top: 20px;
   margin-bottom: 4px;
 }
+
 .box-info p {
   font-size: 16px;
+}
+
+/* Contact Form */
+.contact-form {
+  display: grid;
+  height: 100vh;
+}
+
+.signup-container {
+  display: grid;
+  grid-template-areas: "left right";
+  max-width: 900px;
+}
+
+.left-container {
+  background: #ffc000;
+  overflow: hidden;
+  padding: 40px 0 0 0;
+  position: relative;
+  text-align: center;
+  width: 300px;
+}
+
+.left-container h1 {
+  display: inline-block;
+  font-size: 24px;
+}
+
+.left-container h1 i {
+  background: #f0f0f0;
+  border-radius: 50%;
+  font-size: 24px;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.left-container .instrument-img {
+  bottom: 40px;
+  position: absolute;
+  text-align: center;
+}
+
+.left-container .instrument-img:before {
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.4;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.left-container img {
+  filter: sepia(100%);
+  width: 70%;
+}
+
+.right-container {
+  background: rgb(0 0 0 / 12%);
+  ;
+  display: grid;
+  grid-template-areas: "." ".";
+  width: 500px;
+}
+
+.right-container h1:nth-of-type(1) {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.right-container .set {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.right-container input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 5px;
+}
+
+.right-container input,
+.right-container label {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.right-container header {
+  padding: 40px;
+}
+
+.right-container .users-photo {
+  align-items: center;
+  display: grid;
+  grid-template-areas: ". .";
+}
+
+.right-container .users-photo button {
+  border: none;
+  border-radius: 50%;
+  height: 38px;
+  margin-right: 10px;
+  outline: none;
+  width: 38px;
+}
+
+.right-container .users-photo button i {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 16px;
+}
+
+.right-container footer {
+  align-items: center;
+  display: grid;
+  padding: 0 40px 40px 40px;
+}
+
+.right-container footer button {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  line-height: 38px;
+  width: 100px;
+  border-radius: 19px;
+}
+
+.right-container footer #back {
+  background: #fff;
+  transition: 0.2s all ease-in-out;
+}
+
+.right-container footer #back:hover {
+  background: #171a2b;
+  color: white;
+}
+
+.right-container footer #submit {
+  background: #666666;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.right-container footer #submit:hover {
+  background: #37b400;
+}
+
+.btn-contact-submit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.users-name label,
+.users-email label,
+.users-phone label,
+.users-address label,
+.users-message label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.w-100per {
+  width: 100%;
 }
 
 /* SINGLE PRODUCT */
@@ -459,6 +695,7 @@ textarea:focus {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
 .single-image {
   background-color: #fff;
   margin-right: 20px;
@@ -467,47 +704,63 @@ textarea:focus {
   justify-content: center;
   align-items: center;
 }
+
 .single-image img {
   width: 100%;
   height: 700px;
   object-fit: contain;
 }
+
 .product-name {
   font-size: 25px;
   font-weight: 600;
   line-height: 22px;
   margin-bottom: 30px;
 }
+
 .head-review {
   display: flex;
   justify-content: space-around;
 }
+
 .display-flex {
   display: flex;
 }
+
 .product-info {
   width: 100%;
 }
+
 .product-dtl p {
   line-height: 24px;
   color: #7a7a7a;
 }
+
 .product-count {
   border: 2px solid #f3f3f3;
   border-radius: 5px;
   margin-top: 40px;
 }
+
 .product-count .flex-box {
   padding: 15px 25px;
   border-bottom: 2px solid #f3f3f3;
 }
+
 .product-count .flex-box h6 {
   font-size: 16px;
 }
+
+.product-count .quantity-input {
+  width: 20%;
+  text-align: end;
+}
+
 .product-count .flex-box span {
   font-weight: 600;
   color: #000000;
 }
+
 .product-count .flex-box select {
   background-color: #f3f3f3;
   width: 100px;
@@ -516,6 +769,7 @@ textarea:focus {
   border: 0px;
   border-radius: 5px;
 }
+
 .round-black-btn {
   border-radius: 4px;
   background: #000000;
@@ -526,17 +780,20 @@ textarea:focus {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 15px;
-  transition: all 0.5s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
 }
+
 .round-black-btn:hover,
 .round-black-btn:focus {
   background: #ffc000;
   color: #000;
 }
+
 /* LOGIN */
 .login-center {
   padding: 50px 0;
 }
+
 .Login,
 .Login2 {
   background: #fff;
@@ -546,6 +803,7 @@ textarea:focus {
   box-shadow: 0 1px 11px rgba(168, 168, 168, 0.27);
   text-align: center;
 }
+
 .Login input {
   width: 100%;
   padding: 20px 20px;
@@ -554,9 +812,11 @@ textarea:focus {
   border-radius: 5px;
   color: #8a8a8a;
 }
+
 .Login input:focus {
   outline: 0px;
 }
+
 .Login button,
 .Login2 button {
   width: 100%;
@@ -568,43 +828,53 @@ textarea:focus {
   text-transform: uppercase;
   color: white;
 }
+
 .Login button:hover,
 .Login2 button:hover {
   background-color: #808080;
 }
+
 .Login button a,
 .Login2 button a {
   text-transform: uppercase;
   color: white;
 }
+
 .Login p {
   margin-top: 30px;
 }
+
 .Login p a {
   display: block;
   color: #7a7a7a;
 }
+
 .Login p a:hover {
   color: white;
   background-color: black;
   border-radius: 5px;
 }
+
 /* PROFILE */
 .author-card {
   position: relative;
 }
+
 .author-card-cover {
   height: 100px;
   width: 100%;
   background-size: cover;
   background-image: url("http://nightanddaymusic.com/wp-content/uploads/2014/04/nd_privatepartybanner.jpg");
 }
+
 .author-card-profile {
   padding: 20px 10px;
 }
+
 .author-card-avatar {
   padding: 0 20px;
 }
+
 .author-card-avatar img {
   width: 100px;
   height: 100px;
@@ -613,6 +883,7 @@ textarea:focus {
   margin-top: -60%;
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.377);
 }
+
 .wizard .nav button {
   padding: 15px 20px;
   font-size: 13px;
@@ -624,10 +895,12 @@ textarea:focus {
   text-transform: uppercase;
   border-top: 1px solid #e4e4e4;
 }
+
 .wizard .nav .active {
   background-color: gray;
   color: black;
 }
+
 .badge2 {
   width: 20px;
   height: 20px;
@@ -638,20 +911,24 @@ textarea:focus {
   border-radius: 100px;
   color: #ffffff;
 }
+
 .form {
   padding: 20px 0;
 }
+
 .form label {
   padding: 10px 0;
   color: #8a8a8a;
   text-transform: uppercase;
   font-size: 13px;
 }
+
 .form input {
   padding: 20px 10px;
   font-size: 17px;
   background-color: rgb(234, 232, 232);
 }
+
 .form-container button {
   padding: 15px 0;
   border: 0px;
@@ -661,14 +938,17 @@ textarea:focus {
   background-color: rgb(0, 136, 255);
   color: #ffffff;
 }
+
 /* orders */
 #open-bar {
   display: none;
 }
+
 .open-bar {
   width: 100%;
   border-radius: 2px;
 }
+
 .open-bar i {
   display: flex;
   width: 100%;
@@ -680,27 +960,34 @@ textarea:focus {
   justify-content: center;
   border-radius: 5px;
 }
+
 .receipt {
   display: none;
 }
+
 .link {
   color: blue;
   border-bottom: 1px solid blue;
   padding-bottom: 5px;
   font-size: 15px;
 }
+
 .link:hover {
   color: blue;
 }
+
 .table-responsive {
   width: 100%;
 }
-#open-bar:checked ~ .receipt {
+
+#open-bar:checked~.receipt {
   display: block;
 }
+
 .open-bar i:hover {
   background-color: blue;
 }
+
 /* CART */
 .cart-iterm {
   margin: 40px 0;
@@ -709,13 +996,16 @@ textarea:focus {
   box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
   position: relative;
 }
+
 .cart-pc-item {
   padding: 5px;
 }
+
 .cart-pc-item:hover {
   background-color: #808080;
   border-radius: 5px;
 }
+
 .remove-button {
   background-color: red;
   width: 25px;
@@ -728,28 +1018,34 @@ textarea:focus {
   color: #ffffff;
   cursor: pointer;
 }
+
 .cart-image img {
   width: 100%;
   height: 150px;
   object-fit: contain;
 }
+
 .cart-text a h4,
 .cart-price h4 {
   font-size: 17px;
   font-weight: bold;
 }
+
 .cart-text p {
   margin-top: 10px;
   font-size: 15px;
   color: #7a7a7a;
 }
+
 .cart-qty select {
+  justify-content: center;
   width: 100%;
   font-size: 15px;
   padding: 15px;
   border: 1px solid #c5c5c5;
   border-radius: 5px;
 }
+
 .cart-qty h6,
 .cart-price h6 {
   margin-bottom: 15px;
@@ -757,26 +1053,36 @@ textarea:focus {
   font-size: 13px;
   text-transform: uppercase;
 }
+
+.cart-qty input {
+  text-align: end;
+  width: 40%;
+}
+
 .total {
   margin-top: 50px;
   margin-bottom: 10px;
   text-align: end;
   padding: 0 30px;
 }
+
 .total .sub {
   color: #8c8c8c;
   font-size: 20px;
   text-transform: uppercase;
   margin-right: 20px;
 }
+
 .total .total-price {
   font-size: 20px;
   color: #000000;
   font-weight: bold;
 }
+
 .cart-buttons {
   margin: 90px 0;
 }
+
 .cart-buttons a button,
 .cart-buttons div button {
   width: 80%;
@@ -786,28 +1092,36 @@ textarea:focus {
   font-size: 13px;
   background-color: orange;
   color: #ffffff;
+  border-radius: 5px;
 }
+
 .cart-buttons a:nth-child(1) button {
   background-color: green;
+  border-radius: 5px;
 }
+
 /* FOOTER */
 .footer {
   background-color: #ececec;
 }
+
 .card-name {
   width: 4%;
   margin: 10px;
 }
+
 .card-name img {
   width: 100%;
   height: 50px;
   object-fit: contain;
 }
+
 .footer-icons a i {
   display: block;
   padding: 5px 8px;
   transition: transform 0.2s;
 }
+
 .footer-icons a i:hover {
   background-color: #808080;
   border-radius: 5px;
@@ -818,36 +1132,45 @@ textarea:focus {
 .payment-container {
   margin-top: 20px;
 }
+
 .radio-container {
   padding: 10px 0;
   text-align: start;
 }
+
 .radio-container input {
   font-size: 17px;
 }
+
 .radio-container label {
   padding: 0 20px;
   font-size: 17px;
 }
+
 .order-detail {
   padding: 30px 0;
   background-color: #e5fee9;
   border-radius: 30px;
 }
+
 .order-detail p {
   margin-top: 2px;
 }
+
 .order-detail h5 {
   margin-bottom: 6px;
 }
+
 .paid-status {
   background-color: #1cb803;
   border-radius: 30px;
 }
+
 .deliveried-status {
   background-color: red;
   border-radius: 30px;
 }
+
 .order-box {
   border-radius: 100px;
   width: 80px;
@@ -857,23 +1180,28 @@ textarea:focus {
   align-items: center;
   font-size: 25px;
 }
+
 .order-product {
   margin: 40px 0;
   border-bottom: 2px solid #f3f3f3;
   position: relative;
 }
+
 .order-product h4 {
   font-size: 13px;
   margin-bottom: 10px;
 }
+
 .order-product img {
   width: 100%;
   height: 100px;
   object-fit: contain;
 }
+
 .table-bordered {
   background-color: #f3f3f3;
 }
+
 .subtotal-order button {
   width: 100%;
   padding: 15px 0;
@@ -889,11 +1217,13 @@ textarea:focus {
   padding: 10px 30px;
   color: black;
 }
+
 .pagination .page-link.active {
   padding: 10px 30px;
   color: white;
   background-color: black;
 }
+
 .page-item.active .page-link {
   background-color: black;
   border: 1px solid black;
@@ -903,12 +1233,14 @@ textarea:focus {
 .aboutSection {
   padding: 70px 0;
 }
+
 .heading-about h2 {
   margin-bottom: 20px;
   align-items: center;
   text-align: center;
   font-size: 40px;
 }
+
 .heading-about h2::after {
   content: "";
   display: block;
@@ -917,6 +1249,7 @@ textarea:focus {
   background: #000;
   margin: 10px auto;
 }
+
 .about-Box,
 .box-about,
 .about-image {
@@ -924,6 +1257,7 @@ textarea:focus {
   justify-content: center;
   align-items: center;
 }
+
 .box-about {
   width: 90%;
   flex-direction: column;
@@ -934,18 +1268,21 @@ textarea:focus {
   color: #ffffff;
   margin-bottom: 20px;
 }
+
 .about-image {
   width: 50px;
   height: 50px;
   font-size: 40px;
   color: #ffffff;
 }
+
 .box-about h5 {
   font-weight: bold;
   font-size: 19px;
   margin-top: 20px;
   margin-bottom: 4px;
 }
+
 .box-about p {
   font-size: 16px;
   text-align: center;
@@ -965,11 +1302,13 @@ textarea:focus {
   color: black;
   height: 100%;
 }
+
 .slide-container {
   width: 100%;
   height: 650px;
   background-size: contain;
 }
+
 .carousel .slide img {
   width: 139px !important;
   border-radius: 50%;
@@ -1064,6 +1403,7 @@ textarea:focus {
   .carousel.carousel-slider .control-arrow {
     display: none !important;
   }
+
   .myCarousel {
     background: #fafafa;
     margin-top: -9%;

@@ -88,39 +88,43 @@ const Filter = (props) => {
         if (category) {
           SetCategoryData(category.data.data);
         }
-      } catch (error) {}
+      } catch (error) { }
     };
     data();
   }, []);
 
   return (
     <div className="filter container">
-      <Row>
-        {" "}
-        <Col className="d-flex flex-row justify-content-around ">
-          <CategoryFilter
-            // keyMap={item.keyMap}
-            onChangeAllFilterData={onChangeAllFilterData}
-          >
-            ALL
-          </CategoryFilter>
-          {categoryData &&
-            categoryData.length > 0 &&
-            categoryData.map((item) => {
-              return (
-                <CategoryFilter
-                  keyMap={item.keyMap}
-                  onChangeAllFilterData={onChangeAllFilterData}
-                >
-                  {item.valueEN}
-                </CategoryFilter>
-              );
-            })}
-        </Col>
-      </Row>
-      <Row>
-        {dropDown.map((item) => {
-          console.log(item);
+      <div>
+        <Row>
+          {" "}
+          <Col className="d-flex flex-row justify-content-around ">
+            <CategoryFilter
+              // keyMap={item.keyMap}
+              onChangeAllFilterData={onChangeAllFilterData}
+            >
+              ALL
+            </CategoryFilter>
+            {categoryData &&
+              categoryData.length > 0 &&
+              categoryData.map((item) => {
+                return (
+                  <CategoryFilter
+                    keyMap={item.keyMap}
+                    onChangeAllFilterData={onChangeAllFilterData}
+                  >
+                    {item.valueEN}
+                  </CategoryFilter>
+                );
+              })}
+          </Col>
+        </Row>
+      </div>
+      <div className="mt-4">
+        <Row>
+          {dropDown.map((item) => {
+            console.log(item);
+
 
           return (
             <Col md="2">
@@ -132,6 +136,7 @@ const Filter = (props) => {
           );
         })}
       </Row>
+
     </div>
   );
 };
