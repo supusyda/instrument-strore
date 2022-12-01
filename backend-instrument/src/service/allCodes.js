@@ -3,7 +3,7 @@ require("dotenv").config();
 let getAllCodesService = async (query) => {
   try {
     if (query == "ALL") {
-      let res = await db.allCodes.findAll({});
+      let res = await db.allCodes.findAll();
       return {
         data: res,
         errMessage: "successlly get allCode",
@@ -11,13 +11,10 @@ let getAllCodesService = async (query) => {
       };
     } else if (query == "TYPE") {
       let res = await db.allCodes.findAll({
-        logging: console.log,
         where: { type: query },
         include: [
-          
           {
             model: db.musicalInstrument,
-           
             as: "sameTypeItem",
           },
         ],
@@ -97,8 +94,9 @@ let createAllCodesService = async (data) => {
 };
 let updateAllCodesServices = async (data) => {
   try {
-    console.log(data);
     if (data) {
+      console.log(data);
+
       if ((await check_has_category(data)) === true) {
         return {
           data: {},
@@ -107,16 +105,27 @@ let updateAllCodesServices = async (data) => {
         };
       } else {
         let allCodes = await db.allCodes.findOne({
-          where: { keyMap: data.keyMap },
+          where: { id: data.id },
         });
+        console.log(allCodes);
+        if (allCodes) {
+          allCodes.keyMap = data.keyMap;
+          allCodes.valueEN = data.valueEN;
+          allCodes.valueVN = data.valueEN;
+          await allCodes.save();
+        }
 
         let typeDetail = await db.typedetail.findOne({
           where: { typeKeyMap: data.keyMap },
         });
-        allCodes.keyMap = data.keyMap;
-        typeDetail.typeKeyMap = data.keyMap;
-        allCodes.valueEN = data.valueEN;
-        allCodes.valueVN = data.valueEN;
+        if (typeDetail) {
+          typeDetail.typeKeyMap = data.keyMap;
+          await typeDetail.save();
+        }
+        return {
+          errMessage: "Success change",
+          errCode: "0",
+        };
       }
     }
   } catch (error) {

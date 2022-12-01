@@ -24,7 +24,9 @@ const getWithAction = (action) => {
 const createProduct = (data) => {
   return axios.post(`/api/instrument/create`, data); //tim dc all va tim dc one nguoi
 };
-
+const bestSellerProduct = () => {
+  return axios.get(`/api/instrument/bestSeller`); //tim dc all va tim dc one nguoi
+};
 export {
   getAllInstrument,
   getSpecificInstrument,
@@ -34,4 +36,5 @@ export {
   createProduct,
   updateProduct,
   updateInstrument,
+  bestSellerProduct,
 };

@@ -16,12 +16,24 @@ let createUser = async (req, res) => {
     let data = await User.createUserService(req.body);
     return res.status(200).json(data);
   } catch (error) {
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
   }
 };
+let getUserAmount = async (req, res) => {
+  try {
+    let data = await User.getUserAmountService();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(400).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+
 let getUser = async (req, res) => {
   try {
     const userID = req.query.userID;
@@ -30,7 +42,7 @@ let getUser = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -44,7 +56,7 @@ let deleUser = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -56,7 +68,7 @@ let editUser = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -72,7 +84,7 @@ let loginUser = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -87,7 +99,7 @@ let logoutUser = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -118,7 +130,7 @@ let testMail = async (req, res) => {
     // let data = await User.loginUserService(loginInfo);
     return res.status(200).json(info);
   } catch (error) {
-    return res.status(200).json({
+    return res.status(400).json({
       errCode: -1,
       message: "Error from sever ...",
     });
@@ -134,4 +146,5 @@ module.exports = {
   loginUser: loginUser,
   testMail: testMail,
   logoutUser: logoutUser,
+  getUserAmount: getUserAmount,
 };

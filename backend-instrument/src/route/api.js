@@ -56,10 +56,15 @@ let initRouter = (app) => {
 
   router.post("/api/receipt/create", receipt.addReceipt);
   router.get("/api/receipt/get", receipt.getReceipt);
+  router.put("/api/receipt/update", receipt.updateReceipt);
+
   router.get("/api/receipt/getIncomeWeek", receipt.getIncomeWeek);
+  router.get("/api/receipt/getDetail", receipt.getDetail);
 
   router.get("/api/react/get", react.getReact);
   router.post("/api/react/update", react.updateReact);
+
+  router.get("/api/user/amount", home.getUserAmount);
 
   router.post("/refreshToken", refreshTokens);
 

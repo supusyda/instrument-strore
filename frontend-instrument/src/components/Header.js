@@ -42,6 +42,9 @@ const Header = (props) => {
         if (item) sum += 1;
       });
     }
+    if (props.amountDele && props.amountDele > 0) {
+      sum = sum - props.amountDele;
+    }
     if (props.cartItem) return sum + props.cartItem;
     return sum;
   };
@@ -57,10 +60,10 @@ const Header = (props) => {
       console.log("logout", res);
       if (res.data.errCode == 0) {
         setUserData(null);
-        await cookies.remove("userID");
-        await cookies.remove("refresh");
-        await cookies.remove("token");
-        await cookies.remove("cartItemID");
+        await cookies.remove("userID", { path: "/" });
+        await cookies.remove("refresh", { path: "/" });
+        await cookies.remove("token", { path: "/" });
+        await cookies.remove("cartItemID", { path: "/" });
         if (props.setIsLogin) {
           props.setIsLogin(false);
         }

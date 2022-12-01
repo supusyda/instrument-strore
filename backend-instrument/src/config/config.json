@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "truongdan123",
-    "database": "sakila",
-    "host": "localhost",
+    "password": null,
+    "database": "instrumentstore",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
   },

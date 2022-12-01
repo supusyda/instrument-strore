@@ -154,6 +154,17 @@ let editUser = async (newData) => {
     return { errCode: -1, errMessage: "something wrong with service..." };
   }
 };
+
+let getUserAmountService = async () => {
+  try {
+    let data = await db.User.count();
+
+    return { data: data, errCode: 0, errMessage: " get all users amount" };
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1, errMessage: "something wrong with service" };
+  }
+};
 let check_email = async (userEmail) => {
   try {
     let user = await db.User.findAll({
@@ -291,4 +302,5 @@ module.exports = {
   editUserService: editUser,
   loginUserService: loginUser,
   logoutUserService: logoutUser,
+  getUserAmountService: getUserAmountService,
 };

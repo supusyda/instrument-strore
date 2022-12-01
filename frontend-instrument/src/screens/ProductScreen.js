@@ -49,21 +49,18 @@ const ProductScreen = ({ match }) => {
     <div>
       <Header cartItem={cartItem} setIsLogin={setIsLogin} />
       <Filter setDataFromFilter={setDataFromFilter}></Filter>
-      {totalItem > 0 ? (
-        <ShopSection
-          addToCart={addToCart}
-          islogin={islogin}
-          action={query ? action.query : action.all}
-          query={query}
-          sectionName={sectionName.all}
-          isPaging={true}
-          totalItem={totalItem}
-          dataFromFilter={dataFromFilter}
-        />
-      ) : (
-        <h1 style={{ textAlign: "center" }}>0 FOUND</h1>
-      )}
-
+      (
+      <ShopSection
+        addToCart={addToCart}
+        islogin={islogin}
+        action={query ? action.query : action.all}
+        query={query}
+        sectionName={sectionName.all}
+        isPaging={true}
+        // totalItem={totalItem}
+        dataFromFilter={dataFromFilter}
+      />
+      ){/* <h1 style={{ textAlign: "center" }}>0 FOUND</h1> */}
       <Footer />
     </div>
   );

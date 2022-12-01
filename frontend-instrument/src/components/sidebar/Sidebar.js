@@ -10,6 +10,12 @@ const sidebarNavItems = [
     section: "started",
   },
   {
+    display: "Receipt",
+    icon: <i class="far fa-file-invoice-dollar"></i>,
+    to: "/admin/receipts",
+    section: "receipts",
+  },
+  {
     display: "Product",
     icon: <i class="fas fa-guitar"></i>,
     to: "/admin/product",
