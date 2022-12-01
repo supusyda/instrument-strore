@@ -4,7 +4,7 @@ import initRoute from "./route/api";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 let app = express();
-
+app.set("view engine", "ejs");
 // let corOption = {
 //   origin: "http://localhost::3000",
 // };

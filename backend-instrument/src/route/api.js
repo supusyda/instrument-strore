@@ -32,6 +32,11 @@ let initRouter = (app) => {
   router.put("/api/user/update", home.editUser);
   router.post("/api/user/login", home.loginUser);
   router.post("/api/user/logout", home.logoutUser);
+  router.post("/api/user/forgot", home.forgot);
+  router.get("/reset-password/:id/:token", home.reset);
+  router.post("/api/user/comfirmResetPass", home.comfirmResetPass);
+
+
 
   router.get("/api/user/testMail", home.testMail);
 

@@ -2,6 +2,8 @@ import db from "../models/index";
 import bcrypt, { compareSync } from "bcryptjs";
 const salt = bcrypt.genSaltSync(10);
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+
 require("dotenv").config();
 let refreshTokens = [];
 
@@ -154,7 +156,40 @@ let editUser = async (newData) => {
     return { errCode: -1, errMessage: "something wrong with service..." };
   }
 };
+let comfrimResetPassService = async (newData) => {
+  try {
+    const { email, password } = newData;
+    let newPass = await hashPassword(password);
 
+    if (newData) {
+      let user = await db.User.findOne({
+        where: { email: email },
+      });
+      if (user) {
+        await user.update({
+          password: newPass,
+        });
+
+        await user.save();
+        return {
+          data: user,
+          errCode: 0,
+          errMessage: "successfully update user!",
+        };
+      } else {
+        console.log("can not find user");
+        return { data: [], errCode: -1, errMessage: "can not find user !!!" };
+      }
+    } else {
+      console.log("missing paragam !!!");
+
+      return { data: [], errCode: -1, errMessage: "missing paragam !!!" };
+    }
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1, errMessage: "something wrong with service..." };
+  }
+};
 let getUserAmountService = async () => {
   try {
     let data = await db.User.count();
@@ -276,7 +311,6 @@ let loginUser = async (loginInfo) => {
 };
 let logoutUser = async (logoutInfo) => {
   try {
-    console.log(logoutInfo);
     let { id } = logoutInfo;
     let user = await db.User.findOne({
       where: { id: id },
@@ -295,6 +329,76 @@ let logoutUser = async (logoutInfo) => {
     return { errCode: -1, errMessage: "something wrong with service" };
   }
 };
+let resetService = async (id, token) => {
+  try {
+    let oldUser = await db.User.findOne({
+      where: { id: id },
+    });
+    if (!oldUser) {
+      return {
+        errCode: -1,
+        errMessage: `not exit user `,
+      };
+    }
+    const secrect = process.env.ACCESS_TOKEN_SERCECT + oldUser.password;
+    jwt.verify(token, secrect, async (err, data) => {
+      if (err) {
+        console.log(err);
+        return { errCode: -1, errMessage: "not verify" };
+      }
+
+      return { errCode: 0, errMessage: "verify" };
+    });
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1, errMessage: "not verify" };
+  }
+};
+let forgotService = async (email) => {
+  try {
+    console.log(email);
+    let oldUser = await db.User.findOne({
+      where: { email: email },
+    });
+    if (!oldUser) {
+      return { errCode: -1, errMessage: "user not exit" };
+    }
+    const secrect = process.env.ACCESS_TOKEN_SERCECT + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secrect, {
+      expiresIn: "5m",
+    });
+    const link = `http://localhost:3000/resetpass/${oldUser.id}/${token}`;
+
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "supusyda123@gmail.com", // generated ethereal user
+        pass: "h u s l h a w i v i i w y i f t", // generated ethereal password
+      },
+    });
+    // send mail with defined transport object
+    let infos = {
+      from: "supusyda123@gmail.com", // sender address
+      to: email, // list of receivers
+      subject: "Reset", // Subject line
+      text: link, // plain text body
+      html: "", // html body
+    };
+    transporter.sendMail(infos, (err) => {
+      if (err) {
+        console.log("it has an err", err);
+      } else {
+        {
+          console.log("success send mail");
+        }
+      }
+    });
+    console.log(link);
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1, errMessage: "something wrong with service" };
+  }
+};
 module.exports = {
   createUserService: createNewUser,
   getAllUserService: getAllUser,
@@ -303,4 +407,7 @@ module.exports = {
   loginUserService: loginUser,
   logoutUserService: logoutUser,
   getUserAmountService: getUserAmountService,
+  forgotService: forgotService,
+  resetService: resetService,
+  comfrimResetPassService: comfrimResetPassService,
 };
