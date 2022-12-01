@@ -120,6 +120,9 @@ const Login = (props) => {
           <p>
             <Link to={"/register"}>Create Account</Link>
           </p>
+          <Link to={"/forgotpass"}>
+              <strong> forgot pass </strong>
+            </Link>
         </Form>
       </div>
     </>

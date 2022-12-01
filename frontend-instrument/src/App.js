@@ -14,6 +14,8 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 import AdminPage from "./admin/adminHome";
+import ForgotPass from "./screens/ForgotPass";
+import ResetPass from "./screens/resetPass";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import ProductScreen from "./screens/ProductScreen";
 import { ProtectedRoute } from "./protected.route";
@@ -53,10 +55,12 @@ const App = () => {
 
           {/* <ProtectedRoute
             exact
-            path="/admin"
-            component={AdminPage}
+            path="/admin"            component={AdminPage}
             isAuth={isAuth}
           /> */}
+          <Route path="/forgotpass" component={ForgotPass} />
+          <Route path="/resetpass/:id/:token" component={ResetPass} />
+
           <Route path="/admin" component={AdminPage} />
           <Route path="*" component={NotFound} />
           {/* <Route path="/allproducts" component={ProductScreen} /> */}
