@@ -64,7 +64,26 @@ let deleUser = async (req, res) => {
 };
 let editUser = async (req, res) => {
   try {
-    let data = await User.editUserService(req.body);
+    let data;
+
+    console.log("editUserService");
+
+    data = await User.editUserService(req.body);
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+
+let comfirmResetPass = async (req, res) => {
+  try {
+    console.log("comfrimResetPass");
+    let data = await User.comfrimResetPassService(req.body);
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
@@ -105,10 +124,35 @@ let logoutUser = async (req, res) => {
     });
   }
 };
+let forgot = async (req, res) => {
+  try {
+    const email = req.body.email;
+    let data = await User.forgotService(email);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
+let reset = async (req, res) => {
+  try {
+    const { id, token } = req.params;
+    // console.log("id", id, "token", token);
+    let data = await User.resetService(id, token);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      errCode: -1,
+      message: "Error from sever ...",
+    });
+  }
+};
 let testMail = async (req, res) => {
   try {
-    let testAccount = await nodemailer.createTestAccount();
-
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       service: "gmail",
@@ -147,4 +191,7 @@ module.exports = {
   testMail: testMail,
   logoutUser: logoutUser,
   getUserAmount: getUserAmount,
+  forgot: forgot,
+  reset: reset,
+  comfirmResetPass: comfirmResetPass,
 };
