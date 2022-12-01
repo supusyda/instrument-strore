@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./vcl.css";
+import "./like.css";
 import { updateInteract } from "../../services/instrumentService";
 import Cookies from "universal-cookie";
 
@@ -45,7 +45,8 @@ const LikeButtonCompoent = ({ interact, instrumentID }) => {
         className={"like-button " + (isLike ? "liked" : "")}
         onClick={onLikeButtonClick}
       >
-        {"Like"} | {like}
+        {"Like"} | {like} 
+        <i class="fal fa-thumbs-up m-2"></i> 
       </button>
     </>
   );

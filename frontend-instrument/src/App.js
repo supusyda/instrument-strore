@@ -18,6 +18,8 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import ProductScreen from "./screens/ProductScreen";
 import { ProtectedRoute } from "./protected.route";
 import useAuth from "./customize/useAuth";
+import ContactScreen from "./screens/ContactScreen";
+import ContactInfo from "./components/homeComponents/ContactInfo";
 const App = () => {
   // const [isAuth, login, logout] = useAuth();
   return (
@@ -31,6 +33,8 @@ const App = () => {
         <Switch>
           <Route path="/" component={HomeScreen} exact />
           <Route path="/products/:id" component={SingleProduct} />
+          <Route path="/contact" component={ContactScreen} />
+          <Route path="/contactinfo" component={ContactInfo} />
           <Route
             path="/login"
             render={(props) => {
