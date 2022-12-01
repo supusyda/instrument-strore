@@ -17,4 +17,19 @@ const login = (userData) => {
 const logout = (userData) => {
   return axios.post(`/api/user/logout`, userData); //tim dc all va tim dc one nguoi
 };
-export { createUser, deleUser, editUser, login, logout, UserAmount };
+const forgot = (email) => {
+  return axios.post(`/api/user/forgot`, email); //tim dc all va tim dc one nguoi
+};
+const updatePass = (data) => {
+  return axios.post(`/api/user/comfirmResetPass`, data); //tim dc all va tim dc one nguoi
+};
+export {
+  createUser,
+  deleUser,
+  editUser,
+  login,
+  logout,
+  UserAmount,
+  forgot,
+  updatePass,
+};

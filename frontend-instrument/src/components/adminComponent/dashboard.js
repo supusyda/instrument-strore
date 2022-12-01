@@ -13,7 +13,7 @@ const Dashboard = (props) => {
   let [userCount, setUserCount] = useState();
   let [inComeWeek, setInComeWeek] = useState();
   let [bestSeller, setBestSeller] = useState();
-  let [userData, setUserData] = useState({
+  let [chartData, setChartData] = useState({
     labels: dummyData.map((data) => data.year),
     datasets: [
       {
@@ -27,21 +27,21 @@ const Dashboard = (props) => {
     let data = async () => {
       try {
         let amount = await UserAmount();
-        let IncomeWeek = await getIncomeInWeek();
+        let IncomeWeekData = await getIncomeInWeek();
         let bestSellerRes = await bestSellerProduct();
-        // console.log("amount", amount);
         setUserCount(amount.data.data);
-        let total = 0;
-        IncomeWeek.data.data.map((item) => {
-          total = total + item.total;
+        setInComeWeek({
+          labels: IncomeWeekData.data.data.map((data) => data.Date),
+          datasets: [
+            {
+              label: "Income In A Week",
+              data: IncomeWeekData.data.data.map((data) => data.total),
+              borderColor: "pink",
+            },
+          ],
         });
-        setInComeWeek(total);
         setBestSeller(bestSellerRes.data.data);
-
-        // setInstrument(respones.data.data);
-      } catch (error) {
-        // console.log(error);
-      }
+      } catch (error) {}
     };
     data();
   }, []);
@@ -74,7 +74,7 @@ const Dashboard = (props) => {
                 </div>
               </div>
             </div>
-           
+
             <div className="col-md-4 d-flex justify-content-center">
               <div
                 class="card  shadow p-3 bg-body rounded"
@@ -111,18 +111,18 @@ const Dashboard = (props) => {
             <div class="card w-100 mb-3 shadow mb-5 bg-body rounded">
               <div class="card-header">Quote</div>
               <div class="card-body">
-                <Line data={userData} />
+                {inComeWeek && <Line data={inComeWeek} />}
               </div>
             </div>
           </div>
-          <div className="col-12">
+          {/* <div className="col-12">
             <div class="card w-100 mb-3 shadow  mb-5 bg-body rounded">
               <div class="card-header">Quote</div>
               <div class="card-body">
-                <Bar data={userData} />
+                <Bar data={inComeWeek} />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

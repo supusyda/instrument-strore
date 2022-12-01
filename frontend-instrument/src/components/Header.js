@@ -107,7 +107,7 @@ const Header = (props) => {
                 <>
                   <li>
                     <div to="/login" onClick={() => logoutUser()}>
-                      logut
+                      logout
                     </div>
                   </li>
                   <li>
